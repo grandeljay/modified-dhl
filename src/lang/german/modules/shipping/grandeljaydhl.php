@@ -11,13 +11,13 @@
 $translations_general = array(
     /** Module */
     'TITLE'            => 'grandeljay - DHL',
-    'LONG_DESCRIPTION' => 'DHL Deutschland Versandart',
+    'LONG_DESCRIPTION' => 'DHL Versandart',
     'STATUS_TITLE'     => 'Modul aktivieren?',
     'STATUS_DESC'      => 'Ermöglicht den Versand via DHL.',
 
     /** Zones */
     'ZONES_TITLE'      => 'Anzahl der Zonen',
-    'ZONES_DESC'       => 'Geben Sie an, wie viele verschiedene Versandzonen (Sonderregeln) verfügbar sein sollen.',
+    'ZONES_DESC'       => 'Geben Sie an, wie viele verschiedene Versandzonen (Sonderregeln) verfügbar sein sollen. Beim ändern dieses Wertes ist eine Neuinstallation vom Modul erfolderlich. Vergessen Sie nicht ein Backup zu erstellen und anschließend die Einstellungen widerherzustellen.',
 
     'ALLOWED_TITLE'    => 'Erlaubte Länder',
     'ALLOWED_DESC'     => 'Geben Sie eine Liste an Ländercodes an, in welche der Versand mit DHL generell möglich sein soll (z. B. DE, AT). Leer lassen um alle zu aktivieren.',
@@ -43,11 +43,11 @@ for ($i = 1; $i <= $grandeljaydhl->getZonesCount(); $i++) {
         $translations_zones,
         array(
             /** Zones */
-            'ALLOWED_' . $i . '_TITLE'  => 'Zone ' . $i . ' - Erlaubte Länder',
+            'ALLOWED_' . $i . '_TITLE'  => sprintf('Zone %d - Erlaubte Länder', $i),
             'ALLOWED_' . $i . '_DESC'   => 'Geben Sie eine Liste an Ländercodes an, um eine Sonderregel für diese Zone zu definieren.',
 
             /** Handling */
-            'HANDLING_' . $i . '_TITLE' => 'Zone ' . $i . ' - Bearbeitungsgebühr',
+            'HANDLING_' . $i . '_TITLE' => sprintf('Zone %d - Bearbeitungsgebühr', $i),
             'HANDLING_' . $i . '_DESC'  => 'Geben Sie eine Bearbeitungsgeführ für diese Zone an, um die generelle Regel zu überschreiben.',
         ),
     );
