@@ -1,0 +1,17 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../../HybridSupply/hybrid.supply/log"
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "php-docblocker.author": {
+            "name": "Jay Trees",
+            "email": "dhl@grandels.email"
+        }
+    }
+}
