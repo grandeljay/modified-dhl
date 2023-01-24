@@ -1,0 +1,119 @@
+/**
+ * Dialog
+ */
+dialog {
+    --border: #a3a3a3;
+
+    margin: auto 100px;
+    padding: 0;
+
+    border: 1px solid var(--border);
+    background-color: #eee;
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.12),
+        0 2px 2px rgba(0, 0, 0, 0.12),
+        0 4px 4px rgba(0, 0, 0, 0.12),
+        0 8px 8px rgba(0, 0, 0, 0.12),
+        0 16px 16px rgba(0, 0, 0, 0.12);
+}
+dialog[open] {
+    animation: 0.4s ease dialog_open;
+}
+@keyframes dialog_open {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+dialog .modulbox {
+    width: auto;
+    max-width: 1000px;
+    margin: 0;
+}
+
+dialog .modulbox .contentTable,
+dialog .modulbox .contentTable:last-child {
+    border: none;
+}
+dialog .modulbox .contentTable:first-child {
+    border-bottom: 1px solid var(--border);
+}
+dialog .modulbox .contentTable:last-child {
+    margin-bottom: 0;
+}
+
+dialog .modulbox td.infoBoxContent {
+    padding: 0 !important;
+}
+dialog .modulbox td.infoBoxContent > .container {
+    max-height: 60vh;
+    padding: 4px 10px;
+
+    overflow: auto;
+}
+/**
+ * Inputs
+ */
+dialog .modulbox .infoBoxContent input[type="text"] {
+    --outline: 2px;
+
+    width: auto;
+    flex: 1 1 auto;
+
+    /** To avoid outline being cut-off on focus */
+    margin: var(--outline);
+
+    text-align: right;
+}
+dialog .modulbox .infoBoxContent input[type="text"]:focus-visible {
+    outline-width: var(--outline);
+}
+
+/**
+ * Buttons
+ */
+dialog > .buttons {
+    padding: 4px 10px;
+}
+
+dialog button {
+    margin: 4px 4px 0 0;
+    padding: 6px 15px;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    background-color: #444;
+    border-radius: 4px;
+    border: 1px solid #333;
+    color: #ddd;
+    vertical-align: middle;
+    cursor: pointer;
+}
+dialog button[name="grandeljaydhl_add"] {
+    width: 100%;
+    margin: 0;
+}
+
+dialog .row {
+    display: flex;
+    gap: 4px 10px;
+    justify-content: space-between;
+    margin-bottom: 0.8em;
+}
+dialog .row:last-child {
+    margin-bottom: 0;
+}
+
+dialog .row > .column {
+    flex: 1 1 50%;
+
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
