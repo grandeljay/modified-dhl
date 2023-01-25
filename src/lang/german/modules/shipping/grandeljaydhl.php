@@ -19,7 +19,7 @@ $translations_general = array(
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Nationaler Versand',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'Standort des Online Shops kann unter Konfiguration -> %s angepasst werden.',
-        sprintf('<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s</a>', BOX_CONFIGURATION_1)
+        sprintf('<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s</a>', defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1')
     ),
     'SHIPPING_NATIONAL_COSTS_TITLE'   => 'Nationale Versand Kosten',
     'SHIPPING_NATIONAL_COSTS_DESC'    => 'Zuordnung der Versandkosten für verschiedene Gewichte.',

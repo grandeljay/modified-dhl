@@ -19,7 +19,7 @@ $translations_general = array(
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Transporte marítimo nacional',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'La ubicación de la tienda en línea puede ajustarse en Configuración -&gt; %s.',
-        sprintf('<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s</a>', BOX_CONFIGURATION_1)
+        sprintf('<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s</a>', defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1')
     ),
     'SHIPPING_NATIONAL_COSTS_TITLE'   => 'Gastos de envío nacionales',
     'SHIPPING_NATIONAL_COSTS_DESC'    => 'Asignación de gastos de envío para distintos pesos.',
