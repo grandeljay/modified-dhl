@@ -17,7 +17,6 @@ class grandeljaydhl extends StdModule
 {
     public const VERSION = '0.1.0';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
-    public const ZONES   = 0;
 
     private Configuration $config;
 
@@ -147,22 +146,14 @@ class grandeljaydhl extends StdModule
         $this->addKey('SHIPPING_NATIONAL_COUNTRY');
         $this->addKey('SHIPPING_NATIONAL_COSTS');
 
-        $this->addKey('ZONES');
         $this->addKey('ALLOWED');
         $this->addKey('HANDLING');
         $this->addKey('COST');
-
-        for ($i = 1; $i <= $this->getZonesCount(); $i++) {
-            $this->addKey('ALLOWED_' . $i);
-            $this->addKey('HANDLING_' . $i);
-        }
     }
 
     public function install()
     {
         parent::install();
-
-        $zones = $this->getZonesCount();
 
         $prices_national = json_encode(
             array(
@@ -173,16 +164,6 @@ class grandeljaydhl extends StdModule
 
         $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, 'grandeljaydhl::nationalCountrySet(');
         $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, 'grandeljaydhl::nationalCostsSet(');
-
-        $this->addConfiguration('ZONES', $zones, 6, 1);
-        $this->addConfiguration('ALLOWED', 'DE', 6, 1);
-        $this->addConfiguration('HANDLING', '4.90', 6, 1);
-        $this->addConfiguration('COST', '0.15:10, 0.20:20', 6, 1);
-
-        for ($i = 1; $i <= $zones; $i++) {
-            $this->addConfiguration('ALLOWED_' . $i, '', 6, 1);
-            $this->addConfiguration('HANDLING_' . $i, '', 6, 1);
-        }
     }
 
     protected function updateSteps()
@@ -202,24 +183,6 @@ class grandeljaydhl extends StdModule
 
         $this->deleteConfiguration('SHIPPING_NATIONAL_COUNTRY');
         $this->deleteConfiguration('SHIPPING_NATIONAL_COSTS');
-
-        /**
-         * ZONES cannot be removed since you need to deinstall the module to
-         * change the amount of available zones.
-         *
-         * An option can later be provided to also remove this setting.
-         *
-         * $this->deleteConfiguration('ZONES');
-         */
-
-        $this->deleteConfiguration('ALLOWED');
-        $this->deleteConfiguration('HANDLING');
-        $this->deleteConfiguration('COST');
-
-        for ($i = 1; $i <= $this->getZonesCount(); $i++) {
-            $this->deleteConfiguration('ALLOWED_' . $i);
-            $this->deleteConfiguration('HANDLING_' . $i);
-        }
     }
 
     public function quote()
@@ -256,24 +219,6 @@ class grandeljaydhl extends StdModule
             }
         }
 
-        /** Override (Zone) */
-        for ($i = 1; $i <= $this->getZonesCount(); $i++) {
-            $zone_country_codes = array_map(
-                function ($country_code) {
-                    return trim($country_code);
-                },
-                explode(',', constant(self::NAME . '_ALLOWED_' . $i))
-            );
-
-            if (in_array($_SESSION['delivery_zone'], $zone_country_codes, true)) {
-                $zone_handling = floatval(constant(self::NAME . '_HANDLING_' . $i));
-
-                /** Remove the general base_cost and replace it with zone_handling */
-                $cost = $cost - $base_cost + $zone_handling;
-            }
-        }
-        /** */
-
         $quote = array(
             'id'      => $this->code,
             'module'  => sprintf(
@@ -290,16 +235,5 @@ class grandeljaydhl extends StdModule
         );
 
         return $quote;
-    }
-
-    public function getZonesCount(): int
-    {
-        $zones = self::ZONES;
-
-        if (defined(self::NAME . '_ZONES')) {
-            $zones = $this->config->zones;
-        }
-
-        return $zones;
     }
 }

@@ -49,35 +49,10 @@ $translations_general = array(
 );
 
 /**
- * Zones
- */
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/modules/shipping/grandeljaydhl.php';
-
-$grandeljaydhl = new grandeljaydhl();
-
-$translations_zones = array();
-
-for ($i = 1; $i <= $grandeljaydhl->getZonesCount(); $i++) {
-    $translations_zones = array_merge(
-        $translations_zones,
-        array(
-            /** Zones */
-            'ALLOWED_' . $i . '_TITLE'  => sprintf('Zone %d - Pays autorisés', $i),
-            'ALLOWED_' . $i . '_DESC'   => 'Indiquez une liste de codes de pays pour définir une règle spéciale pour cette zone.',
-
-            /** Handling */
-            'HANDLING_' . $i . '_TITLE' => sprintf('Zone %d - Frais de dossier', $i),
-            'HANDLING_' . $i . '_DESC'  => 'Indiquez un guide de traitement pour cette zone afin de remplacer la règle générale.',
-        ),
-    );
-}
-
-/**
  * Define
  */
 $translations = array_merge(
     $translations_general,
-    $translations_zones,
 );
 
 foreach ($translations as $key => $value) {
