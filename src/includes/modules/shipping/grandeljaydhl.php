@@ -166,8 +166,8 @@ class grandeljaydhl extends StdModule
 
         $prices_national = json_encode(
             array(
-                20.0 => 4.06,
-                31.5 => 4.90,
+                '20.0' => '4.06',
+                '31.5' => '4.90',
             )
         );
 
