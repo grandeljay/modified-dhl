@@ -299,7 +299,7 @@ class grandeljaydhl extends StdModule
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <button name="grandeljaydhl_add">BUTTON_ADD</button>
+                                        <button name="grandeljaydhl_add"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -309,7 +309,7 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default">BUTTON_APPLY</button>
+                <button name="grandeljaydhl_apply" value="default"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
                 <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
