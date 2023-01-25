@@ -16,6 +16,9 @@ $translations_general = array(
     'STATUS_DESC'                     => 'Permet l\'envoi via DHL.',
 
     /** National shipping */
+    'SHIPPING_NATIONAL_START_TITLE'   => 'Envoi national',
+    'SHIPPING_NATIONAL_START_DESC'    => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi national. Cliquez sur le groupe pour ouvrir les paramètres.',
+
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Envoi national',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'L\'emplacement de la boutique en ligne peut être ajusté dans Configuration -&gt; %s.',
@@ -32,20 +35,9 @@ $translations_general = array(
     'SHIPPING_NATIONAL_BUTTON_ADD'    => 'Ajouter',
     'SHIPPING_NATIONAL_BUTTON_APPLY'  => 'Reprendre',
     'SHIPPING_NATIONAL_BUTTON_CANCEL' => 'Annuler',
-    /** */
 
-    /** Zones */
-    'ZONES_TITLE'                     => 'Nombre de zones',
-    'ZONES_DESC'                      => 'Indiquez le nombre de zones d\'expédition différentes (règles spéciales) qui doivent être disponibles. Si vous modifiez cette valeur, vous devez réinstaller le module. N\'oubliez pas de faire une sauvegarde et de restaurer les paramètres.',
-
-    'ALLOWED_TITLE'                   => 'Pays autorisés',
-    'ALLOWED_DESC'                    => 'Indiquez une liste de codes de pays vers lesquels l\'expédition par DHL doit être généralement possible (par exemple DE, AT). Laissez vide pour les activer tous.',
-
-    'HANDLING_TITLE'                  => 'Frais de dossier',
-    'HANDLING_DESC'                   => 'Frais de traitement de base pour ce type d\'envoi, qui s\'applique généralement à toutes les zones.',
-
-    'COST_TITLE'                      => 'Supplément par KG',
-    'COST_DESC'                       => 'La majoration est calculée pour chaque kilogramme sur les frais de traitement. Indiquez la majoration ainsi que le poids maximum pour la majoration (par exemple "0.15:10, 0.20:20" pour une majoration de 0,15 à 10 kg, etc.)',
+    'SHIPPING_NATIONAL_END_TITLE'     => '',
+    'SHIPPING_NATIONAL_END_DESC'      => '',
 );
 
 /**

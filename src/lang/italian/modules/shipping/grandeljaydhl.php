@@ -16,6 +16,9 @@ $translations_general = array(
     'STATUS_DESC'                     => 'Consente la spedizione tramite DHL.',
 
     /** National shipping */
+    'SHIPPING_NATIONAL_START_TITLE'   => 'Spedizione nazionale',
+    'SHIPPING_NATIONAL_START_DESC'    => 'Qui troverà tutte le impostazioni relative all\'invio nazionale. Clicchi sul gruppo per aprire le impostazioni.',
+
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Spedizione nazionale',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'La posizione del negozio online può essere regolata in Configurazione -&gt; %s.',
@@ -32,20 +35,9 @@ $translations_general = array(
     'SHIPPING_NATIONAL_BUTTON_ADD'    => 'Aggiungi',
     'SHIPPING_NATIONAL_BUTTON_APPLY'  => 'Prendi il testimone',
     'SHIPPING_NATIONAL_BUTTON_CANCEL' => 'Annullamento',
-    /** */
 
-    /** Zones */
-    'ZONES_TITLE'                     => 'Numero di zone',
-    'ZONES_DESC'                      => 'Specifichi quante zone di spedizione diverse (regole speciali) devono essere disponibili. Quando si modifica questo valore, è necessario reinstallare il modulo. Non dimentichi di creare un backup e poi di ripristinare le impostazioni.',
-
-    'ALLOWED_TITLE'                   => 'Paesi consentiti',
-    'ALLOWED_DESC'                    => 'Inserisca un elenco di codici paese verso i quali la spedizione con DHL dovrebbe essere generalmente possibile (ad esempio DE, AT). Lasciare vuoto per attivare tutti.',
-
-    'HANDLING_TITLE'                  => 'Tassa di gestione',
-    'HANDLING_DESC'                   => 'Tassa di gestione di base per questo metodo di spedizione, che generalmente si applica a tutte le zone.',
-
-    'COST_TITLE'                      => 'Supplemento per KG',
-    'COST_DESC'                       => 'Il supplemento viene calcolato per ogni chilogrammo sulla tariffa di movimentazione. Specifichi il mark-up e il Peso massimo per il mark-up (ad esempio, "0,15:10, 0,20:20" per un mark-up da 0,15 a 10 kg, eccetera).',
+    'SHIPPING_NATIONAL_END_TITLE'     => '',
+    'SHIPPING_NATIONAL_END_DESC'      => '',
 );
 
 /**

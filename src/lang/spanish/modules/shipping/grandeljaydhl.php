@@ -16,6 +16,9 @@ $translations_general = array(
     'STATUS_DESC'                     => 'Permite el envío a través de DHL.',
 
     /** National shipping */
+    'SHIPPING_NATIONAL_START_TITLE'   => 'Transporte marítimo nacional',
+    'SHIPPING_NATIONAL_START_DESC'    => 'Aquí encontrará todos los ajustes relativos al envío nacional. Pulse sobre el grupo para abrir los ajustes.',
+
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Transporte marítimo nacional',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'La ubicación de la tienda en línea puede ajustarse en Configuración -&gt; %s.',
@@ -32,20 +35,9 @@ $translations_general = array(
     'SHIPPING_NATIONAL_BUTTON_ADD'    => 'Añada',
     'SHIPPING_NATIONAL_BUTTON_APPLY'  => 'Asumir',
     'SHIPPING_NATIONAL_BUTTON_CANCEL' => 'Cancelar',
-    /** */
 
-    /** Zones */
-    'ZONES_TITLE'                     => 'Número de zonas',
-    'ZONES_DESC'                      => 'Especifique cuántas zonas de envío diferentes (reglas especiales) deben estar disponibles. Al cambiar este valor, es necesario reinstalar el módulo. No olvide crear una copia de seguridad y luego restaurar la configuración.',
-
-    'ALLOWED_TITLE'                   => 'Países permitidos',
-    'ALLOWED_DESC'                    => 'Introduzca una lista de códigos de país a los que generalmente debería ser posible realizar envíos con DHL (por ejemplo, DE, AT). Déjelo en blanco para activar todos.',
-
-    'HANDLING_TITLE'                  => 'Tasa de tramitación',
-    'HANDLING_DESC'                   => 'Tasa de manipulación básica para este método de envío, que se aplica generalmente a todas las zonas.',
-
-    'COST_TITLE'                      => 'Recargo por KG',
-    'COST_DESC'                       => 'El recargo se calcula por cada kilogramo sobre la tasa de manipulación. Especifique el recargo, así como el peso máximo del recargo (por ejemplo, "0,15:10, 0,20:20" para un recargo de 0,15 a 10 kg, etc.).',
+    'SHIPPING_NATIONAL_END_TITLE'     => '',
+    'SHIPPING_NATIONAL_END_DESC'      => '',
 );
 
 /**

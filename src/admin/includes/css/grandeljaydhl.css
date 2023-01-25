@@ -1,4 +1,85 @@
 /**
+ * Tabs
+ */
+details {
+    transition:
+        0.2s ease border-color,
+        0.2s ease background-color;
+
+    position: relative;
+
+    margin: 1em -10px 0 -10px;
+
+    border-top: 1px solid #a3a3a3;
+    border-bottom: 1px solid #a3a3a3;
+}
+details[open] {
+    background-color: transparent;
+}
+
+details > summary {
+    transition: 0.2s ease color;
+
+    display: flex;
+    gap: 0.4em;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 10px;
+
+    list-style: none;
+    font-size: larger;
+    font-weight: bolder;
+
+    cursor: pointer;
+    user-select: none;
+    background-color: #dbdbdb;
+}
+details > summary::marker {
+    display: none;
+}
+details > summary::after {
+    transition: 0.2s ease transform;
+
+    padding: 0 0.3418em;
+
+    content: '>';
+
+    text-align: center;
+}
+details[open] > summary {
+    border-bottom: 1px solid #a3a3a3;
+}
+details[open] > summary::after {
+    transform: rotate(90deg);
+}
+
+details > summary > h2 {
+    margin: 0;
+
+    line-height: inherit;
+    font-size: inherit;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+details[open] > summary > h2 {
+    white-space: normal
+}
+
+details > div {
+    padding: 10px;
+}
+
+details > div > br:first-child,
+details > div > br + br,
+details > div > br:nth-last-child(2),
+details > div > b:empty {
+    display: none;
+}
+
+/**
  * Dialog
  */
 dialog {
@@ -54,6 +135,7 @@ dialog .modulbox td.infoBoxContent > .container {
 
     overflow: auto;
 }
+
 /**
  * Inputs
  */

@@ -16,6 +16,9 @@ $translations_general = array(
     'STATUS_DESC'                     => 'Enables shipping via DHL.',
 
     /** National shipping */
+    'SHIPPING_NATIONAL_START_TITLE'   => 'National shipping',
+    'SHIPPING_NATIONAL_START_DESC'    => 'Here you will find all the settings relating to national dispatch. Click on the group to open the settings.',
+
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'National Shipping',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
         'The location of the online shop can be adjusted under Configuration -&gt; %s.',
@@ -32,6 +35,9 @@ $translations_general = array(
     'SHIPPING_NATIONAL_BUTTON_ADD'    => 'Add',
     'SHIPPING_NATIONAL_BUTTON_APPLY'  => 'Apply',
     'SHIPPING_NATIONAL_BUTTON_CANCEL' => 'Cancel',
+
+    'SHIPPING_NATIONAL_END_TITLE'     => '',
+    'SHIPPING_NATIONAL_END_DESC'      => '',
 );
 
 /**

@@ -20,7 +20,38 @@ class grandeljaydhl extends StdModule
 
     private Configuration $config;
 
-    public static function nationalCountrySet($countryID, $option): string
+    private static function groupStart(string $value, string $option): string
+    {
+        ob_start();
+        ?>
+        <details>
+            <summary><h2><?= constant($option) ?></h2></summary>
+            <div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private static function groupEnd(string $value, string $option): string
+    {
+        ob_start();
+        ?>
+            </div>
+        </details>
+        <?php
+        return ob_get_clean();
+    }
+
+    public static function nationalStartSet(string $value, string $option): string
+    {
+        return self::groupStart($value, $option);
+    }
+
+    public static function nationalEndSet(string $value, string $option): string
+    {
+        return self::groupEnd($value, $option);
+    }
+
+    public static function nationalCountrySet(string $countryID, string $option): string
     {
         $country = xtc_db_fetch_array(
             xtc_db_query(
@@ -41,7 +72,7 @@ class grandeljaydhl extends StdModule
         return $html;
     }
 
-    public static function nationalCostsSet($value, $option): string
+    public static function nationalCostsSet(string $value, string $option): string
     {
         $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
 
@@ -143,12 +174,12 @@ class grandeljaydhl extends StdModule
         $this->checkForUpdate(true);
         $this->config = new Configuration(self::NAME);
 
+        $this->addKey('SHIPPING_NATIONAL_START');
         $this->addKey('SHIPPING_NATIONAL_COUNTRY');
         $this->addKey('SHIPPING_NATIONAL_COSTS');
+        $this->addKey('SHIPPING_NATIONAL_END');
 
-        $this->addKey('ALLOWED');
-        $this->addKey('HANDLING');
-        $this->addKey('COST');
+        $this->addKey('SHIPPING_INTERNATIONAL');
     }
 
     public function install()
@@ -162,8 +193,10 @@ class grandeljaydhl extends StdModule
             )
         );
 
+        $this->addConfiguration('SHIPPING_NATIONAL_START', 'Nationaler Versand', 6, 1, 'grandeljaydhl::nationalStartSet(');
         $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, 'grandeljaydhl::nationalCountrySet(');
         $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, 'grandeljaydhl::nationalCostsSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, 'grandeljaydhl::nationalEndSet(');
     }
 
     protected function updateSteps()
@@ -181,8 +214,10 @@ class grandeljaydhl extends StdModule
     {
         parent::remove();
 
+        $this->deleteConfiguration('SHIPPING_NATIONAL_START');
         $this->deleteConfiguration('SHIPPING_NATIONAL_COUNTRY');
         $this->deleteConfiguration('SHIPPING_NATIONAL_COSTS');
+        $this->deleteConfiguration('SHIPPING_NATIONAL_END');
     }
 
     public function quote()
@@ -219,6 +254,7 @@ class grandeljaydhl extends StdModule
             }
         }
 
+        /** Finish up */
         $quote = array(
             'id'      => $this->code,
             'module'  => sprintf(
@@ -227,9 +263,14 @@ class grandeljaydhl extends StdModule
             ),
             'methods' => array(
                 array(
-                    'id'    => $this->code,
-                    'title' => 'Versand via DHL',
+                    'id'    => 'paket',
+                    'title' => 'Paket Versand',
                     'cost'  => $cost,
+                ),
+                array(
+                    'id'    => 'express',
+                    'title' => 'Express Versand',
+                    'cost'  => $cost * 2,
                 ),
             ),
         );
