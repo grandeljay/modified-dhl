@@ -145,6 +145,31 @@ $translations_general = array(
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
+
+    /**
+     * Surcharges
+     */
+    'SURCHARGES_START_TITLE'                                   => 'Aufschläge',
+    'SURCHARGES_START_DESC'                                    => 'Hier befinden sich alle Einstellungen bezüglich der Aufschläge. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+
+    'SURCHARGES_TITLE'                                         => 'Aufschläge',
+    'SURCHARGES_DESC'                                          => '',
+
+    'SURCHARGES_NAME_TITLE'                                    => 'Name',
+    'SURCHARGES_NAME_DESC'                                     => 'Bezeichnung für den Aufschlag.',
+    'SURCHARGES_SURCHARGE_TITLE'                               => 'Aufschlag',
+    'SURCHARGES_SURCHARGE_DESC'                                => 'Wie hoch ist der Aufschlag?',
+    'SURCHARGES_TYPE_TITLE'                                    => 'Art',
+    'SURCHARGES_TYPE_DESC'                                     => 'Um was für einen Aufschlag handelt es sich?',
+    'SURCHARGES_TYPE_FIXED'                                    => 'Fest',
+    'SURCHARGES_TYPE_PERCENT'                                  => 'Prozentual',
+    'SURCHARGES_DURATION_START_TITLE'                          => 'Von',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Optional. Ab wann der Zuschlag gelten soll (TT.MM.)',
+    'SURCHARGES_DURATION_END_TITLE'                            => 'Bis',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Bis wann der Zuschlag gelten soll (TT.MM.)',
+
+    'SURCHARGES_END_TITLE'                                     => '',
+    'SURCHARGES_END_DESC'                                      => '',
 );
 
 /**

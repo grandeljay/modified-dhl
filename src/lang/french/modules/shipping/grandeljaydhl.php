@@ -144,6 +144,31 @@ $translations_general = array(
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
+
+    /**
+     * Surcharges
+     */
+    'SURCHARGES_START_TITLE'                                   => 'Suppléments',
+    'SURCHARGES_START_DESC'                                    => 'C\'est ici que se trouvent tous les paramètres relatifs aux majorations. Cliquez sur le groupe pour ouvrir les paramètres.',
+
+    'SURCHARGES_TITLE'                                         => 'Suppléments',
+    'SURCHARGES_DESC'                                          => '',
+
+    'SURCHARGES_NAME_TITLE'                                    => 'Nom',
+    'SURCHARGES_NAME_DESC'                                     => 'Terme désignant le service.',
+    'SURCHARGES_SURCHARGE_TITLE'                               => 'Service',
+    'SURCHARGES_SURCHARGE_DESC'                                => 'Quel est le montant de la majoration ?',
+    'SURCHARGES_TYPE_TITLE'                                    => 'Art',
+    'SURCHARGES_TYPE_DESC'                                     => 'De quelle majoration s\'agit-il ?',
+    'SURCHARGES_TYPE_FIXED'                                    => 'Fixe',
+    'SURCHARGES_TYPE_PERCENT'                                  => 'Pourcentage',
+    'SURCHARGES_DURATION_START_TITLE'                          => 'De',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Facultatif . Date à partir de laquelle le supplément doit s\'appliquer (JJ.MM.)',
+    'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Facultatif . Jusqu\'à quelle date le supplément doit s\'appliquer (jj.mm.)',
+
+    'SURCHARGES_END_TITLE'                                     => '',
+    'SURCHARGES_END_DESC'                                      => '',
 );
 
 /**

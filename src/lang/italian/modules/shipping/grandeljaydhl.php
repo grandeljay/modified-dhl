@@ -144,6 +144,31 @@ $translations_general = array(
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
+
+    /**
+     * Surcharges
+     */
+    'SURCHARGES_START_TITLE'                                   => 'Impatti',
+    'SURCHARGES_START_DESC'                                    => 'Qui troverà tutte le impostazioni relative ai supplementi. Clicchi sul gruppo per aprire le impostazioni.',
+
+    'SURCHARGES_TITLE'                                         => 'Impatti',
+    'SURCHARGES_DESC'                                          => '',
+
+    'SURCHARGES_NAME_TITLE'                                    => 'Nome',
+    'SURCHARGES_NAME_DESC'                                     => 'Termine per il servizio.',
+    'SURCHARGES_SURCHARGE_TITLE'                               => 'Impatto',
+    'SURCHARGES_SURCHARGE_DESC'                                => 'A quanto ammonta il supplemento?',
+    'SURCHARGES_TYPE_TITLE'                                    => 'Arte',
+    'SURCHARGES_TYPE_DESC'                                     => 'Di che tipo di sovrapprezzo stiamo parlando?',
+    'SURCHARGES_TYPE_FIXED'                                    => 'Fisso',
+    'SURCHARGES_TYPE_PERCENT'                                  => 'Percentuale',
+    'SURCHARGES_DURATION_START_TITLE'                          => 'Da',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Opzionale. Da quando si applica il supplemento (GG.MM.)',
+    'SURCHARGES_DURATION_END_TITLE'                            => 'Fino a quando',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Opzionale. Fino alla data di applicazione del supplemento (GG.MM.)',
+
+    'SURCHARGES_END_TITLE'                                     => '',
+    'SURCHARGES_END_DESC'                                      => '',
 );
 
 /**

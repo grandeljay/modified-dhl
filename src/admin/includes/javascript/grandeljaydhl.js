@@ -9,26 +9,39 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
-    const OPTION_NATIONAL_COSTS = 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS';
+    const OPTIONS = [
+        'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS',
+        'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES',
+    ];
 
-    let input_pricing_national = document.querySelector('input[name="configuration[' + OPTION_NATIONAL_COSTS + ']"]');
-    let dialog_pricing_national = document.querySelector('dialog#' + OPTION_NATIONAL_COSTS);
+    OPTIONS.forEach(OPTION => {
+        expandInputToPopup(OPTION);
+    });
+
+    /** Make field read only */
+    document
+    .querySelector('input[name="configuration[MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS]"]')
+    .setAttribute('readonly', 'readonly');
+});
+
+function expandInputToPopup(option) {
+    let input  = document.querySelector('input[name="configuration[' + option + ']"]');
+    let dialog = document.querySelector('dialog#' + option);
 
     /**
      * Input
      */
-    input_pricing_national.setAttribute('readonly', 'readonly');
-    input_pricing_national.addEventListener('focus', function () {
+    input.addEventListener('focus', function () {
         this.blur();
 
-        dialog_pricing_national.showModal();
+        dialog.showModal();
     });
 
     /**
      * Add new row
      */
-    let template_row = document.querySelector('template#grandeljaydhl_row');
-    let button_add = document.querySelector('button[name="grandeljaydhl_add"]');
+    let template_row = dialog.querySelector('template#grandeljaydhl_row');
+    let button_add   = dialog.querySelector('button[name="grandeljaydhl_add"]');
 
     button_add.addEventListener('click', function() {
         this.closest('.row').before(
@@ -43,7 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     form_module.addEventListener('submit', function(event) {
         /** Disable module form submission on dialog close */
-        if (event.submitter.getAttribute('name').includes('grandeljaydhl')) {
+        let input_submitter_name = event.submitter.getAttribute('name');
+
+        if (input_submitter_name.includes('grandeljaydhl')) {
             event.preventDefault();
 
             let close_modal = [
@@ -51,34 +66,58 @@ document.addEventListener('DOMContentLoaded', function() {
                 'grandeljaydhl_apply',
             ];
 
-            if (close_modal.includes(event.submitter.getAttribute('name'))) {
-                dialog_pricing_national.close();
+            if (close_modal.includes(input_submitter_name)) {
+                dialog.close();
             }
         }
 
         /** Apply values to original input field */
-        if ('grandeljaydhl_apply' === event.submitter.getAttribute('name')) {
-            let national_costs = {};
+        if ('grandeljaydhl_apply' === input_submitter_name) {
+            let input_json = {};
 
-            dialog_pricing_national.querySelectorAll('.container > .row').forEach(row => {
-                let input_weight = row.querySelector('.column .weight');
-                let input_cost = row.querySelector('.column .cost');
+            switch (option) {
+                case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
+                    dialog.querySelectorAll('.container > .row').forEach(row => {
+                        let input_weight = row.querySelector('.column .weight');
+                        let input_cost   = row.querySelector('.column .cost');
 
-                if (!input_weight || !input_cost) {
-                    return;
-                }
+                        if (!input_weight || !input_cost) {
+                            return;
+                        }
 
-                let weight = input_weight.value;
-                let cost = input_cost.value;
+                        let weight = input_weight.value;
+                        let cost = input_cost.value;
 
-                if (!weight || !cost) {
-                    return;
-                }
+                        if (!weight || !cost) {
+                            return;
+                        }
 
-                national_costs[weight] = cost;
-            });
+                        input_json[weight] = cost;
+                    });
+                    break;
 
-            input_pricing_national.value = JSON.stringify(national_costs);
+                case 'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES':
+                    dialog.querySelectorAll('.container > .row').forEach(row => {
+                        let input_surcharge = row.querySelector('.column .weight');
+                        let input_cost   = row.querySelector('.column .cost');
+
+                        if (!input_weight || !input_cost) {
+                            return;
+                        }
+
+                        let weight = input_weight.value;
+                        let cost = input_cost.value;
+
+                        if (!weight || !cost) {
+                            return;
+                        }
+
+                        input_json[weight] = cost;
+                    });
+                    break;
+            }
+
+            input.value = JSON.stringify(input_json);
         }
     });
-});
+}

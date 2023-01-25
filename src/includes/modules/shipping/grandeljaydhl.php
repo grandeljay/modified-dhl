@@ -57,7 +57,7 @@ class grandeljaydhl extends StdModule
     }
 
     /**
-     * National settings
+     * National
      */
     public static function nationalStartSet(string $value, string $option): string
     {
@@ -180,7 +180,7 @@ class grandeljaydhl extends StdModule
     /** */
 
     /**
-     * International settings
+     * International
      */
     public static function internationalStartSet(string $value, string $option): string
     {
@@ -190,6 +190,133 @@ class grandeljaydhl extends StdModule
     public static function internationalEndSet(string $value, string $option): string
     {
         return self::groupEnd($value, $option);
+    }
+    /** */
+
+    /**
+     * Surcharges
+     */
+    public static function surchargesStartSet(string $value, string $option): string
+    {
+        return self::groupStart($value, $option);
+    }
+
+    public static function surchargesEndSet(string $value, string $option): string
+    {
+        return self::groupEnd($value, $option);
+    }
+
+    public static function surchargesSet(string $value, string $option): string
+    {
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+
+        $html  = '';
+        $html .= xtc_draw_input_field(
+            'configuration[' . $option . ']',
+            $value
+        );
+
+        ob_start();
+        ?>
+        <dialog id="<?= $option ?>">
+            <div class="modulbox">
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxHeading">
+                            <td class="infoBoxHeading">
+                                <div class="infoBoxHeadingTitle"><b><?= self::_getConfig()->surchargesTitle ?></b></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxContent">
+                            <td class="infoBoxContent">
+                                <div class="container">
+                                    <template id="grandeljaydhl_row">
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="text" class="name" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" step="0.1" class="surcharge" />
+                                            </div>
+
+                                            <div class="column">
+                                                <select class="type">
+                                                    <option value="fixed"><?= self::_getConfig()->surchargesTypeFixed ?></option>
+                                                    <option value="percent"><?= self::_getConfig()->surchargesTypePercent ?></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="text" class="duration" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="text" class="duration" />
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <div class="row">
+                                        <div class="column">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesNameTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesNameDesc ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesSurchargeTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesSurchargeDesc ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesTypeTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesTypeDesc ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesDurationStartTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesDurationStartDesc ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesDurationEndTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesDurationEndDesc ?><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <button name="grandeljaydhl_add">BUTTON_ADD</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttons">
+                <button name="grandeljaydhl_apply" value="default">BUTTON_APPLY</button>
+                <button name="grandeljaydhl_cancel" value="cancel">BUTTON_CANCEL</button>
+            </div>
+        </dialog>
+        <?php
+        $html .= ob_get_clean();
+
+        return $html;
     }
     /** */
 
@@ -259,6 +386,16 @@ class grandeljaydhl extends StdModule
         $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG');
 
         $this->addKey('SHIPPING_INTERNATIONAL_END');
+        /** */
+
+        /**
+         * Surcharges
+         */
+        $this->addKey('SURCHARGES_START');
+
+        $this->addKey('SURCHARGES');
+
+        $this->addKey('SURCHARGES_END');
         /** */
     }
 
@@ -336,6 +473,40 @@ class grandeljaydhl extends StdModule
         $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1);
 
         $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, self::class . '::internationalEndSet(');
+        /** */
+
+        /**
+         * Surcharges
+         */
+        $this->addConfiguration('SURCHARGES_START', self::_getConfig()->surchargesStartTitle, 6, 1, self::class . '::surchargesStartSet(');
+
+        $surcharges = json_encode(
+            array(
+                'energy' => array(
+                    'name'      => 'Energiezuschlag',
+                    'surcharge' => 3.75,
+                    'type'      => 'percent',
+                ),
+                'toll'   => array(
+                    'name'      => 'Maut',
+                    'surcharge' => 0.12,
+                    'type'      => 'fixed',
+                ),
+                'peak'   => array(
+                    'name'      => 'Maut',
+                    'surcharge' => 0.19,
+                    'type'      => 'fixed',
+                    'duration'  => array(
+                        'start' => '31.10',
+                        'end'   => '15.01',
+                    ),
+                ),
+            )
+        );
+
+        $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
+
+        $this->addConfiguration('SURCHARGES_END', '', 6, 1, self::class . '::surchargesEndSet(');
         /** */
     }
 

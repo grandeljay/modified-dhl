@@ -144,6 +144,31 @@ $translations_general = array(
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
+
+    /**
+     * Surcharges
+     */
+    'SURCHARGES_START_TITLE'                                   => 'Impactos',
+    'SURCHARGES_START_DESC'                                    => 'Aquí encontrará todos los ajustes relativos a los recargos. Pulse sobre el grupo para abrir los ajustes.',
+
+    'SURCHARGES_TITLE'                                         => 'Impactos',
+    'SURCHARGES_DESC'                                          => '',
+
+    'SURCHARGES_NAME_TITLE'                                    => 'Nombre',
+    'SURCHARGES_NAME_DESC'                                     => 'Término para el saque.',
+    'SURCHARGES_SURCHARGE_TITLE'                               => 'Impacto',
+    'SURCHARGES_SURCHARGE_DESC'                                => '¿A cuánto asciende el recargo?',
+    'SURCHARGES_TYPE_TITLE'                                    => 'Arte',
+    'SURCHARGES_TYPE_DESC'                                     => '¿De qué tipo de recargo estamos hablando?',
+    'SURCHARGES_TYPE_FIXED'                                    => 'Fijo',
+    'SURCHARGES_TYPE_PERCENT'                                  => 'Porcentaje',
+    'SURCHARGES_DURATION_START_TITLE'                          => 'En',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Opcional. A partir de cuándo debe aplicarse el recargo (DD.MM.)',
+    'SURCHARGES_DURATION_END_TITLE'                            => 'Hasta',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Opcional. Hasta cuándo debe aplicarse el recargo (DD.MM.)',
+
+    'SURCHARGES_END_TITLE'                                     => '',
+    'SURCHARGES_END_DESC'                                      => '',
 );
 
 /**
