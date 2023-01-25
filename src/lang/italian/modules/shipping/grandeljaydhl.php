@@ -19,18 +19,22 @@ if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPIN
 }
 
 $translations_general = array(
-    /** Module */
-    'TITLE'                           => 'grandeljay - DHL',
-    'LONG_DESCRIPTION'                => 'Metodo di spedizione DHL',
-    'STATUS_TITLE'                    => 'Attivare il modulo?',
-    'STATUS_DESC'                     => 'Consente la spedizione tramite DHL.',
+    /**
+     * Module
+     */
+    'TITLE'                                                    => 'grandeljay - DHL',
+    'LONG_DESCRIPTION'                                         => 'Metodo di spedizione DHL',
+    'STATUS_TITLE'                                             => 'Attivare il modulo?',
+    'STATUS_DESC'                                              => 'Consente la spedizione tramite DHL.',
 
-    /** National shipping */
-    'SHIPPING_NATIONAL_START_TITLE'   => 'Spedizione nazionale',
-    'SHIPPING_NATIONAL_START_DESC'    => 'Qui troverà tutte le impostazioni relative all\'invio nazionale. Clicchi sul gruppo per aprire le impostazioni.',
+    /**
+     * National
+     */
+    'SHIPPING_NATIONAL_START_TITLE'                            => 'Spedizione nazionale',
+    'SHIPPING_NATIONAL_START_DESC'                             => 'Qui troverà tutte le impostazioni relative all\'invio nazionale. Clicchi sul gruppo per aprire le impostazioni.',
 
-    'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'Spedizione nazionale',
-    'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
+    'SHIPPING_NATIONAL_COUNTRY_TITLE'                          => 'Spedizione nazionale',
+    'SHIPPING_NATIONAL_COUNTRY_DESC'                           => sprintf(
         'La posizione del negozio online è attualmente %s e può essere modificata sotto %s.',
         $country['countries_name'] ?? 'Sconosciuto',
         sprintf(
@@ -39,20 +43,107 @@ $translations_general = array(
             defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1',
         )
     ),
-    'SHIPPING_NATIONAL_COSTS_TITLE'   => 'Costi di spedizione nazionali',
-    'SHIPPING_NATIONAL_COSTS_DESC'    => 'Allocazione dei costi di spedizione per pesi diversi.',
+    'SHIPPING_NATIONAL_COSTS_TITLE'                            => 'Costi di spedizione nazionali',
+    'SHIPPING_NATIONAL_COSTS_DESC'                             => 'Allocazione dei costi di spedizione per pesi diversi.',
 
-    'SHIPPING_NATIONAL_WEIGHT_TITLE'  => 'Peso',
-    'SHIPPING_NATIONAL_WEIGHT_DESC'   => 'Peso massimo consentito (in kg) per questo prezzo.',
-    'SHIPPING_NATIONAL_COST_TITLE'    => 'Costi',
-    'SHIPPING_NATIONAL_COST_DESC'     => 'Spese di spedizione per peso in EUR.',
+    'SHIPPING_NATIONAL_WEIGHT_TITLE'                           => 'Peso',
+    'SHIPPING_NATIONAL_WEIGHT_DESC'                            => 'Peso massimo consentito (in kg) per questo prezzo.',
+    'SHIPPING_NATIONAL_COST_TITLE'                             => 'Costi',
+    'SHIPPING_NATIONAL_COST_DESC'                              => 'Spese di spedizione per peso in EUR.',
 
-    'SHIPPING_NATIONAL_BUTTON_ADD'    => 'Aggiungi',
-    'SHIPPING_NATIONAL_BUTTON_APPLY'  => 'Prendi il testimone',
-    'SHIPPING_NATIONAL_BUTTON_CANCEL' => 'Annullamento',
+    'SHIPPING_NATIONAL_BUTTON_ADD'                             => 'Aggiungi',
+    'SHIPPING_NATIONAL_BUTTON_APPLY'                           => 'Prendi il testimone',
+    'SHIPPING_NATIONAL_BUTTON_CANCEL'                          => 'Annullamento',
 
-    'SHIPPING_NATIONAL_END_TITLE'     => '',
-    'SHIPPING_NATIONAL_END_DESC'      => '',
+    'SHIPPING_NATIONAL_END_TITLE'                              => '',
+    'SHIPPING_NATIONAL_END_DESC'                               => '',
+
+    /**
+     * International
+     */
+    'SHIPPING_INTERNATIONAL_START_TITLE'                       => 'Internationaler Versand',
+    'SHIPPING_INTERNATIONAL_START_DESC'                        => 'Hier befinden sich alle Einstellungen bezüglich des internationalen Versands. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+
+    /** Premium */
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zona 1 Prezzo base Premium (UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Prezzo base Zona 1 Premium (non UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_DESC'  => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU_TITLE'      => 'Zona 1 Prezzo Premium al chilogrammo (UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU_DESC'       => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU_TITLE'   => 'Zona 1 Prezzo Premium al chilogrammo (non UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU_DESC'    => '',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE_TITLE'       => 'Prezzo base Zona 2 Premium',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG_TITLE'         => 'Zona 2 Prezzo Premium al chilogrammo',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU_TITLE'    => 'Prezzo base Zona 3 Premium (UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU_DESC'     => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU_TITLE' => 'Prezzo base Zona 3 Premium (non UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU_DESC'  => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU_TITLE'      => 'Zona 3 Prezzo Premium al chilogrammo (UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU_DESC'       => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU_TITLE'   => 'Zona 3 Prezzo Premium al chilogrammo (non UE)',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU_DESC'    => '',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE_TITLE'       => 'Prezzo base Zona 4 Premium',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG_TITLE'         => 'Zona 4 Prezzo Premium al chilogrammo',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE_TITLE'       => 'Prezzo base Zona 5 Premium',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG_TITLE'         => 'Zona 5 Prezzo Premium al chilogrammo',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE_TITLE'       => 'Prezzo base Zona 6 Premium',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_TITLE'         => 'Zona 6 Prezzo Premium al chilogrammo',
+    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_DESC'          => '',
+
+    /** Economy */
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_TITLE'    => 'Zona 1 Economy Prezzo base (UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_DESC'     => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_TITLE' => 'Zona 1 Economy Prezzo base (non UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_DESC'  => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU_TITLE'      => 'Zona 1 Economy Prezzo al chilogrammo (UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU_DESC'       => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU_TITLE'   => 'Zona 1 Economy Prezzo al chilogrammo (non UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU_DESC'    => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE_TITLE'       => 'Zona 2 Economy Prezzo base',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG_TITLE'         => 'Zona 2 Economy Prezzo al chilogrammo',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU_TITLE'    => 'Zona 3 Economy Prezzo base (UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU_DESC'     => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU_TITLE' => 'Zona 3 Economy Prezzo base (non UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU_DESC'  => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU_TITLE'      => 'Zona 3 Economy Prezzo per chilogrammo (UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU_DESC'       => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU_TITLE'   => 'Zona 3 Economy Prezzo al chilogrammo (non UE)',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU_DESC'    => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE_TITLE'       => 'Zona 4 Economy Prezzo base',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG_TITLE'         => 'Zona 4 Economy Prezzo al chilogrammo',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE_TITLE'       => 'Zona 5 Economy Prezzo base',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG_TITLE'         => 'Zona 5 Economy Prezzo al chilogrammo',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_TITLE'       => 'Zona 6 Economy Prezzo base',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_DESC'        => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_TITLE'         => 'Zona 6 Economy Prezzo al chilogrammo',
+    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
+    'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
 );
 
 /**
