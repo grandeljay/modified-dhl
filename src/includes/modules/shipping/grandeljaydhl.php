@@ -18,7 +18,22 @@ class grandeljaydhl extends StdModule
     public const VERSION = '0.1.0';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
 
-    private Configuration $config;
+    private static Configuration $config;
+
+    /**
+     * Cannot make non static method
+     * RobinTheHood\ModifiedStdModule\Classes\StdModule::getConfig() static
+     *
+     * @return void
+     */
+    private static function _getConfig()
+    {
+        if (!isset(self::$config)) {
+            self::$config = new Configuration(self::NAME);
+        }
+
+        return self::$config;
+    }
 
     private static function groupStart(string $value, string $option): string
     {
@@ -41,6 +56,9 @@ class grandeljaydhl extends StdModule
         return ob_get_clean();
     }
 
+    /**
+     * National settings
+     */
     public static function nationalStartSet(string $value, string $option): string
     {
         return self::groupStart($value, $option);
@@ -82,7 +100,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS_TITLE ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= self::_getConfig()->shippingNationalCostsTitle ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -108,15 +126,15 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_WEIGHT_TITLE ?></b><br>
-                                                <?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_WEIGHT_DESC ?><br>
+                                                <b><?= self::_getConfig()->shippingNationalWeightTitle ?></b><br>
+                                                <?= self::_getConfig()->shippingNationalWeightDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                            <b><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COST_TITLE ?></b><br>
-                                                <?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COST_DESC ?><br>
+                                                <b><?= self::_getConfig()->shippingNationalCostTitle ?></b><br>
+                                                <?= self::_getConfig()->shippingNationalCostDesc ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +158,7 @@ class grandeljaydhl extends StdModule
                                     }
                                     ?>
                                     <div class="row">
-                                        <button name="grandeljaydhl_add"><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_BUTTON_ADD ?></button>
+                                        <button name="grandeljaydhl_add"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -150,8 +168,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default"><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_BUTTON_APPLY ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel"><?= MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_BUTTON_CANCEL ?></button>
+                <button name="grandeljaydhl_apply" value="default"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
         <?php
@@ -159,12 +177,12 @@ class grandeljaydhl extends StdModule
 
         return $html;
     }
+    /** */
 
     public function __construct()
     {
         $this->init(self::NAME);
         $this->checkForUpdate(true);
-        $this->config = new Configuration(self::NAME);
 
         $this->addKey('SHIPPING_NATIONAL_START');
         $this->addKey('SHIPPING_NATIONAL_COUNTRY');
@@ -185,10 +203,10 @@ class grandeljaydhl extends StdModule
             )
         );
 
-        $this->addConfiguration('SHIPPING_NATIONAL_START', 'Nationaler Versand', 6, 1, 'grandeljaydhl::nationalStartSet(');
-        $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, 'grandeljaydhl::nationalCountrySet(');
-        $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, 'grandeljaydhl::nationalCostsSet(');
-        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, 'grandeljaydhl::nationalEndSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_START', self::_getConfig()->shippingNationalStartTitle, 6, 1, self::class . '::nationalStartSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, self::class . '::nationalCountrySet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, self::class . '::nationalCostsSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, self::class . '::nationalEndSet(');
     }
 
     protected function updateSteps()
@@ -222,14 +240,14 @@ class grandeljaydhl extends StdModule
         $cost = 0;
 
         /** Base cost */
-        $base_cost = $this->config->handling;
+        $base_cost = self::_getConfig()->handling;
 
         if (is_numeric($base_cost)) {
             $cost += $base_cost;
         }
 
         /** Surcharge */
-        $surcharges = explode(',', $this->config->cost);
+        $surcharges = explode(',', self::_getConfig()->cost);
 
         if (count($surcharges) > 0) {
             foreach ($surcharges as $surcharge) {
