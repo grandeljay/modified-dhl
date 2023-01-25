@@ -53,18 +53,10 @@ class grandeljaydhl extends StdModule
 
     public static function nationalCountrySet(string $countryID, string $option): string
     {
-        $country = xtc_db_fetch_array(
-            xtc_db_query(
-                'SELECT *
-                   FROM `' . TABLE_COUNTRIES . '`
-                  WHERE `countries_id` = ' . $countryID
-            )
-        );
-
         $html  = '';
         $html .= xtc_draw_input_field(
             'configuration[' . $option . ']',
-            $country['countries_name'],
+            $countryID,
             'readonly="true"
              style="opacity: 0.4;"'
         );

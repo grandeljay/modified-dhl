@@ -8,6 +8,16 @@
  * @package GrandelJayDHL
  */
 
+if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY')) {
+    $country = xtc_db_fetch_array(
+        xtc_db_query(
+            'SELECT *
+               FROM `' . TABLE_COUNTRIES . '`
+              WHERE `countries_id` = ' . MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY
+        )
+    );
+}
+
 $translations_general = array(
     /** Module */
     'TITLE'                           => 'grandeljay - DHL',
@@ -21,8 +31,13 @@ $translations_general = array(
 
     'SHIPPING_NATIONAL_COUNTRY_TITLE' => 'National Shipping',
     'SHIPPING_NATIONAL_COUNTRY_DESC'  => sprintf(
-        'The location of the online shop can be adjusted under Configuration -&gt; %s.',
-        sprintf('<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s</a>', defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1')
+        'Location of the online shop is currently %s and can be adjusted under %s.',
+        $country['countries_name'] ?? 'Unknown',
+        sprintf(
+            '<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s -> %s</a>',
+            defined('BOX_HEADING_CONFIGURATION') ? BOX_HEADING_CONFIGURATION : 'BOX_HEADING_CONFIGURATION',
+            defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1',
+        )
     ),
     'SHIPPING_NATIONAL_COSTS_TITLE'   => 'National shipping costs',
     'SHIPPING_NATIONAL_COSTS_DESC'    => 'Allocation of shipping costs for different weights.',
