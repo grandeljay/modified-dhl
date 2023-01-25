@@ -50,7 +50,7 @@ function expandInputToPopup(option) {
     });
 
     /**
-     * Form submit
+     * Form: Submit
      */
     let form_module = document.querySelector('form[name="modules"');
 
@@ -119,5 +119,14 @@ function expandInputToPopup(option) {
 
             input.value = JSON.stringify(input_json);
         }
+    });
+
+    /**
+     * Form: Close
+     */
+    let button_cancel = dialog.querySelector('button[name="grandeljaydhl_cancel"]');
+
+    button_cancel.addEventListener('click', function() {
+        dialog.close();
     });
 }
