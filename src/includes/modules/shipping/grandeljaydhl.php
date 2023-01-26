@@ -743,8 +743,6 @@ class grandeljaydhl extends StdModule
                     $duration_end    = strtotime($surcharge['duration-end'] . date('Y', $time));
                     $duration_is_now = !($time > $duration_end && $time < $duration_start);
 
-                    var_dump($duration_is_now);
-
                     if (!$duration_is_now) {
                         continue;
                     }
