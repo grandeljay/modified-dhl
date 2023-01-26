@@ -567,6 +567,11 @@ class grandeljaydhl extends StdModule
                         'end'   => '15.01.',
                     ),
                 ),
+                array(
+                    'name'      => 'Pick & Pack',
+                    'surcharge' => 10,
+                    'type'      => 'percent',
+                ),
             )
         );
 
