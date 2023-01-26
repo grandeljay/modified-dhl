@@ -158,7 +158,7 @@ class grandeljaydhl extends StdModule
                                     }
                                     ?>
                                     <div class="row">
-                                        <button name="grandeljaydhl_add"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -168,7 +168,7 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
                 <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
@@ -235,33 +235,33 @@ class grandeljaydhl extends StdModule
                         <tr class="infoBoxContent">
                             <td class="infoBoxContent">
                                 <div class="container">
+                                    <?php
+                                    $regex_dd_mm = '^(01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|24|26|27|28|29|30|31)\.(01|02|03|04|05|06|07|08|09|10|11|12)\.$'
+                                    ?>
+
                                     <template id="grandeljaydhl_row">
                                         <div class="row">
                                             <div class="column">
-                                                <input type="text" class="name" />
+                                                <input type="text" name="name" />
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" step="0.1" class="surcharge" />
+                                                <input type="number" name="surcharge" />
                                             </div>
 
                                             <div class="column">
-                                                <select class="type">
+                                                <select name="type">
                                                     <option value="fixed"><?= self::_getConfig()->surchargesTypeFixed ?></option>
                                                     <option value="percent"><?= self::_getConfig()->surchargesTypePercent ?></option>
                                                 </select>
                                             </div>
 
-                                            <?php
-                                            $regex_dd_mm = '^(01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|24|26|27|28|29|30|31)\.(01|02|03|04|05|06|07|08|09|10|11|12)\.$'
-                                            ?>
-
                                             <div class="column">
-                                                <input type="text" class="duration" pattern="<?= $regex_dd_mm ?>" />
+                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" />
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" class="duration" pattern="<?= $regex_dd_mm ?>" />
+                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" />
                                             </div>
                                         </div>
                                     </template>
@@ -302,8 +302,51 @@ class grandeljaydhl extends StdModule
                                             </div>
                                         </div>
                                     </div>
+
+                                    <?php
+                                    $surcharges = json_decode($value, true);
+                                    ?>
+                                    <?php foreach ($surcharges as $surcharge) { ?>
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="text" name="name" value="<?= $surcharge['name'] ?>" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" name="surcharge" value="<?= $surcharge['surcharge'] ?>" />
+                                            </div>
+
+                                            <div class="column">
+                                                <select name="type">
+                                                    <?php
+                                                    $fixedText   = self::_getConfig()->surchargesTypeFixed;
+                                                    $percentText = self::_getConfig()->surchargesTypePercent;
+                                                    $types       = array(
+                                                        'fixed'   => $fixedText,
+                                                        'percent' => $percentText,
+                                                    );
+
+                                                    foreach ($types as $type => $text) {
+                                                        $selected = $type === $surcharge['type'] ? ' selected' : '';
+
+                                                        echo '<option value="' . $type . '"' . $selected . '>' . $text . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration']['start'] ?>" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration']['end'] ?>" />
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
                                     <div class="row">
-                                        <button name="grandeljaydhl_add"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -313,7 +356,7 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
                 <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
@@ -486,23 +529,23 @@ class grandeljaydhl extends StdModule
 
         $surcharges = json_encode(
             array(
-                'energy' => array(
+                array(
                     'name'      => 'Energiezuschlag',
                     'surcharge' => 3.75,
                     'type'      => 'percent',
                 ),
-                'toll'   => array(
+                array(
                     'name'      => 'Maut',
                     'surcharge' => 0.12,
                     'type'      => 'fixed',
                 ),
-                'peak'   => array(
-                    'name'      => 'Maut',
+                array(
+                    'name'      => 'Peak',
                     'surcharge' => 0.19,
                     'type'      => 'fixed',
                     'duration'  => array(
-                        'start' => '31.10',
-                        'end'   => '15.01',
+                        'start' => '31.10.',
+                        'end'   => '15.01.',
                     ),
                 ),
             )
@@ -590,6 +633,14 @@ class grandeljaydhl extends StdModule
         $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG');
 
         $this->deleteConfiguration('SHIPPING_INTERNATIONAL_END');
+        /** */
+
+        /**
+         * Surcharges
+         */
+        $this->deleteConfiguration('SURCHARGES_START');
+        $this->deleteConfiguration('SURCHARGES');
+        $this->deleteConfiguration('SURCHARGES_END');
         /** */
     }
 

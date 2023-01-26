@@ -50,79 +50,83 @@ function expandInputToPopup(option) {
     });
 
     /**
-     * Form: Submit
+     * Apply
      */
-    let form_module = document.querySelector('form[name="modules"');
+    let button_apply = dialog.querySelector('button[name="grandeljaydhl_apply"]');
 
-    form_module.addEventListener('submit', function(event) {
-        /** Disable module form submission on dialog close */
-        let input_submitter_name = event.submitter.getAttribute('name');
+    button_apply.addEventListener('click', function() {
+        let input_json, input_required;
 
-        if (input_submitter_name.includes('grandeljaydhl')) {
-            event.preventDefault();
+        switch (option) {
+            case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
+                input_json     = {};
+                input_required = [
+                    'weight',
+                    'cost'
+                ];
 
-            let close_modal = [
-                'grandeljaydhl_cancel',
-                'grandeljaydhl_apply',
-            ];
-
-            if (close_modal.includes(input_submitter_name)) {
-                dialog.close();
-            }
-        }
-
-        /** Apply values to original input field */
-        if ('grandeljaydhl_apply' === input_submitter_name) {
-            let input_json = {};
-
-            switch (option) {
-                case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
-                    dialog.querySelectorAll('.container > .row').forEach(row => {
-                        let input_weight = row.querySelector('.column .weight');
-                        let input_cost   = row.querySelector('.column .cost');
-
-                        if (!input_weight || !input_cost) {
-                            return;
+                dialog.querySelectorAll('.container > .row').forEach(row => {
+                    row.querySelectorAll('.column > [name]').forEach(element => {
+                        /** Skip rows with empty required fields */
+                        if (input_required.includes(element.getAttribute('name'))) {
+                            if (!element.value) {
+                                return;
+                            }
                         }
 
-                        let weight = input_weight.value;
-                        let cost = input_cost.value;
-
-                        if (!weight || !cost) {
-                            return;
-                        }
+                        /** Assign values */
+                        let weight = row.querySelector('.column [name="weight"]').value;
+                        let cost   = row.querySelector('.column [name="cost"]').value;
 
                         input_json[weight] = cost;
                     });
-                    break;
+                });
+                break;
 
-                case 'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES':
-                    dialog.querySelectorAll('.container > .row').forEach(row => {
-                        let input_surcharge = row.querySelector('.column .weight');
-                        let input_cost   = row.querySelector('.column .cost');
+            case 'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES':
+                input_json     = [];
+                input_required = [
+                    'surcharge',
+                    'type'
+                ];
 
-                        if (!input_weight || !input_cost) {
-                            return;
+                dialog.querySelectorAll('.container > .row').forEach(row => {
+                    row.querySelectorAll('.column > [name]').forEach(element => {
+                        /** Skip rows with empty required fields */
+                        if (input_required.includes(element.getAttribute('name'))) {
+                            if (!element.value) {
+                                return;
+                            }
                         }
 
-                        let weight = input_weight.value;
-                        let cost = input_cost.value;
+                        /** Assign values */
+                        let name           = row.querySelector('.column [name="name"').value;
+                        let surcharge      = row.querySelector('.column [name="surcharge"').value;
+                        let type           = row.querySelector('.column [name="type"').value;
+                        let duration_start = row.querySelector('.column [name="duration-start"').value;
+                        let duration_end   = row.querySelector('.column [name="duration-end"').value;
 
-                        if (!weight || !cost) {
-                            return;
-                        }
-
-                        input_json[weight] = cost;
+                        input_json.push(
+                            {
+                                'name'           : name,
+                                'surcharge'      : surcharge,
+                                'type'           : type,
+                                'duration_start' : duration_start,
+                                'duration_end'   : duration_end,
+                            }
+                        );
                     });
-                    break;
-            }
-
-            input.value = JSON.stringify(input_json);
+                });
+                break;
         }
+
+        input.value = JSON.stringify(input_json);
+
+        dialog.close();
     });
 
     /**
-     * Form: Close
+     * Cancel
      */
     let button_cancel = dialog.querySelector('button[name="grandeljaydhl_cancel"]');
 

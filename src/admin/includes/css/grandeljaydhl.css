@@ -192,7 +192,7 @@ dialog .modulbox .infoBoxContent :is(input, select) {
     /** To avoid outline being cut-off on focus */
     margin: var(--outline);
 }
-dialog .modulbox .infoBoxContent :is(input.weight, input.cost) {
+dialog .modulbox .infoBoxContent :is(input[name="weight"], input[name="cost"]) {
     text-align: right;
 }
 dialog .modulbox .infoBoxContent :is(input, select):focus-visible {
