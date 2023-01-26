@@ -725,6 +725,38 @@ class grandeljaydhl extends StdModule
             $methods[] = $method_national_paket;
         }
 
+        /**
+         * Surcharges
+         */
+        $surcharges = json_decode(self::_getConfig()->surcharges, true);
+
+        foreach ($surcharges as $surcharge) {
+            foreach ($methods as &$method) {
+                $method_cost = $method['cost'];
+
+                if (isset($surcharge['duration'], $surcharge['duration']['start'], $surcharge['duration']['end'])) {
+                    $time            = time();
+                    $duration_start  = strtotime($surcharge['duration']['start'] . date('Y', $time));
+                    $duration_end    = strtotime($surcharge['duration']['end'] . date('Y', $time));
+                    $duration_is_now = !($time > $duration_end && $time < $duration_start);
+
+                    if (!$duration_is_now) {
+                        continue;
+                    }
+                }
+
+                switch ($surcharge['type']) {
+                    case 'fixed':
+                        $method['cost'] += $surcharge['surcharge'];
+                        break;
+
+                    case 'percent':
+                        $method['cost'] += $method_cost * ($surcharge['surcharge'] / 100);
+                        break;
+                }
+            }
+        }
+
         /** Finish up */
         $quote = array(
             'id'      => $this->code,
