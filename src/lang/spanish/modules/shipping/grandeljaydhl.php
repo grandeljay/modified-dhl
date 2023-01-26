@@ -28,6 +28,14 @@ $translations_general = array(
     'STATUS_DESC'                                              => 'Permite el envío a través de DHL.',
 
     /**
+     * Required for modified compatibility
+     */
+    'ALLOWED'                                                  => '',
+    'ALLOWED_TITLE'                                            => '',
+    'ALLOWED_DESC'                                             => '',
+    /** */
+
+    /**
      * National
      */
     'SHIPPING_NATIONAL_START_TITLE'                            => 'Transporte marítimo nacional',
