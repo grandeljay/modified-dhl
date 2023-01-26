@@ -30,7 +30,6 @@ $translations_general = array(
     /**
      * Required for modified compatibility
      */
-    'ALLOWED'                                                  => '',
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
     /** */

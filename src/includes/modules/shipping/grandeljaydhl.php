@@ -477,6 +477,12 @@ class grandeljaydhl extends StdModule
         );
 
         /**
+         * Required for modified compatibility
+         */
+        $this->addConfiguration('ALLOWED', '', 6, 1);
+        /** */
+
+        /**
          * National
          */
         $this->addConfiguration('SHIPPING_NATIONAL_START', self::_getConfig()->shippingNationalStartTitle, 6, 1, self::class . '::nationalStartSet(');
@@ -597,6 +603,12 @@ class grandeljaydhl extends StdModule
         parent::remove();
 
         /**
+         * Required for modified compatibility
+         */
+        $this->deleteConfiguration('ALLOWED', '', 6, 1);
+        /** */
+
+        /**
          * National
          */
         $this->deleteConfiguration('SHIPPING_NATIONAL_START');
@@ -670,57 +682,57 @@ class grandeljaydhl extends StdModule
 
     public function quote()
     {
-        global $shipping_weight;
+        global $order, $shipping_weight, $shipping_num_boxes;
+
+        require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
+
+        $country_delivery = new grandeljaydhl_country($order->delivery['country']);
+
+        $methods = array();
 
         /**
-         * Cost
+         * Shipping costs
          */
-        $cost = 0;
 
-        /** Base cost */
-        $base_cost = self::_getConfig()->handling;
+        /** National */
+        $shipping_is_national = intval(STORE_COUNTRY) === $country_delivery->getZone();
 
-        if (is_numeric($base_cost)) {
-            $cost += $base_cost;
-        }
+        if ($shipping_is_national) {
+            $method_national_paket = array(
+                'id'    => 'national-paket',
+                'title' => 'DHL Paket',
+                'cost'  => 0,
+            );
 
-        /** Surcharge */
-        $surcharges = explode(',', self::_getConfig()->cost);
+            $shipping_national_costs = json_decode(self::_getConfig()->shippingNationalCosts, true);
 
-        if (count($surcharges) > 0) {
-            foreach ($surcharges as $surcharge) {
-                $surcharge_cost_kg = explode(':', trim($surcharge));
-                $surcharge_cost    = reset($surcharge_cost_kg);
-                $surcharge_kg      = end($surcharge_cost_kg);
+            asort($shipping_national_costs);
 
-                if ($surcharge_kg < $shipping_weight) {
-                    continue;
+            $cost_to_add = 0;
+
+            foreach ($shipping_national_costs as $max_weight => $cost_for_weight) {
+                $max_weight      = floatval($max_weight);
+                $cost_for_weight = floatval($cost_for_weight);
+                $cost_to_add     = $cost_for_weight;
+
+                if ($shipping_weight < $max_weight) {
+                    break;
                 }
-
-                $cost += $surcharge_cost * $shipping_weight;
-                break;
             }
+
+            $method_national_paket['cost'] += $cost_to_add;
+
+            $methods[] = $method_national_paket;
         }
 
         /** Finish up */
         $quote = array(
             'id'      => $this->code,
             'module'  => sprintf(
-                'DHL (%s kg)',
+                'DHL Paket (%s kg)',
                 round($shipping_weight, 2)
             ),
-            'methods' => array(
-                array(
-                    'id'    => 'paket',
-                    'title' => 'Paket Versand',
-                    'cost'  => $cost,
-                ),
-                array(
-                    'id'    => 'express',
-                    'title' => 'Express Versand',
-                    'cost'  => $cost * 2,
-                ),
-            ),
+            'methods' => $methods,
         );
 
         return $quote;
