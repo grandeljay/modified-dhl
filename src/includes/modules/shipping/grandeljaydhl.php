@@ -560,7 +560,7 @@ class grandeljaydhl extends StdModule
                 ),
                 array(
                     'name'      => 'Peak',
-                    'surcharge' => 0.19,
+                    'surcharge' => 4.90,
                     'type'      => 'fixed',
                     'duration'  => array(
                         'start' => '31.10.',
