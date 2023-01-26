@@ -1,3 +1,17 @@
+.modulbox input[type="number"] {
+    width: 100%;
+    padding: 6px 4px;
+
+    box-sizing: border-box;
+
+    color: #000;
+    background-color: #fafafa;
+    border-color: #c6c6c6 #dadada #eaeaea;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+}
+
 /**
  * Tabs
  */
@@ -169,19 +183,6 @@ dialog .row > .column {
 }
 
 /** Inputs */
-dialog input[type="number"] {
-    width: 100%;
-    padding: 6px 4px;
-
-    box-sizing: border-box;
-
-    color: #000;
-    background-color: #fafafa;
-    border-color: #c6c6c6 #dadada #eaeaea;
-    border-radius: 2px;
-    border-style: solid;
-    border-width: 1px;
-}
 dialog .modulbox .infoBoxContent :is(input, select) {
     --outline: 2px;
 
