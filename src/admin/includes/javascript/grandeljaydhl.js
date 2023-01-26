@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES',
     ];
 
-    OPTIONS.forEach(OPTION => {
+    OPTIONS.every(function(OPTION) {
         expandInputToPopup(OPTION);
+
+        return true;
     });
 
     /** Make field read only */
@@ -55,70 +57,56 @@ function expandInputToPopup(option) {
     let button_apply = dialog.querySelector('button[name="grandeljaydhl_apply"]');
 
     button_apply.addEventListener('click', function() {
-        let input_json, input_required;
+        let input_json     = [];
+        let input_required = [];
+
+        let rows = Array.from(dialog.querySelectorAll('.container > .row'));
 
         switch (option) {
             case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
-                input_json     = {};
                 input_required = [
                     'weight',
                     'cost'
                 ];
-
-                dialog.querySelectorAll('.container > .row').forEach(row => {
-                    row.querySelectorAll('.column > [name]').forEach(element => {
-                        /** Skip rows with empty required fields */
-                        if (input_required.includes(element.getAttribute('name'))) {
-                            if (!element.value) {
-                                return;
-                            }
-                        }
-
-                        /** Assign values */
-                        let weight = row.querySelector('.column [name="weight"]').value;
-                        let cost   = row.querySelector('.column [name="cost"]').value;
-
-                        input_json[weight] = cost;
-                    });
-                });
                 break;
 
             case 'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES':
-                input_json     = [];
                 input_required = [
                     'surcharge',
                     'type'
                 ];
-
-                dialog.querySelectorAll('.container > .row').forEach(row => {
-                    row.querySelectorAll('.column > [name]').forEach(element => {
-                        /** Skip rows with empty required fields */
-                        if (input_required.includes(element.getAttribute('name'))) {
-                            if (!element.value) {
-                                return;
-                            }
-                        }
-
-                        /** Assign values */
-                        let name           = row.querySelector('.column [name="name"').value;
-                        let surcharge      = row.querySelector('.column [name="surcharge"').value;
-                        let type           = row.querySelector('.column [name="type"').value;
-                        let duration_start = row.querySelector('.column [name="duration-start"').value;
-                        let duration_end   = row.querySelector('.column [name="duration-end"').value;
-
-                        input_json.push(
-                            {
-                                'name'           : name,
-                                'surcharge'      : surcharge,
-                                'type'           : type,
-                                'duration_start' : duration_start,
-                                'duration_end'   : duration_end,
-                            }
-                        );
-                    });
-                });
                 break;
         }
+
+        rows.every(function(row) {
+            let row_values = {};
+            let row_inputs = Array.from(row.querySelectorAll('.column > [name]'));
+            let row_add    = row_inputs.every(function(element) {
+                let element_name = element.getAttribute('name');
+
+                /** Skip rows with empty required fields */
+                if (input_required.includes(element_name)) {
+                    if (!element.value) {
+                        return false;
+                    }
+                }
+
+                /** Assign values */
+                row_values[element_name] = element.value;
+
+                return true;
+            });
+
+            if (
+                   row_add
+                && row_values
+                && Object.keys(row_values).length > 0
+            ) {
+                input_json.push(row_values);
+            }
+
+            return true;
+        });
 
         input.value = JSON.stringify(input_json);
 

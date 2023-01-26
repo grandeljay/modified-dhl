@@ -157,20 +157,19 @@ class grandeljaydhl extends StdModule
                                             </div>
                                         </div>
                                     </div>
+
                                     <?php
                                     $shipping_costs = json_decode($value, true);
 
-                                    foreach ($shipping_costs as $weight_kg => $cost) {
-                                        preg_match('/[\d\.]+/', $weight_kg, $weight);
-                                        $weight = floatval(reset($weight));
+                                    foreach ($shipping_costs as $shipping_costs) {
                                         ?>
                                         <div class="row">
                                             <div class="column">
-                                                <input type="number" value="<?= $weight ?>" name="weight" /> Kg
+                                                <input type="number" value="<?= $shipping_costs['weight'] ?>" name="weight" /> Kg
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" value="<?= $cost ?>" name="cost" /> EUR
+                                                <input type="number" value="<?= $shipping_costs['cost'] ?>" name="cost" /> EUR
                                             </div>
                                         </div>
                                         <?php
@@ -355,11 +354,11 @@ class grandeljaydhl extends StdModule
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration']['start'] ?>" />
+                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration-start'] ?>" />
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration']['end'] ?>" />
+                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration-end'] ?>" />
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -471,9 +470,15 @@ class grandeljaydhl extends StdModule
 
         $prices_national = json_encode(
             array(
-                '20.0' => '4.06',
-                '31.5' => '4.90',
-            )
+                array(
+                    'weight' => 20,
+                    'cost'   => 4.06,
+                ),
+                array(
+                    'weight' => 31.5,
+                    'cost'   => 4.90,
+                ),
+            ),
         );
 
         /**
@@ -565,13 +570,11 @@ class grandeljaydhl extends StdModule
                     'type'      => 'fixed',
                 ),
                 array(
-                    'name'      => 'Peak',
-                    'surcharge' => 4.90,
-                    'type'      => 'fixed',
-                    'duration'  => array(
-                        'start' => '31.10.',
-                        'end'   => '15.01.',
-                    ),
+                    'name'           => 'Peak',
+                    'surcharge'      => 4.90,
+                    'type'           => 'fixed',
+                    'duration-start' => '31.10.',
+                    'duration-end'   => '15.01.',
                 ),
                 array(
                     'name'      => 'Pick & Pack',
@@ -734,11 +737,13 @@ class grandeljaydhl extends StdModule
             foreach ($methods as &$method) {
                 $method_cost = $method['cost'];
 
-                if (isset($surcharge['duration'], $surcharge['duration']['start'], $surcharge['duration']['end'])) {
+                if (isset($surcharge['duration'], $surcharge['duration-start'], $surcharge['duration-end'])) {
                     $time            = time();
-                    $duration_start  = strtotime($surcharge['duration']['start'] . date('Y', $time));
-                    $duration_end    = strtotime($surcharge['duration']['end'] . date('Y', $time));
+                    $duration_start  = strtotime($surcharge['duration-start'] . date('Y', $time));
+                    $duration_end    = strtotime($surcharge['duration-end'] . date('Y', $time));
                     $duration_is_now = !($time > $duration_end && $time < $duration_start);
+
+                    var_dump($duration_is_now);
 
                     if (!$duration_is_now) {
                         continue;
