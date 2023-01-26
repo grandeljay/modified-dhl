@@ -114,11 +114,11 @@ class grandeljaydhl extends StdModule
                                     <template id="grandeljaydhl_row">
                                         <div class="row">
                                             <div class="column">
-                                                <input type="text" pattern="[\d\.]+" class="weight" /> Kg
+                                                <input type="number" name="weight" /> Kg
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" pattern="[\d\.]+" class="cost" /> EUR
+                                                <input type="number" name="cost" /> EUR
                                             </div>
                                         </div>
                                     </template>
@@ -147,11 +147,11 @@ class grandeljaydhl extends StdModule
                                         ?>
                                         <div class="row">
                                             <div class="column">
-                                                <input type="text" value="<?= $weight ?>" pattern="[\d\.]+" class="weight" /> Kg
+                                                <input type="number" value="<?= $weight ?>" name="weight" /> Kg
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" value="<?= $cost ?>" pattern="[\d\.]+" class="cost" /> EUR
+                                                <input type="number" value="<?= $cost ?>" name="cost" /> EUR
                                             </div>
                                         </div>
                                         <?php
