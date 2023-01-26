@@ -713,9 +713,9 @@ class grandeljaydhl extends StdModule
 
             $cost_to_add = 0;
 
-            foreach ($shipping_national_costs as $max_weight => $cost_for_weight) {
-                $max_weight      = floatval($max_weight);
-                $cost_for_weight = floatval($cost_for_weight);
+            foreach ($shipping_national_costs as $shipping_national_cost) {
+                $max_weight      = floatval($shipping_national_cost['weight']);
+                $cost_for_weight = floatval($shipping_national_cost['cost']);
                 $cost_to_add     = $cost_for_weight;
 
                 if ($shipping_weight < $max_weight) {
