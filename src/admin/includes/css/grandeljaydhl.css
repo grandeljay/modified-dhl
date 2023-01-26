@@ -1,3 +1,16 @@
+.modulbox :is(input, select) {
+    --outline: 2px;
+}
+.modulbox :is(input, select):focus-visible {
+    outline: var(--outline) solid currentColor;
+}
+
+.modulbox :is(input, select):invalid {
+    --invalid: #ffdcdc;
+
+    background-color: var(--invalid) !important;
+}
+
 .modulbox input[type="number"] {
     width: 100%;
     padding: 6px 4px;
@@ -184,8 +197,6 @@ dialog .row > .column {
 
 /** Inputs */
 dialog .modulbox .infoBoxContent :is(input, select) {
-    --outline: 2px;
-
     width: 100% !important;
     height: 100%;
     flex: 1 1 auto;
@@ -195,9 +206,6 @@ dialog .modulbox .infoBoxContent :is(input, select) {
 }
 dialog .modulbox .infoBoxContent :is(input[name="weight"], input[name="cost"]) {
     text-align: right;
-}
-dialog .modulbox .infoBoxContent :is(input, select):focus-visible {
-    outline-width: var(--outline);
 }
 
 /** Buttons */
