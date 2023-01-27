@@ -702,7 +702,7 @@ class grandeljaydhl extends StdModule
 
         if ($shipping_is_national) {
             $method_paket_national = array(
-                'id'    => 'national-paket',
+                'id'    => 'paket-national',
                 'title' => 'DHL Paket',
                 'cost'  => 0,
             );
