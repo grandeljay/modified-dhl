@@ -690,8 +690,8 @@ class grandeljaydhl extends StdModule
         require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
 
         $country_delivery = new grandeljaydhl_country($order->delivery['country']);
-
-        $methods = array();
+        $methods          = array();
+        $config           = self::_getConfig();
 
         /**
          * Shipping costs
@@ -707,7 +707,7 @@ class grandeljaydhl extends StdModule
                 'cost'  => 0,
             );
 
-            $shipping_national_costs = json_decode(self::_getConfig()->shippingNationalCosts, true);
+            $shipping_national_costs = json_decode($config->shippingNationalCosts, true);
 
             asort($shipping_national_costs);
 
@@ -728,10 +728,57 @@ class grandeljaydhl extends StdModule
             $methods[] = $method_paket_national;
         }
 
+        /** International */
+        $shipping_is_international = !$shipping_is_national;
+
+        if ($shipping_is_international) {
+            /** Premium */
+            $cost = 0;
+
+            /** Determine config keys for zone price */
+            for ($zone = 1; $zone <= 6; $zone++) {
+                if ($zone === $country_delivery->getZone()) {
+                    $config_key;
+
+                    /** Base */
+                    $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
+                    $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
+                    $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
+
+                    /** Kilogram */
+                    $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
+                    $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
+                    $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
+
+                    /** Add costs */
+                    if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                        $cost += $config->$config_key_base;
+                        $cost += $config->$config_key_kg * $shipping_weight;
+                    } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
+                        if ($country_delivery->getIsEU()) {
+                            $cost += $config->$config_key_base_eu;
+                            $cost += $config->$config_key_kg_eu * $shipping_weight;
+                        } else {
+                            $cost += $config->$config_key_base_noneu;
+                            $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                        }
+                    }
+                }
+            }
+
+            $method_paket_international_premium = array(
+                'id'    => 'paket-international-premium',
+                'title' => 'DHL Paket (Premium)',
+                'cost'  => $cost,
+            );
+
+            $methods[] = $method_paket_international_premium;
+        }
+
         /**
          * Surcharges
          */
-        $surcharges = json_decode(self::_getConfig()->surcharges, true);
+        $surcharges = json_decode($config->surcharges, true);
 
         foreach ($surcharges as $surcharge) {
             foreach ($methods as &$method) {
