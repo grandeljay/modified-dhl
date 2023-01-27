@@ -701,7 +701,7 @@ class grandeljaydhl extends StdModule
         $shipping_is_national = intval(STORE_COUNTRY) === $country_delivery->getZone();
 
         if ($shipping_is_national) {
-            $method_national_paket = array(
+            $method_paket_national = array(
                 'id'    => 'national-paket',
                 'title' => 'DHL Paket',
                 'cost'  => 0,
@@ -723,9 +723,9 @@ class grandeljaydhl extends StdModule
                 }
             }
 
-            $method_national_paket['cost'] += $cost_to_add;
+            $method_paket_national['cost'] += $cost_to_add;
 
-            $methods[] = $method_national_paket;
+            $methods[] = $method_paket_national;
         }
 
         /**
