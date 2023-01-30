@@ -604,7 +604,7 @@ class grandeljaydhl extends StdModule
 
         $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
 
-        $this->addConfigurationSelect('SURCHARGES_ROUND_UP', true, 6, 1);
+        $this->addConfigurationSelect('SURCHARGES_ROUND_UP', 'true', 6, 1);
         $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, self::class . '::inputNumberRoundUp(');
 
         $this->addConfiguration('SURCHARGES_END', '', 6, 1, self::class . '::surchargesEndSet(');
@@ -874,6 +874,30 @@ class grandeljaydhl extends StdModule
                 }
             }
         }
+
+        /** Round up */
+        if ('true' === $config->surchargesRoundUp && is_numeric($config->surchargesRoundUpTo)) {
+            $config->surchargesRoundUpTo = (float) $config->surchargesRoundUpTo;
+
+            foreach ($methods as &$method) {
+                $cost            = $method['cost'];
+                $number_whole    = floor($cost);
+                $number_decimals = round($cost - $number_whole, 2);
+
+                $round_up_to = $cost;
+
+                if ($number_decimals > $config->surchargesRoundUpTo) {
+                    $round_up_to = ceil($cost) + $config->surchargesRoundUpTo;
+                }
+
+                if ($number_decimals < $config->surchargesRoundUpTo) {
+                    $round_up_to = $number_whole + $config->surchargesRoundUpTo;
+                }
+
+                $method['cost'] = $round_up_to;
+            }
+        }
+        /** */
 
         /** Finish up */
         $quote = array(
