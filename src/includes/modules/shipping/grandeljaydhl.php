@@ -15,7 +15,7 @@ use RobinTheHood\ModifiedStdModule\Classes\{Configuration, StdModule};
  */
 class grandeljaydhl extends StdModule
 {
-    public const VERSION = '0.2.0';
+    public const VERSION = '0.2.1';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
 
     private static Configuration $config;

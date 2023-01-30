@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.1 - 2023-01-30
+
+### Added
+
+-   Screenshots
+
+### Fixed
+
+-   Input validation
+-   Surcharges duration
+
 ## 0.2.0 - 2023-01-30
 
 ### Added
