@@ -100,9 +100,11 @@ details > div {
 }
 
 details > div > br:first-child,
-details > div > br + br,
+details > div > br:first-child + br,
 details > div > br:nth-last-child(2),
-details > div > b:empty {
+details > div > br:nth-last-child(2) + br,
+details > div > b:empty,
+details.international > div > b + br {
     display: none;
 }
 
