@@ -863,7 +863,7 @@ class grandeljaydhl extends StdModule
             foreach ($methods as &$method) {
                 $method_cost = $method['cost'];
 
-                if (isset($surcharge['duration'], $surcharge['duration-start'], $surcharge['duration-end'])) {
+                if (isset($surcharge['duration-start'], $surcharge['duration-end'])) {
                     $time            = time();
                     $duration_start  = strtotime($surcharge['duration-start'] . date('Y', $time));
                     $duration_end    = strtotime($surcharge['duration-end'] . date('Y', $time));
