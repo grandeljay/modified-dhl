@@ -699,7 +699,7 @@ class grandeljaydhl extends StdModule
          */
 
         /** National */
-        $shipping_is_national = intval(STORE_COUNTRY) === $country_delivery->getZone();
+        $shipping_is_national = intval(STORE_COUNTRY) === $country_delivery->getCountryID();
 
         if ($shipping_is_national) {
             $method_paket_national = array(

@@ -316,13 +316,7 @@ class grandeljaydhl_country
     private string $iso_code_3;
     private string $name;
 
-    private bool $is_eu;
-    private bool $is_noneu;
-
-    private float $price_premium_base;
-    private float $price_premium_kg;
-    private float $price_economy_base;
-    private float $price_economy_kg;
+    private int $country_id;
 
     public function __construct(array $country)
     {
@@ -330,15 +324,9 @@ class grandeljaydhl_country
          * Guess type based on value.
          */
         foreach ($country as $value) {
-            /** Zone */
-            if (1 === preg_match('/^\d+$/', $value, $country_id)) {
-                $zone = isset(self::$countries_zone[$country_id[0]]) ? self::$countries_zone[$country_id[0]] : -1;
-
-                if (-1 === $zone) {
-                    throw new Exception(sprintf('%s is not a valid country ID. Zone unknown.', $country_id[0]));
-                }
-
-                $this->zone = $zone;
+            /** Country ID */
+            if (1 === preg_match('/^\d+$/', $value, $match_country_id)) {
+                $this->country_id = $match_country_id[0];
 
                 continue;
             }
@@ -366,6 +354,19 @@ class grandeljaydhl_country
         }
 
         /**
+         * Zone
+         */
+        if (isset($this->country_id)) {
+            $zone = isset(self::$countries_zone[$this->country_id]) ? self::$countries_zone[$this->country_id] : -1;
+
+            if (-1 === $zone) {
+                throw new Exception(sprintf('%s is not a valid country ID. Zone unknown.', $this->country_id));
+            }
+
+            $this->zone = $zone;
+        }
+
+        /**
          * Is EU
          */
         $country_codes_eu = array_keys(self::$countries_eu);
@@ -378,6 +379,11 @@ class grandeljaydhl_country
         $country_codes_noneu = array_keys(self::$countries_noneu);
 
         $this->in_noneu = in_array($this->iso_code_2, $country_codes_noneu, true);
+    }
+
+    public function getCountryID(): int
+    {
+        return $this->country_id;
     }
 
     public function getZone(): int
