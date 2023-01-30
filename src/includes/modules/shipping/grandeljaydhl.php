@@ -741,8 +741,6 @@ class grandeljaydhl extends StdModule
             /** Determine config keys for zone price */
             for ($zone = 1; $zone <= 6; $zone++) {
                 if ($zone === $country_delivery->getZone()) {
-                    $config_key;
-
                     /** Base */
                     $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
                     $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
@@ -785,8 +783,6 @@ class grandeljaydhl extends StdModule
             /** Determine config keys for zone price */
             for ($zone = 1; $zone <= 6; $zone++) {
                 if ($zone === $country_delivery->getZone()) {
-                    $config_key;
-
                     /** Base */
                     $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
                     $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
