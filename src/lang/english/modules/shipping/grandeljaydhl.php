@@ -25,6 +25,7 @@ $translations_general = array(
     'LONG_DESCRIPTION'                                         => 'DHL shipping method',
     'STATUS_TITLE'                                             => 'Activate module?',
     'STATUS_DESC'                                              => 'Enables shipping via DHL.',
+    'TEXT_TITLE'                                               => 'DHL',
 
     /**
      * Required for modified compatibility
