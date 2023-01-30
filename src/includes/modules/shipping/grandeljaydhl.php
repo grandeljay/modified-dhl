@@ -387,7 +387,8 @@ class grandeljaydhl extends StdModule
 
     public function __construct()
     {
-        $this->init(self::NAME);
+        parent::__construct(self::NAME);
+
         $this->checkForUpdate(true);
 
         /**
