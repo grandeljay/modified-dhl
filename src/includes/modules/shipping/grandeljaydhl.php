@@ -68,11 +68,11 @@ class grandeljaydhl extends StdModule
     }
     /** */
 
-    private static function groupStart(string $value, string $option): string
+    private static function groupStart(string $value, string $option, string $parameters = ''): string
     {
         ob_start();
         ?>
-        <details>
+        <details <?= $parameters ?>>
             <summary><h2><?= constant($option) ?></h2></summary>
             <div>
         <?php
@@ -216,7 +216,7 @@ class grandeljaydhl extends StdModule
      */
     public static function internationalStartSet(string $value, string $option): string
     {
-        return self::groupStart($value, $option);
+        return self::groupStart($value, $option, 'class="international"');
     }
 
     public static function internationalEndSet(string $value, string $option): string
