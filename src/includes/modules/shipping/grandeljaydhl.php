@@ -863,11 +863,36 @@ class grandeljaydhl extends StdModule
             foreach ($methods as &$method) {
                 $method_cost = $method['cost'];
 
-                if (isset($surcharge['duration-start'], $surcharge['duration-end'])) {
-                    $time            = time();
-                    $duration_start  = strtotime($surcharge['duration-start'] . date('Y', $time));
-                    $duration_end    = strtotime($surcharge['duration-end'] . date('Y', $time));
-                    $duration_is_now = !($time > $duration_end && $time < $duration_start);
+                if (!empty($surcharge['duration-start']) && !empty($surcharge['duration-end'])) {
+                    /** Date now */
+                    $date_now      = new DateTime();
+                    $date_now_year = date('Y', $date_now->getTimestamp());
+
+                    /** Duration start */
+                    $duration_start_dd_mm     = explode('.', $surcharge['duration-start']);
+                    $duration_start           = new DateTime(
+                        $date_now_year . '-' .           /** Year (current) */
+                        $duration_start_dd_mm[1] . '-' . /** Month */
+                        $duration_start_dd_mm[0]         /** Day */
+                    );
+                    $duration_start_is_active = $date_now >= $duration_start;
+
+                    /** Duration end */
+                    $duration_end_dd_mm = explode('.', $surcharge['duration-end']);
+                    $duration_end       = new DateTime(
+                        $date_now_year . '-' .         /** Year (current) */
+                        $duration_end_dd_mm[1] . '-' . /** Month */
+                        $duration_end_dd_mm[0]         /** Day */
+                    );
+
+                    if ($duration_end <= $duration_start) {
+                        $duration_end->modify('+1 year');
+                    }
+
+                    $duration_end_is_active = $time <= $duration_end;
+
+                    /** Duration now */
+                    $duration_is_now = $duration_start_is_active && $duration_end_is_active;
 
                     if (!$duration_is_now) {
                         continue;
