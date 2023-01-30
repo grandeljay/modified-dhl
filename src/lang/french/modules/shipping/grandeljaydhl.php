@@ -9,13 +9,12 @@
  */
 
 if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY')) {
-    $country = xtc_db_fetch_array(
-        xtc_db_query(
-            'SELECT *
-               FROM `' . TABLE_COUNTRIES . '`
-              WHERE `countries_id` = ' . MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY
-        )
+    $country_query = xtc_db_query(
+        'SELECT *
+           FROM `' . TABLE_COUNTRIES . '`
+          WHERE `countries_id` = ' . MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY
     );
+    $country       = xtc_db_fetch_array($country_query);
 }
 
 $translations_general = array(
