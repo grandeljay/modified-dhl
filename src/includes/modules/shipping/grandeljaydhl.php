@@ -732,7 +732,9 @@ class grandeljaydhl extends StdModule
         $shipping_is_international = !$shipping_is_national;
 
         if ($shipping_is_international) {
-            /** Premium */
+            /**
+             * Premium
+             */
             $cost = 0;
 
             /** Determine config keys for zone price */
@@ -773,6 +775,50 @@ class grandeljaydhl extends StdModule
             );
 
             $methods[] = $method_paket_international_premium;
+
+            /**
+             * Economy
+             */
+            $cost = 0;
+
+            /** Determine config keys for zone price */
+            for ($zone = 1; $zone <= 6; $zone++) {
+                if ($zone === $country_delivery->getZone()) {
+                    $config_key;
+
+                    /** Base */
+                    $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
+                    $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
+                    $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
+
+                    /** Kilogram */
+                    $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
+                    $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
+                    $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
+
+                    /** Add costs */
+                    if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                        $cost += $config->$config_key_base;
+                        $cost += $config->$config_key_kg * $shipping_weight;
+                    } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
+                        if ($country_delivery->getIsEU()) {
+                            $cost += $config->$config_key_base_eu;
+                            $cost += $config->$config_key_kg_eu * $shipping_weight;
+                        } else {
+                            $cost += $config->$config_key_base_noneu;
+                            $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                        }
+                    }
+                }
+            }
+
+            $method_paket_international_economy = array(
+                'id'    => 'paket-international-economy',
+                'title' => 'DHL Paket (Economy)',
+                'cost'  => $cost,
+            );
+
+            $methods[] = $method_paket_international_economy;
         }
 
         /**
