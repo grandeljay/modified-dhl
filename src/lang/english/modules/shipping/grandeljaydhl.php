@@ -173,6 +173,11 @@ $translations_general = array(
     'SURCHARGES_DURATION_END_TITLE'                            => 'Until',
     'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Until when the surcharge is to apply (DD.MM.)',
 
+    'SURCHARGES_ROUND_UP_TITLE'                                => 'Round up shipping costs?',
+    'SURCHARGES_ROUND_UP_DESC'                                 => 'Allows the shipping costs to be displayed more uniformly by always rounding up the amounts (to e.g. XX.90 €).',
+    'SURCHARGES_ROUND_UP_TO_TITLE'                             => 'Round up to',
+    'SURCHARGES_ROUND_UP_TO_DESC'                              => 'To which decimal place should always be rounded up?',
+
     'SURCHARGES_END_TITLE'                                     => '',
     'SURCHARGES_END_DESC'                                      => '',
 );

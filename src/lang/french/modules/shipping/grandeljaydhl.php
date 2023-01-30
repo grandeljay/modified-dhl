@@ -173,6 +173,11 @@ $translations_general = array(
     'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',
     'SURCHARGES_DURATION_END_DESC'                             => 'Facultatif . Jusqu\'à quelle date le supplément doit s\'appliquer (jj.mm.)',
 
+    'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrondir les frais de port ?',
+    'SURCHARGES_ROUND_UP_DESC'                                 => 'Permet de présenter les frais d\'expédition de manière plus cohérente en arrondissant toujours les montants (à XX,90 € par exemple) vers le haut.',
+    'SURCHARGES_ROUND_UP_TO_TITLE'                             => 'Arrondir à l\'unité supérieure',
+    'SURCHARGES_ROUND_UP_TO_DESC'                              => 'A quelle décimale doit-on toujours arrondir ?',
+
     'SURCHARGES_END_TITLE'                                     => '',
     'SURCHARGES_END_DESC'                                      => '',
 );

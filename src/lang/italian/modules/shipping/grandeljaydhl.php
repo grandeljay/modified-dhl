@@ -172,6 +172,11 @@ $translations_general = array(
     'SURCHARGES_DURATION_END_TITLE'                            => 'Fino a quando',
     'SURCHARGES_DURATION_END_DESC'                             => 'Opzionale. Fino alla data di applicazione del supplemento (GG.MM.)',
 
+    'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrotondare i costi di spedizione?',
+    'SURCHARGES_ROUND_UP_DESC'                                 => 'Consente di visualizzare le spese di spedizione in modo più uniforme, arrotondando sempre per eccesso gli importi (ad esempio, a XX,90 €).',
+    'SURCHARGES_ROUND_UP_TO_TITLE'                             => 'Arrotondare fino a',
+    'SURCHARGES_ROUND_UP_TO_DESC'                              => 'A quale cifra decimale si deve sempre arrotondare per eccesso?',
+
     'SURCHARGES_END_TITLE'                                     => '',
     'SURCHARGES_END_DESC'                                      => '',
 );

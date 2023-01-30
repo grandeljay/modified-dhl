@@ -52,6 +52,20 @@ class grandeljaydhl extends StdModule
 
         return $html;
     }
+
+    public static function inputNumberRoundUp(string $value, string $option): string
+    {
+        $html  = '';
+        $html .= xtc_draw_input_field(
+            'configuration[' . $option . ']',
+            $value,
+            'step="0.01" min="0.00" max="0.99"',
+            false,
+            'number'
+        );
+
+        return $html;
+    }
     /** */
 
     private static function groupStart(string $value, string $option): string
@@ -461,6 +475,9 @@ class grandeljaydhl extends StdModule
 
         $this->addKey('SURCHARGES');
 
+        $this->addKey('SURCHARGES_ROUND_UP');
+        $this->addKey('SURCHARGES_ROUND_UP_TO');
+
         $this->addKey('SURCHARGES_END');
         /** */
     }
@@ -587,6 +604,9 @@ class grandeljaydhl extends StdModule
 
         $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
 
+        $this->addConfigurationSelect('SURCHARGES_ROUND_UP', true, 6, 1);
+        $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, self::class . '::inputNumberRoundUp(');
+
         $this->addConfiguration('SURCHARGES_END', '', 6, 1, self::class . '::surchargesEndSet(');
         /** */
     }
@@ -679,7 +699,12 @@ class grandeljaydhl extends StdModule
          * Surcharges
          */
         $this->deleteConfiguration('SURCHARGES_START');
+
         $this->deleteConfiguration('SURCHARGES');
+
+        $this->deleteConfiguration('SURCHARGES_ROUND_UP');
+        $this->deleteConfiguration('SURCHARGES_ROUND_UP_TO');
+
         $this->deleteConfiguration('SURCHARGES_END');
         /** */
     }
