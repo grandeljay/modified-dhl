@@ -867,17 +867,9 @@ class grandeljaydhl extends StdModule
                     $duration_start           = new DateTime($surcharge['duration-start']);
                     $duration_start_is_active = $date_now >= $duration_start;
 
-                    if ($duration_start_is_active) {
-                        echo 'Today is after ' . $duration_start->format('d.m.Y.') . '.<br />';
-                    }
-
                     /** Duration end */
                     $duration_end           = new DateTime($surcharge['duration-end']);
                     $duration_end_is_active = $date_now <= $duration_end;
-
-                    if ($duration_end_is_active) {
-                        echo 'Today is before ' . $duration_end->format('d.m.Y.') . '.<br />';
-                    }
 
                     /** Automatically update duration years */
                     if ($date_now > $duration_start && $date_now > $duration_end) {
@@ -890,10 +882,6 @@ class grandeljaydhl extends StdModule
 
                     /** Duration now */
                     $duration_is_now = $duration_start_is_active && $duration_end_is_active;
-
-                    if ($duration_is_now) {
-                        echo 'Duration is now.';
-                    }
 
                     if (!$duration_is_now) {
                         continue;
