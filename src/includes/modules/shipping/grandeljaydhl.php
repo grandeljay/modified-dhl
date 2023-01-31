@@ -442,6 +442,8 @@ class grandeljaydhl extends StdModule
             /** Premium */
             $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_START');
 
+                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE');
+
                 $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU');
                 $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU');
                 $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU');
@@ -468,6 +470,8 @@ class grandeljaydhl extends StdModule
 
             /** Economy */
             $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_START');
+
+                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE');
 
                 $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU');
                 $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU');
@@ -554,6 +558,8 @@ class grandeljaydhl extends StdModule
             /** Premium */
             $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $config->shippingInternationalPremiumStartTitle, 6, 1, self::class . '::internationalPremiumStartSet(');
 
+                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
+
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::class . '::inputNumber(');
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::class . '::inputNumber(');
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::class . '::inputNumber(');
@@ -582,6 +588,8 @@ class grandeljaydhl extends StdModule
 
             /** Economy */
             $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $config->shippingInternationalEconomyStartTitle, 6, 1, self::class . '::internationalEconomyStartSet(');
+
+                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'true', 6, 1);
 
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::class . '::inputNumber(');
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::class . '::inputNumber(');
@@ -689,6 +697,8 @@ class grandeljaydhl extends StdModule
             /** Premium */
             $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START');
 
+                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
+
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU');
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU');
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU');
@@ -715,6 +725,8 @@ class grandeljaydhl extends StdModule
 
             /** Economy */
             $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START');
+
+                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'true', 6, 1);
 
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU');
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU');
@@ -809,86 +821,91 @@ class grandeljaydhl extends StdModule
             /**
              * Premium
              */
-            $cost = 0;
+            if ('true' === $config->shippingInternationalPremiumEnable) {
+                $cost = 0;
 
-            /** Determine config keys for zone price */
-            for ($zone = 1; $zone <= 6; $zone++) {
-                if ($zone === $country_delivery->getZone()) {
-                    /** Base */
-                    $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
-                    $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
-                    $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
+                /** Determine config keys for zone price */
+                for ($zone = 1; $zone <= 6; $zone++) {
+                    if ($zone === $country_delivery->getZone()) {
+                        /** Base */
+                        $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
+                        $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
+                        $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
 
-                    /** Kilogram */
-                    $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
-                    $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
-                    $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
+                        /** Kilogram */
+                        $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
+                        $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
+                        $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
 
-                    /** Add costs */
-                    if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                        $cost += $config->$config_key_base;
-                        $cost += $config->$config_key_kg * $shipping_weight;
-                    } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
-                        if ($country_delivery->getIsEU()) {
-                            $cost += $config->$config_key_base_eu;
-                            $cost += $config->$config_key_kg_eu * $shipping_weight;
-                        } else {
-                            $cost += $config->$config_key_base_noneu;
-                            $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                        /** Add costs */
+                        if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                            $cost += $config->$config_key_base;
+                            $cost += $config->$config_key_kg * $shipping_weight;
+                        } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
+                            if ($country_delivery->getIsEU()) {
+                                $cost += $config->$config_key_base_eu;
+                                $cost += $config->$config_key_kg_eu * $shipping_weight;
+                            } else {
+                                $cost += $config->$config_key_base_noneu;
+                                $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                            }
                         }
                     }
                 }
+
+                $method_paket_international_premium = array(
+                    'id'    => 'paket-international-premium',
+                    'title' => 'DHL Paket (Premium)',
+                    'cost'  => $cost,
+                );
+
+                $methods[] = $method_paket_international_premium;
             }
 
-            $method_paket_international_premium = array(
-                'id'    => 'paket-international-premium',
-                'title' => 'DHL Paket (Premium)',
-                'cost'  => $cost,
-            );
-
-            $methods[] = $method_paket_international_premium;
 
             /**
              * Economy
              */
-            $cost = 0;
+            if ('true' === $config->shippingInternationalEconomyEnable) {
+                $cost = 0;
 
-            /** Determine config keys for zone price */
-            for ($zone = 1; $zone <= 6; $zone++) {
-                if ($zone === $country_delivery->getZone()) {
-                    /** Base */
-                    $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
-                    $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
-                    $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
+                /** Determine config keys for zone price */
+                for ($zone = 1; $zone <= 6; $zone++) {
+                    if ($zone === $country_delivery->getZone()) {
+                        /** Base */
+                        $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
+                        $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
+                        $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
 
-                    /** Kilogram */
-                    $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
-                    $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
-                    $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
+                        /** Kilogram */
+                        $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
+                        $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
+                        $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
 
-                    /** Add costs */
-                    if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                        $cost += $config->$config_key_base;
-                        $cost += $config->$config_key_kg * $shipping_weight;
-                    } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
-                        if ($country_delivery->getIsEU()) {
-                            $cost += $config->$config_key_base_eu;
-                            $cost += $config->$config_key_kg_eu * $shipping_weight;
-                        } else {
-                            $cost += $config->$config_key_base_noneu;
-                            $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                        /** Add costs */
+                        if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                            $cost += $config->$config_key_base;
+                            $cost += $config->$config_key_kg * $shipping_weight;
+                        } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
+                            if ($country_delivery->getIsEU()) {
+                                $cost += $config->$config_key_base_eu;
+                                $cost += $config->$config_key_kg_eu * $shipping_weight;
+                            } else {
+                                $cost += $config->$config_key_base_noneu;
+                                $cost += $config->$config_key_kg_noneu * $shipping_weight;
+                            }
                         }
                     }
                 }
+
+                $method_paket_international_economy = array(
+                    'id'    => 'paket-international-economy',
+                    'title' => 'DHL Paket (Economy)',
+                    'cost'  => $cost,
+                );
+
+                $methods[] = $method_paket_international_economy;
             }
-
-            $method_paket_international_economy = array(
-                'id'    => 'paket-international-economy',
-                'title' => 'DHL Paket (Economy)',
-                'cost'  => $cost,
-            );
-
-            $methods[] = $method_paket_international_economy;
         }
 
         /**

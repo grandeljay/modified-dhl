@@ -67,10 +67,16 @@ $translations_general = array(
     /**
      * International
      */
-    'SHIPPING_INTERNATIONAL_START_TITLE'                       => 'Internationaler Versand',
-    'SHIPPING_INTERNATIONAL_START_DESC'                        => 'Hier befinden sich alle Einstellungen bezüglich des internationalen Versands. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+    'SHIPPING_INTERNATIONAL_START_TITLE'                       => 'Spedizione internazionale',
+    'SHIPPING_INTERNATIONAL_START_DESC'                        => 'Qui troverà tutte le impostazioni relative alla spedizione internazionale. Clicchi sul gruppo per aprire le impostazioni.',
 
     /** Premium */
+    'SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'               => 'Spedizione premium',
+    'SHIPPING_INTERNATIONAL_PREMIUM_START_DESC'                => 'Qui troverà tutte le impostazioni relative alla spedizione internazionale permium. Clicchi sul gruppo per aprire le impostazioni.',
+
+    'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_TITLE'              => 'Attivare la spedizione Premium?',
+    'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_DESC'               => '',
+
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zona 1 Prezzo base Premium (UE)',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Prezzo base Zona 1 Premium (non UE)',
@@ -109,7 +115,16 @@ $translations_general = array(
     'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_TITLE'         => 'Zona 6 Prezzo Premium al chilogrammo',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_DESC'          => '',
 
+    'SHIPPING_INTERNATIONAL_PREMIUM_END_TITLE'                 => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_END_DESC'                  => '',
+
     /** Economy */
+    'SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'               => 'Spedizione economica',
+    'SHIPPING_INTERNATIONAL_ECONOMY_START_DESC'                => 'Qui troverà tutte le impostazioni relative alla spedizione economica internazionale. Clicchi sul gruppo per aprire le impostazioni.',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_ENABLE_TITLE'              => 'Attivare la spedizione Economy?',
+    'SHIPPING_INTERNATIONAL_ECONOMY_ENABLE_DESC'               => '',
+
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_TITLE'    => 'Zona 1 Economy Prezzo base (UE)',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_DESC'     => '',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_TITLE' => 'Zona 1 Economy Prezzo base (non UE)',
@@ -147,6 +162,9 @@ $translations_general = array(
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_DESC'        => '',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_TITLE'         => 'Zona 6 Economy Prezzo al chilogrammo',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_END_TITLE'                 => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_END_DESC'                  => '',
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
