@@ -73,6 +73,9 @@ $translations_general = array(
     'SHIPPING_INTERNATIONAL_START_DESC'                        => 'Hier befinden sich alle Einstellungen bezüglich des internationalen Versands. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
 
     /** Premium */
+    'SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'               => 'Premium Versand',
+    'SHIPPING_INTERNATIONAL_PREMIUM_START_DESC'                => 'Hier befinden sich alle Einstellungen bezüglich des internationalen permium Versands. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Premium Basispreis (EU)',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Premium Basispreis (Nicht EU)',
@@ -111,7 +114,13 @@ $translations_general = array(
     'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_TITLE'         => 'Zone 6 Premium Kilogrammpreis',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_DESC'          => '',
 
+    'SHIPPING_INTERNATIONAL_PREMIUM_END_TITLE'                 => '',
+    'SHIPPING_INTERNATIONAL_PREMIUM_END_DESC'                  => '',
+
     /** Economy */
+    'SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'               => 'Economy Versand',
+    'SHIPPING_INTERNATIONAL_ECONOMY_START_DESC'                => 'Hier befinden sich alle Einstellungen bezüglich des internationalen economy Versands. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Economy Basispreis (EU)',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_DESC'     => '',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Economy Basispreis (Nicht EU)',
@@ -149,6 +158,9 @@ $translations_general = array(
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_DESC'        => '',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_TITLE'         => 'Zone 6 Economy Kilogrammpreis',
     'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_DESC'          => '',
+
+    'SHIPPING_INTERNATIONAL_ECONOMY_END_TITLE'                 => '',
+    'SHIPPING_INTERNATIONAL_ECONOMY_END_DESC'                  => '',
 
     'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
     'SHIPPING_INTERNATIONAL_END_DESC'                          => '',

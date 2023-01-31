@@ -1,4 +1,4 @@
-.modulbox :is(input, select) {
+.modulbox :is(input, select, .cfg_select_option) {
     --outline: 2px;
 }
 .modulbox :is(input, select):focus-visible {
@@ -12,7 +12,7 @@
 }
 
 .modulbox input:not(:is([type="submit"], [type="button"])) {
-    width: 100%;
+    width: 100% !important;
     padding: 6px 4px;
 
     box-sizing: border-box;
@@ -25,25 +25,34 @@
     border-width: 1px;
 }
 
+.modulbox :is(input, .cfg_select_option) ~ b {
+    margin-top: 1.8em;
+}
+.modulbox .shipping-international-start :is(input, .cfg_select_option) ~ b {
+    margin-top: 0;
+}
+
 /**
  * Tabs
  */
 details {
+    --border: 1px solid #a3a3a3;
+
     transition:
         0.2s ease border-color,
         0.2s ease background-color;
 
     position: relative;
 
-    margin: 1em -10px 0 -10px;
+    margin-top: 0.6em;
 
-    border-top: 1px solid #a3a3a3;
-    border-bottom: 1px solid #a3a3a3;
+    border: var(--border);
 }
 details[open] {
     background-color: transparent;
 }
 
+/** Summary */
 details > summary {
     transition: 0.2s ease color;
 
@@ -55,7 +64,7 @@ details > summary {
     padding: 10px;
 
     list-style: none;
-    font-size: larger;
+    font-size: 1em;
     font-weight: bolder;
 
     cursor: pointer;
@@ -75,13 +84,17 @@ details > summary::after {
     text-align: center;
 }
 details[open] > summary {
-    border-bottom: 1px solid #a3a3a3;
+    border-bottom: var(--border);
+
+    color: #363636;
+    background-color: #e5e3e3;
 }
 details[open] > summary::after {
     transform: rotate(90deg);
 }
 
-details > summary > h2 {
+/** Heading */
+details > summary > :is(h1, h2, h3, h4, h5, h6) {
     margin: 0;
 
     line-height: inherit;
@@ -91,21 +104,51 @@ details > summary > h2 {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-details[open] > summary > h2 {
+details[open] > summary > :is(h1, h2, h3, h4, h5, h6) {
     white-space: normal
 }
+details > summary > h1 {
+    font-size: 1.12em;
+}
+details > summary > h2 {
+    font-size: 1.10em;
+}
+details > summary > h3 {
+    font-size: 1.08em;
+}
+details > summary > h4 {
+    font-size: 1.06em;
+}
+details > summary > h5 {
+    font-size: 1.04em;
+}
+details > summary > h6 {
+    font-size: 1.02em;
+}
 
+/** Content */
 details > div {
     padding: 10px;
 }
 
-details > div > br:first-child,
-details > div > br:first-child + br,
-details > div > br:nth-last-child(2),
-details > div > br:nth-last-child(2) + br,
-details > div > b:empty,
-details.international > div > b + br {
+details > div > :is(b, span.cfg_select_option) {
+    display: block;
+    width: max-content;
+}
+
+details > div > :is(br, b:empty) {
     display: none;
+}
+
+details:not(:last-of-type) + :is(br, br + br) {
+    display: initial;
+}
+
+details.shipping-international-start > div > details > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 4px 10px;
+    align-items: center;
 }
 
 /**
