@@ -598,8 +598,8 @@ class grandeljaydhl extends StdModule
                     'name'           => 'Peak',
                     'surcharge'      => 4.90,
                     'type'           => 'fixed',
-                    'duration-start' => '31.10.',
-                    'duration-end'   => '15.01.',
+                    'duration-start' => date('Y') . '-10-31',
+                    'duration-end'   => date('Y') + 1 . '-01-15',
                 ),
                 array(
                     'name'      => 'Pick & Pack',
