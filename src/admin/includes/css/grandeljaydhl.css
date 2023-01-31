@@ -157,7 +157,8 @@ details.shipping-international-start > div > details > div {
 dialog {
     --border: #a3a3a3;
 
-    margin: auto 100px;
+    max-width: calc(100% - 10px);
+    margin: auto;
     padding: 0;
 
     border: 1px solid var(--border);
@@ -168,6 +169,11 @@ dialog {
         0 4px 4px rgba(0, 0, 0, 0.12),
         0 8px 8px rgba(0, 0, 0, 0.12),
         0 16px 16px rgba(0, 0, 0, 0.12);
+}
+@media (min-width: 1025px) {
+    dialog {
+        margin: auto 112px;
+    }
 }
 dialog[open] {
     animation: 0.4s ease dialog_open;
