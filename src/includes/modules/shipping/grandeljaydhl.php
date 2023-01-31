@@ -39,24 +39,13 @@ class grandeljaydhl extends StdModule
     /**
      * Number type for option inputs
      */
-    private static function inputNumberAttributeStep(): float
-    {
-        $step = 1;
-
-        for ($i = 0; $i < PRICE_PRECISION; $i++) {
-            $step /= 10;
-        }
-
-        return $step;
-    }
-
     public static function inputNumber(string $value, string $option): string
     {
         $html  = '';
         $html .= xtc_draw_input_field(
             'configuration[' . $option . ']',
             $value,
-            sprintf('step="%s" min="0.00"', self::inputNumberAttributeStep()),
+            sprintf('step="any" min="0.00"'),
             false,
             'number'
         );
@@ -158,11 +147,11 @@ class grandeljaydhl extends StdModule
                                     <template id="grandeljaydhl_row">
                                         <div class="row">
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" min="0.00" name="weight" /> Kg
+                                                <input type="number" step="any" min="0.00" name="weight" /> Kg
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" min="0.00" name="cost" /> EUR
+                                                <input type="number" step="any" min="0.00" name="cost" /> EUR
                                             </div>
                                         </div>
                                     </template>
@@ -190,11 +179,11 @@ class grandeljaydhl extends StdModule
                                         ?>
                                         <div class="row">
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" min="0.00" value="<?= $shipping_costs['weight'] ?>" name="weight" /> Kg
+                                                <input type="number" step="any" min="0.00" value="<?= $shipping_costs['weight'] ?>" name="weight" /> Kg
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" min="0.00" value="<?= $shipping_costs['cost'] ?>" name="cost" /> EUR
+                                                <input type="number" step="any" min="0.00" value="<?= $shipping_costs['cost'] ?>" name="cost" /> EUR
                                             </div>
                                         </div>
                                         <?php
@@ -285,7 +274,7 @@ class grandeljaydhl extends StdModule
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" name="surcharge" />
+                                                <input type="number" step="any" name="surcharge" />
                                             </div>
 
                                             <div class="column">
@@ -352,7 +341,7 @@ class grandeljaydhl extends StdModule
                                             </div>
 
                                             <div class="column">
-                                                <input type="number" step="<?= self::inputNumberAttributeStep() ?>" name="surcharge" value="<?= $surcharge['surcharge'] ?>" />
+                                                <input type="number" step="any" name="surcharge" value="<?= $surcharge['surcharge'] ?>" />
                                             </div>
 
                                             <div class="column">
