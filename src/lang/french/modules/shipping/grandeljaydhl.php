@@ -170,9 +170,9 @@ $translations_general = array(
     'SURCHARGES_TYPE_FIXED'                                    => 'Fixe',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Pourcentage',
     'SURCHARGES_DURATION_START_TITLE'                          => 'De',
-    'SURCHARGES_DURATION_START_DESC'                           => 'Facultatif . Date à partir de laquelle le supplément doit s\'appliquer (JJ.MM.)',
+    'SURCHARGES_DURATION_START_DESC'                           => 'En option, vous pouvez choisir. Date à partir de laquelle le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',
-    'SURCHARGES_DURATION_END_DESC'                             => 'Facultatif . Jusqu\'à quelle date le supplément doit s\'appliquer (jj.mm.)',
+    'SURCHARGES_DURATION_END_DESC'                             => 'En option, vous pouvez choisir. Jusqu\'à quelle date le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrondir les frais de port ?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Permet de présenter les frais d\'expédition de manière plus cohérente en arrondissant toujours les montants (à XX,90 € par exemple) vers le haut.',

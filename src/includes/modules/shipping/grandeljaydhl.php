@@ -278,10 +278,6 @@ class grandeljaydhl extends StdModule
                         <tr class="infoBoxContent">
                             <td class="infoBoxContent">
                                 <div class="container">
-                                    <?php
-                                    $regex_dd_mm = '^(01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)\.(01|02|03|04|05|06|07|08|09|10|11|12)\.$'
-                                    ?>
-
                                     <template id="grandeljaydhl_row">
                                         <div class="row">
                                             <div class="column">
@@ -300,11 +296,11 @@ class grandeljaydhl extends StdModule
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" />
+                                                <input type="date" name="duration-start" />
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" />
+                                                <input type="date" name="duration-end" />
                                             </div>
                                         </div>
                                     </template>
@@ -379,11 +375,11 @@ class grandeljaydhl extends StdModule
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-start" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration-start'] ?? '' ?>" />
+                                                <input type="date" name="duration-start" value="<?= $surcharge['duration-start'] ?? '' ?>" />
                                             </div>
 
                                             <div class="column">
-                                                <input type="text" name="duration-end" pattern="<?= $regex_dd_mm ?>" value="<?= $surcharge['duration-end'] ?? '' ?>" />
+                                                <input type="date" name="duration-end" value="<?= $surcharge['duration-end'] ?? '' ?>" />
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -859,40 +855,45 @@ class grandeljaydhl extends StdModule
          */
         $surcharges = json_decode($config->surcharges, true);
 
-        foreach ($surcharges as $surcharge) {
+        foreach ($surcharges as &$surcharge) {
             foreach ($methods as &$method) {
                 $method_cost = $method['cost'];
 
                 if (!empty($surcharge['duration-start']) && !empty($surcharge['duration-end'])) {
                     /** Date now */
-                    $date_now      = new DateTime();
-                    $date_now_year = date('Y', $date_now->getTimestamp());
+                    $date_now = new DateTime();
 
                     /** Duration start */
-                    $duration_start_dd_mm     = explode('.', $surcharge['duration-start']);
-                    $duration_start           = new DateTime(
-                        $date_now_year . '-' .           /** Year (current) */
-                        $duration_start_dd_mm[1] . '-' . /** Month */
-                        $duration_start_dd_mm[0]         /** Day */
-                    );
+                    $duration_start           = new DateTime($surcharge['duration-start']);
                     $duration_start_is_active = $date_now >= $duration_start;
 
-                    /** Duration end */
-                    $duration_end_dd_mm = explode('.', $surcharge['duration-end']);
-                    $duration_end       = new DateTime(
-                        $date_now_year . '-' .         /** Year (current) */
-                        $duration_end_dd_mm[1] . '-' . /** Month */
-                        $duration_end_dd_mm[0]         /** Day */
-                    );
-
-                    if ($duration_end <= $duration_start) {
-                        $duration_end->modify('+1 year');
+                    if ($duration_start_is_active) {
+                        echo 'Today is after ' . $duration_start->format('d.m.Y.') . '.<br />';
                     }
 
-                    $duration_end_is_active = $time <= $duration_end;
+                    /** Duration end */
+                    $duration_end           = new DateTime($surcharge['duration-end']);
+                    $duration_end_is_active = $date_now <= $duration_end;
+
+                    if ($duration_end_is_active) {
+                        echo 'Today is before ' . $duration_end->format('d.m.Y.') . '.<br />';
+                    }
+
+                    /** Automatically update duration years */
+                    if ($date_now > $duration_start && $date_now > $duration_end) {
+                        $new_duration_start = $duration_start->modify('+1 year');
+                        $new_duration_end   = $duration_end->modify('+1 year');
+
+                        $surcharge['duration-start'] = $new_duration_start->format('Y-m-d');
+                        $surcharge['duration-end']   = $new_duration_end->format('Y-m-d');
+                    }
 
                     /** Duration now */
                     $duration_is_now = $duration_start_is_active && $duration_end_is_active;
+
+                    if ($duration_is_now) {
+                        echo 'Duration is now.';
+                    }
 
                     if (!$duration_is_now) {
                         continue;
@@ -910,6 +911,18 @@ class grandeljaydhl extends StdModule
                 }
             }
         }
+
+        /** Update surcharges option */
+        xtc_db_query(
+            sprintf(
+                'UPDATE `%s`
+                    SET `configuration_value` = "%s"
+                  WHERE `configuration_key`   = "%s"',
+                TABLE_CONFIGURATION,
+                addslashes(json_encode($surcharges)),
+                'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES'
+            )
+        );
 
         /** Round up */
         if ('true' === $config->surchargesRoundUp && is_numeric($config->surchargesRoundUpTo)) {

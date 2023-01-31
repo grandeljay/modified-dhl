@@ -171,9 +171,9 @@ $translations_general = array(
     'SURCHARGES_TYPE_FIXED'                                    => 'Fest',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Prozentual',
     'SURCHARGES_DURATION_START_TITLE'                          => 'Von',
-    'SURCHARGES_DURATION_START_DESC'                           => 'Optional. Ab wann der Zuschlag gelten soll (TT.MM.)',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Optional. Ab wann der Zuschlag gelten soll. Jahreszahlen aktualisieren sich automatisch.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Bis',
-    'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Bis wann der Zuschlag gelten soll (TT.MM.)',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Bis wann der Zuschlag gelten soll. Jahreszahlen aktualisieren sich automatisch.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Versandkosten aufrunden?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Ermöglicht es die Versandkosten einheitlicher darzustellen, indem die Beträge immer (auf z. B. XX,90 €) aufgerundet werden.',

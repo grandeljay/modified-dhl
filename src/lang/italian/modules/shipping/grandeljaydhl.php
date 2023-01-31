@@ -169,9 +169,9 @@ $translations_general = array(
     'SURCHARGES_TYPE_FIXED'                                    => 'Fisso',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Percentuale',
     'SURCHARGES_DURATION_START_TITLE'                          => 'Da',
-    'SURCHARGES_DURATION_START_DESC'                           => 'Opzionale. Da quando si applica il supplemento (GG.MM.)',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Opzionale. Da quando si applica il supplemento. I numeri dell\'anno si aggiornano automaticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Fino a quando',
-    'SURCHARGES_DURATION_END_DESC'                             => 'Opzionale. Fino alla data di applicazione del supplemento (GG.MM.)',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Opzionale. Fino a quando non verrà applicata la sovrattassa. I numeri dell\'anno si aggiornano automaticamente.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrotondare i costi di spedizione?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Consente di visualizzare le spese di spedizione in modo più uniforme, arrotondando sempre per eccesso gli importi (ad esempio, a XX,90 €).',

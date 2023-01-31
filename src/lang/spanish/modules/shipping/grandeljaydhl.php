@@ -170,9 +170,9 @@ $translations_general = array(
     'SURCHARGES_TYPE_FIXED'                                    => 'Fijo',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Porcentaje',
     'SURCHARGES_DURATION_START_TITLE'                          => 'En',
-    'SURCHARGES_DURATION_START_DESC'                           => 'Opcional. A partir de cuándo debe aplicarse el recargo (DD.MM.)',
+    'SURCHARGES_DURATION_START_DESC'                           => 'Opcional. A partir de cuándo debe aplicarse el recargo. Los números anuales se actualizan automáticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Hasta',
-    'SURCHARGES_DURATION_END_DESC'                             => 'Opcional. Hasta cuándo debe aplicarse el recargo (DD.MM.)',
+    'SURCHARGES_DURATION_END_DESC'                             => 'Opcional. Hasta cuándo se aplicará el recargo. Los números anuales se actualizan automáticamente.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => '¿Redondear los gastos de envío?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Permite que los gastos de envío se muestren de forma más uniforme redondeando siempre los importes al alza (hasta, por ejemplo, XX,90 €).',

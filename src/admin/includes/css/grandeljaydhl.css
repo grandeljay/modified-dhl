@@ -11,7 +11,7 @@
     background-color: var(--invalid) !important;
 }
 
-.modulbox input[type="number"] {
+.modulbox input:not(:is([type="submit"], [type="button"])) {
     width: 100%;
     padding: 6px 4px;
 
@@ -205,6 +205,8 @@ dialog .modulbox .infoBoxContent :is(input, select) {
 
     /** To avoid outline being cut-off on focus */
     margin: var(--outline);
+
+    box-sizing: border-box;
 }
 dialog .modulbox .infoBoxContent :is(input[name="weight"], input[name="cost"]) {
     text-align: right;
