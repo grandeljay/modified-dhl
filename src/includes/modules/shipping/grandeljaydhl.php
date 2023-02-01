@@ -1006,10 +1006,13 @@ class grandeljaydhl extends StdModule
 
                 switch ($surcharge['type']) {
                     case 'fixed':
-                        $method['cost']                    = $cost_before_surcharges + $surcharge['surcharge'];
+                        $surcharge_amount = $surcharge['surcharge'];
+                        $method_cost      = $method['cost'];
+
+                        $method['cost']                   += $surcharge_amount;
                         $method['debug']['calculations'][] = sprintf(
-                            'Costs before surcharges (%01.2f €) + %s (%01.2f €) = %01.2f €',
-                            $cost_before_surcharges,
+                            'Costs (%01.2f €) + %s (%01.2f €) = %01.2f €',
+                            $method_cost,
                             $surcharge['name'],
                             $surcharge['surcharge'],
                             $method['cost']
@@ -1019,7 +1022,7 @@ class grandeljaydhl extends StdModule
                     case 'percent':
                         $surcharge_amount = $cost_before_surcharges * ($surcharge['surcharge'] / 100);
 
-                        $method['cost']                   += $cost_before_surcharges * ($surcharge['surcharge'] / 100);
+                        $method['cost']                   += $surcharge_amount;
                         $method['debug']['calculations'][] = sprintf(
                             'Costs before surcharges (%01.2f €) * (%s: %d %% (%01.2f €)) = %01.2f €',
                             $cost_before_surcharges,
