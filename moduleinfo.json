@@ -4,7 +4,7 @@
     "sourceDir": "src",
     "version": "auto",
     "shortDescription": "Adds a DHL shipping method.",
-    "description": "Adds a DHL shipping method.",
+    "description": "A modified-shop module which adds a DHL shipping method.\n\n## Features\n\n-   **Variable fields**\n\n    Define variable amount of national and international shipping costs with a user friendly interface (see screenshots).\n\n-   **Automatic zone handling**\n\n    The module known which countries belong to which zones, there is no need to define zones manually.\n\n-   **Surcharges**\n\n    Define variable amount of surcharges such as energy fees, tolls, peak and more. Optionally with a date range!\n\n-   **Rounding**\n\n    Round the resulting shipping costs up to a nice number (which you can define) such as XX.90 €.\n\n-   **Field validation**\n\n    Fields will turn red if the format is incorrect.\n\n-   **Option groups**\n\n    All options are cleanly grouped, further impproving the user experience and intereface.\n\n-   **Expandable fields**\n\n    Instead of painfully finding the right number within your option fields, a friendly popup will appear anytime you want to edit some settings, giving you a better overview of things.",
     "developer": "grandeljay",
     "developerWebsite": "https://github.com/grandeljay",
     "website": "https://github.com/grandeljay/modified-dhl",
