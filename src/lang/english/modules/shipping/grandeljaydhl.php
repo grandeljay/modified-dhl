@@ -195,6 +195,9 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impacts',
     'SURCHARGES_START_DESC'                                    => 'Here you will find all the settings regarding the surcharges. Click on the group to open the settings.',
 
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Costs incurred in assembling and packing the order.',
+
     'SURCHARGES_TITLE'                                         => 'Impacts',
     'SURCHARGES_DESC'                                          => '',
 

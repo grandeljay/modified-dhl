@@ -196,6 +196,9 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impactos',
     'SURCHARGES_START_DESC'                                    => 'Aquí encontrará todos los ajustes relativos a los recargos. Pulse sobre el grupo para abrir los ajustes.',
 
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Recoger y envasar',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Gastos de montaje y embalaje del pedido.',
+
     'SURCHARGES_TITLE'                                         => 'Impactos',
     'SURCHARGES_DESC'                                          => '',
 

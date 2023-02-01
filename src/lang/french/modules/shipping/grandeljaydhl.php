@@ -196,6 +196,9 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Suppléments',
     'SURCHARGES_START_DESC'                                    => 'C\'est ici que se trouvent tous les paramètres relatifs aux majorations. Cliquez sur le groupe pour ouvrir les paramètres.',
 
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Frais encourus pour la préparation et l\'emballage de la commande.',
+
     'SURCHARGES_TITLE'                                         => 'Suppléments',
     'SURCHARGES_DESC'                                          => '',
 

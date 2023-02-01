@@ -197,6 +197,9 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Aufschläge',
     'SURCHARGES_START_DESC'                                    => 'Hier befinden sich alle Einstellungen bezüglich der Aufschläge. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
 
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Kosten die beim zusammenstellen und verpacken der Bestellung entstehen.',
+
     'SURCHARGES_TITLE'                                         => 'Aufschläge',
     'SURCHARGES_DESC'                                          => '',
 

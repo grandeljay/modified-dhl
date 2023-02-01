@@ -195,6 +195,9 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impatti',
     'SURCHARGES_START_DESC'                                    => 'Qui troverà tutte le impostazioni relative ai supplementi. Clicchi sul gruppo per aprire le impostazioni.',
 
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick &amp; Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'I costi sostenuti per l\'assemblaggio e l\'imballaggio dell\'ordine.',
+
     'SURCHARGES_TITLE'                                         => 'Impatti',
     'SURCHARGES_DESC'                                          => '',
 

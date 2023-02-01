@@ -9,9 +9,11 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
+    const MODULE_NAME = 'MODULE_SHIPPING_GRANDELJAYDHL';
     const OPTIONS = [
-        'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS',
-        'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES',
+        MODULE_NAME + '_SHIPPING_NATIONAL_COSTS',
+        MODULE_NAME + '_SURCHARGES',
+        MODULE_NAME + '_SURCHARGES_PICK_AND_PACK'
     ];
 
     OPTIONS.every(function(OPTION) {
@@ -19,11 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return true;
     });
-
-    /** Make field read only */
-    document
-    .querySelector('input[name="configuration[MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS]"]')
-    .setAttribute('readonly', 'readonly');
 });
 
 function expandInputToPopup(option) {
