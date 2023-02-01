@@ -196,9 +196,6 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impactos',
     'SURCHARGES_START_DESC'                                    => 'Aquí encontrará todos los ajustes relativos a los recargos. Pulse sobre el grupo para abrir los ajustes.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Recoger y envasar',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Gastos de montaje y embalaje del pedido.',
-
     'SURCHARGES_TITLE'                                         => 'Impactos',
     'SURCHARGES_DESC'                                          => '',
 
@@ -214,6 +211,9 @@ $translations_general = array(
     'SURCHARGES_DURATION_START_DESC'                           => 'Opcional. A partir de cuándo debe aplicarse el recargo. Los números anuales se actualizan automáticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Hasta',
     'SURCHARGES_DURATION_END_DESC'                             => 'Opcional. Hasta cuándo se aplicará el recargo. Los números anuales se actualizan automáticamente.',
+
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Recoger y envasar',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Gastos de montaje y embalaje del pedido.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => '¿Redondear los gastos de envío?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Permite que los gastos de envío se muestren de forma más uniforme redondeando siempre los importes al alza (hasta, por ejemplo, XX,90 €).',

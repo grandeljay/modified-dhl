@@ -262,103 +262,6 @@ class grandeljaydhl extends StdModule
         return self::groupEnd($value, $option);
     }
 
-    public static function surchargesPickAndPackSet(string $value, string $option): string
-    {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value
-        );
-
-        $config = self::_getConfig();
-
-        ob_start();
-        ?>
-        <dialog id="<?= $option ?>">
-            <div class="modulbox">
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxHeading">
-                            <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= $config->surchargesPickAndPackTitle ?></b></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxContent">
-                            <td class="infoBoxContent">
-                                <div class="container">
-                                    <template id="grandeljaydhl_row">
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                    </template>
-
-                                    <div class="row">
-                                        <div class="column">
-                                            <div>
-                                                <b><?= $config->shippingNationalWeightTitle ?></b><br>
-                                                <?= $config->shippingNationalWeightDesc ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= $config->shippingNationalCostTitle ?></b><br>
-                                                <?= $config->shippingNationalCostDesc ?><br>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php
-                                    $pick_and_pack_costs = json_decode($value, true);
-
-                                    foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
-                                        ?>
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['weight'] ?>" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['cost'] ?>" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                    <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
-            </div>
-        </dialog>
-        <?php
-        $html .= ob_get_clean();
-
-        return $html;
-    }
-
     public static function surchargesSet(string $value, string $option): string
     {
         $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
@@ -514,6 +417,103 @@ class grandeljaydhl extends StdModule
 
         return $html;
     }
+
+    public static function surchargesPickAndPackSet(string $value, string $option): string
+    {
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+
+        $html  = '';
+        $html .= xtc_draw_input_field(
+            'configuration[' . $option . ']',
+            $value
+        );
+
+        $config = self::_getConfig();
+
+        ob_start();
+        ?>
+        <dialog id="<?= $option ?>">
+            <div class="modulbox">
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxHeading">
+                            <td class="infoBoxHeading">
+                                <div class="infoBoxHeadingTitle"><b><?= $config->surchargesPickAndPackTitle ?></b></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxContent">
+                            <td class="infoBoxContent">
+                                <div class="container">
+                                    <template id="grandeljaydhl_row">
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" name="weight" /> Kg
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" name="cost" /> EUR
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <div class="row">
+                                        <div class="column">
+                                            <div>
+                                                <b><?= $config->shippingNationalWeightTitle ?></b><br>
+                                                <?= $config->shippingNationalWeightDesc ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= $config->shippingNationalCostTitle ?></b><br>
+                                                <?= $config->shippingNationalCostDesc ?><br>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                    $pick_and_pack_costs = json_decode($value, true);
+
+                                    foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
+                                        ?>
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['weight'] ?>" name="weight" /> Kg
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['cost'] ?>" name="cost" /> EUR
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div class="row">
+                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttons">
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
+            </div>
+        </dialog>
+        <?php
+        $html .= ob_get_clean();
+
+        return $html;
+    }
     /** */
 
     public function __construct()
@@ -616,9 +616,9 @@ class grandeljaydhl extends StdModule
          */
         $this->addKey('SURCHARGES_START');
 
-            $this->addKey('SURCHARGES_PICK_AND_PACK');
-
             $this->addKey('SURCHARGES');
+
+            $this->addKey('SURCHARGES_PICK_AND_PACK');
 
             $this->addKey('SURCHARGES_ROUND_UP');
             $this->addKey('SURCHARGES_ROUND_UP_TO');
@@ -748,6 +748,30 @@ class grandeljaydhl extends StdModule
          */
         $this->addConfiguration('SURCHARGES_START', $config->surchargesStartTitle, 6, 1, self::class . '::surchargesStartSet(');
 
+            $surcharges = json_encode(
+                array(
+                    array(
+                        'name'      => 'Energiezuschlag',
+                        'surcharge' => 3.75,
+                        'type'      => 'percent',
+                    ),
+                    array(
+                        'name'      => 'Maut',
+                        'surcharge' => 0.12,
+                        'type'      => 'fixed',
+                    ),
+                    array(
+                        'name'           => 'Peak',
+                        'surcharge'      => 4.90,
+                        'type'           => 'fixed',
+                        'duration-start' => date('Y') . '-10-31',
+                        'duration-end'   => date('Y') + 1 . '-01-15',
+                    ),
+                )
+            );
+
+            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
+
             $pick_and_pack = json_encode(
                 array(
                     array(
@@ -774,30 +798,6 @@ class grandeljaydhl extends StdModule
             );
 
             $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, self::class . '::surchargesPickAndPackSet(');
-
-            $surcharges = json_encode(
-                array(
-                    array(
-                        'name'      => 'Energiezuschlag',
-                        'surcharge' => 3.75,
-                        'type'      => 'percent',
-                    ),
-                    array(
-                        'name'      => 'Maut',
-                        'surcharge' => 0.12,
-                        'type'      => 'fixed',
-                    ),
-                    array(
-                        'name'           => 'Peak',
-                        'surcharge'      => 4.90,
-                        'type'           => 'fixed',
-                        'duration-start' => date('Y') . '-10-31',
-                        'duration-end'   => date('Y') + 1 . '-01-15',
-                    ),
-                )
-            );
-
-            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
 
             $this->addConfigurationSelect('SURCHARGES_ROUND_UP', 'true', 6, 1);
             $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, self::class . '::inputNumberRoundUp(');
@@ -919,9 +919,9 @@ class grandeljaydhl extends StdModule
          */
         $this->deleteConfiguration('SURCHARGES_START');
 
-            $this->deleteConfiguration('SURCHARGES_PICK_AND_PACK');
-
             $this->deleteConfiguration('SURCHARGES');
+
+            $this->deleteConfiguration('SURCHARGES_PICK_AND_PACK');
 
             $this->deleteConfiguration('SURCHARGES_ROUND_UP');
             $this->deleteConfiguration('SURCHARGES_ROUND_UP_TO');
@@ -1117,36 +1117,6 @@ class grandeljaydhl extends StdModule
         /**
          * Surcharges
          */
-
-        /** Pick and Pack */
-        foreach ($methods as &$method) {
-            $pick_and_pack_costs = json_decode($config->surchargesPickAndPack, true);
-
-            asort($pick_and_pack_costs);
-
-            foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
-                $max_weight      = floatval($pick_and_pack_cost['weight']);
-                $cost_for_weight = floatval($pick_and_pack_cost['cost']);
-                $cost            = $method['cost'];
-                $method_cost     = $method['cost'] + $cost_for_weight;
-
-                if ($shipping_weight < $max_weight) {
-                    /** Debug mode */
-                    $method['cost']                    = $method_cost;
-                    $method['debug']['calculations'][] = sprintf(
-                        'Costs (%01.2f €) + Pick and Pack (%01.2f €) = %01.2f €',
-                        $cost,
-                        $cost_for_weight,
-                        $method['cost']
-                    );
-                    /** */
-
-                    break;
-                }
-            }
-        }
-
-        /** Surcharges */
         $surcharges_config = json_decode($config->surcharges, true);
         $surcharges        = array();
         $surcharges_update = false;
@@ -1232,6 +1202,34 @@ class grandeljaydhl extends StdModule
                     'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES'
                 )
             );
+        }
+
+        /** Pick and Pack */
+        foreach ($methods as &$method) {
+            $pick_and_pack_costs = json_decode($config->surchargesPickAndPack, true);
+
+            asort($pick_and_pack_costs);
+
+            foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
+                $max_weight      = floatval($pick_and_pack_cost['weight']);
+                $cost_for_weight = floatval($pick_and_pack_cost['cost']);
+                $cost            = $method['cost'];
+                $method_cost     = $method['cost'] + $cost_for_weight;
+
+                if ($shipping_weight < $max_weight) {
+                    /** Debug mode */
+                    $method['cost']                    = $method_cost;
+                    $method['debug']['calculations'][] = sprintf(
+                        'Costs (%01.2f €) + Pick and Pack (%01.2f €) = %01.2f €',
+                        $cost,
+                        $cost_for_weight,
+                        $method['cost']
+                    );
+                    /** */
+
+                    break;
+                }
+            }
         }
 
         /** Round up */

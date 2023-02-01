@@ -195,9 +195,6 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impatti',
     'SURCHARGES_START_DESC'                                    => 'Qui troverà tutte le impostazioni relative ai supplementi. Clicchi sul gruppo per aprire le impostazioni.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick &amp; Pack',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'I costi sostenuti per l\'assemblaggio e l\'imballaggio dell\'ordine.',
-
     'SURCHARGES_TITLE'                                         => 'Impatti',
     'SURCHARGES_DESC'                                          => '',
 
@@ -213,6 +210,9 @@ $translations_general = array(
     'SURCHARGES_DURATION_START_DESC'                           => 'Opzionale. Da quando si applica il supplemento. I numeri dell\'anno si aggiornano automaticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Fino a quando',
     'SURCHARGES_DURATION_END_DESC'                             => 'Opzionale. Fino a quando non verrà applicata la sovrattassa. I numeri dell\'anno si aggiornano automaticamente.',
+
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'I costi sostenuti per l\'assemblaggio e l\'imballaggio dell\'ordine.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrotondare i costi di spedizione?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Consente di visualizzare le spese di spedizione in modo più uniforme, arrotondando sempre per eccesso gli importi (ad esempio, a XX,90 €).',

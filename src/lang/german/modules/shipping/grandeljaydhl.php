@@ -197,9 +197,6 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Aufschläge',
     'SURCHARGES_START_DESC'                                    => 'Hier befinden sich alle Einstellungen bezüglich der Aufschläge. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Kosten die beim zusammenstellen und verpacken der Bestellung entstehen.',
-
     'SURCHARGES_TITLE'                                         => 'Aufschläge',
     'SURCHARGES_DESC'                                          => '',
 
@@ -215,6 +212,9 @@ $translations_general = array(
     'SURCHARGES_DURATION_START_DESC'                           => 'Optional. Ab wann der Zuschlag gelten soll. Jahreszahlen aktualisieren sich automatisch.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Bis',
     'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Bis wann der Zuschlag gelten soll. Jahreszahlen aktualisieren sich automatisch.',
+
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Kosten die beim zusammenstellen und verpacken der Bestellung entstehen.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Versandkosten aufrunden?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Ermöglicht es die Versandkosten einheitlicher darzustellen, indem die Beträge immer (auf z. B. XX,90 €) aufgerundet werden.',

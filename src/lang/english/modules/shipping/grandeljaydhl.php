@@ -195,9 +195,6 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Impacts',
     'SURCHARGES_START_DESC'                                    => 'Here you will find all the settings regarding the surcharges. Click on the group to open the settings.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Costs incurred in assembling and packing the order.',
-
     'SURCHARGES_TITLE'                                         => 'Impacts',
     'SURCHARGES_DESC'                                          => '',
 
@@ -213,6 +210,9 @@ $translations_general = array(
     'SURCHARGES_DURATION_START_DESC'                           => 'Optional. From when the surcharge should apply. Year numbers update automatically.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Until',
     'SURCHARGES_DURATION_END_DESC'                             => 'Optional. Until when the surcharge is to apply. Year numbers update automatically.',
+
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Costs incurred in assembling and packing the order.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Round up shipping costs?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Allows the shipping costs to be displayed more uniformly by always rounding up the amounts (to e.g. XX.90 €).',

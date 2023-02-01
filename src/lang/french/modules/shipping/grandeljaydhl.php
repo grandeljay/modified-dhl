@@ -196,9 +196,6 @@ $translations_general = array(
     'SURCHARGES_START_TITLE'                                   => 'Suppléments',
     'SURCHARGES_START_DESC'                                    => 'C\'est ici que se trouvent tous les paramètres relatifs aux majorations. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Frais encourus pour la préparation et l\'emballage de la commande.',
-
     'SURCHARGES_TITLE'                                         => 'Suppléments',
     'SURCHARGES_DESC'                                          => '',
 
@@ -214,6 +211,9 @@ $translations_general = array(
     'SURCHARGES_DURATION_START_DESC'                           => 'En option, vous pouvez choisir. Date à partir de laquelle le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',
     'SURCHARGES_DURATION_END_DESC'                             => 'En option, vous pouvez choisir. Jusqu\'à quelle date le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
+
+    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Frais encourus pour la préparation et l\'emballage de la commande.',
 
     'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrondir les frais de port ?',
     'SURCHARGES_ROUND_UP_DESC'                                 => 'Permet de présenter les frais d\'expédition de manière plus cohérente en arrondissant toujours les montants (à XX,90 € par exemple) vers le haut.',
