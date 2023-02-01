@@ -1176,7 +1176,7 @@ class grandeljaydhl extends StdModule
 
                         $method['cost']                   += $surcharge_amount;
                         $method['debug']['calculations'][] = sprintf(
-                            'Costs before surcharges (%01.2f €) * (%s: %d %% (%01.2f €)) = %01.2f €',
+                            'Costs before surcharges (%01.2f €) * (%s: %01.2f %% (%01.2f €)) = %01.2f €',
                             $cost_before_surcharges,
                             $surcharge['name'],
                             $surcharge['surcharge'],
