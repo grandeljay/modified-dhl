@@ -42,6 +42,19 @@ $translations_general = array(
     /** */
 
     /**
+     * Maximum weight
+     */
+    'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Maximalgewicht',
+    'SHIPPING_MAX_WEIGHT_DESC'                                 => sprintf(
+        'Maximalgewicht, das ein Artikel haben darf. Überschreibt die %s Option.',
+        sprintf(
+            '<a href="/' . DIR_ADMIN . 'configuration.php?gID=7">%s</a>',
+            defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
+        )
+    ),
+    /** */
+
+    /**
      * National
      */
     'SHIPPING_NATIONAL_START_TITLE'                            => 'Nationaler Versand',

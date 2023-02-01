@@ -432,6 +432,12 @@ class grandeljaydhl extends StdModule
         /** */
 
         /**
+         * Maximum weight
+         */
+        $this->addKey('SHIPPING_MAX_WEIGHT');
+        /** */
+
+        /**
          * National
          */
         $this->addKey('SHIPPING_NATIONAL_START');
@@ -549,6 +555,12 @@ class grandeljaydhl extends StdModule
          * Debug
          */
         $this->addConfigurationSelect('DEBUG_ENABLE', 'false', 6, 1);
+        /** */
+
+        /**
+         * Maximum weight
+         */
+        $this->addConfiguration('SHIPPING_MAX_WEIGHT', SHIPPING_MAX_WEIGHT, 6, 1, self::class . '::inputNumber(');
         /** */
 
         /**
@@ -689,13 +701,19 @@ class grandeljaydhl extends StdModule
         /**
          * Required for modified compatibility
          */
-        $this->deleteConfiguration('ALLOWED', '', 6, 1);
+        $this->deleteConfiguration('ALLOWED');
         /** */
 
         /**
          * Debug
          */
-        $this->deleteConfiguration('DEBUG_ENABLE', '', 6, 1);
+        $this->deleteConfiguration('DEBUG_ENABLE');
+        /** */
+
+        /**
+         * Maximum weight
+         */
+        $this->deleteConfiguration('SHIPPING_MAX_WEIGHT');
         /** */
 
         /**
@@ -797,6 +815,16 @@ class grandeljaydhl extends StdModule
         $methods                    = array();
         $config                     = self::_getConfig();
         $shipping_weight_rounded_up = ceil($shipping_weight);
+
+        /**
+         * Maximum weight
+         */
+        foreach ($order->products as $product) {
+            if ($product['weight'] >= $config->shippingMaxWeight) {
+                return false;
+            }
+        }
+        /** */
 
         /**
          * Shipping costs
@@ -904,7 +932,6 @@ class grandeljaydhl extends StdModule
 
                 $methods[] = $method_paket_international_premium;
             }
-
 
             /**
              * Economy
