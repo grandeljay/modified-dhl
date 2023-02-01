@@ -77,11 +77,15 @@ details > summary::marker {
 details > summary::after {
     transition: 0.2s ease transform;
 
-    padding: 0 0.3418em;
-
-    content: '>';
+    width: 18px;
+    height: 18px;
+    content: '';
 
     text-align: center;
+    background-image: url('../../images/arrow_right.gif');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 details[open] > summary {
     border-bottom: var(--border);
