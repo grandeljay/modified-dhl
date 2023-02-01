@@ -426,6 +426,12 @@ class grandeljaydhl extends StdModule
         $this->checkForUpdate(true);
 
         /**
+         * Debug
+         */
+        $this->addKey('DEBUG_ENABLE');
+        /** */
+
+        /**
          * National
          */
         $this->addKey('SHIPPING_NATIONAL_START');
@@ -537,6 +543,12 @@ class grandeljaydhl extends StdModule
          * Required for modified compatibility
          */
         $this->addConfiguration('ALLOWED', '', 6, 1);
+        /** */
+
+        /**
+         * Debug
+         */
+        $this->addConfigurationSelect('DEBUG_ENABLE', 'false', 6, 1);
         /** */
 
         /**
@@ -681,6 +693,12 @@ class grandeljaydhl extends StdModule
         /** */
 
         /**
+         * Debug
+         */
+        $this->deleteConfiguration('DEBUG_ENABLE', '', 6, 1);
+        /** */
+
+        /**
          * National
          */
         $this->deleteConfiguration('SHIPPING_NATIONAL_START');
@@ -775,9 +793,10 @@ class grandeljaydhl extends StdModule
 
         require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
 
-        $country_delivery = new grandeljaydhl_country($order->delivery['country']);
-        $methods          = array();
-        $config           = self::_getConfig();
+        $country_delivery           = new grandeljaydhl_country($order->delivery['country']);
+        $methods                    = array();
+        $config                     = self::_getConfig();
+        $shipping_weight_rounded_up = ceil($shipping_weight);
 
         /**
          * Shipping costs
@@ -791,25 +810,32 @@ class grandeljaydhl extends StdModule
                 'id'    => 'paket-national',
                 'title' => 'DHL Paket',
                 'cost'  => 0,
+                'debug' => array(
+                    'calculations' => array(),
+                ),
             );
 
             $shipping_national_costs = json_decode($config->shippingNationalCosts, true);
 
             asort($shipping_national_costs);
 
-            $cost_to_add = 0;
-
             foreach ($shipping_national_costs as $shipping_national_cost) {
-                $max_weight      = floatval($shipping_national_cost['weight']);
-                $cost_for_weight = floatval($shipping_national_cost['cost']);
-                $cost_to_add     = $cost_for_weight;
+                $max_weight                    = floatval($shipping_national_cost['weight']);
+                $cost_for_weight               = floatval($shipping_national_cost['cost']);
+                $method_paket_national['cost'] = $cost_for_weight;
 
                 if ($shipping_weight < $max_weight) {
+                    /** Debug mode */
+                    $method_paket_national['debug']['calculations'][] = sprintf(
+                        'Costs = National shipping (%01.2f €)',
+                        $method_paket_national['cost'],
+                        $method_paket_national['cost']
+                    );
+                    /** */
+
                     break;
                 }
             }
-
-            $method_paket_national['cost'] += $cost_to_add;
 
             $methods[] = $method_paket_national;
         }
@@ -818,45 +844,62 @@ class grandeljaydhl extends StdModule
         $shipping_is_international = !$shipping_is_national;
 
         if ($shipping_is_international) {
+            $zone = $country_delivery->getZone();
+
             /**
              * Premium
              */
             if ('true' === $config->shippingInternationalPremiumEnable) {
-                $cost = 0;
+                $method_paket_international_premium = array(
+                    'id'    => 'paket-international-premium',
+                    'title' => 'DHL Paket (Premium)',
+                    'cost'  => 0,
+                    'debug' => array(
+                        'calculations' => array(),
+                    ),
+                );
 
                 /** Determine config keys for zone price */
-                for ($zone = 1; $zone <= 6; $zone++) {
-                    if ($zone === $country_delivery->getZone()) {
-                        /** Base */
-                        $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
-                        $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
-                        $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
 
-                        /** Kilogram */
-                        $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
-                        $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
-                        $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
+                /** Base */
+                $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
+                $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
+                $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
 
-                        /** Add costs */
-                        if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                            $cost += $config->$config_key_base;
-                            $cost += $config->$config_key_kg * $shipping_weight;
-                        } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
-                            if ($country_delivery->getIsEU()) {
-                                $cost += $config->$config_key_base_eu;
-                                $cost += $config->$config_key_kg_eu * $shipping_weight;
-                            } else {
-                                $cost += $config->$config_key_base_noneu;
-                                $cost += $config->$config_key_kg_noneu * $shipping_weight;
-                            }
+                /** Kilogram */
+                $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
+                $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
+                $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
+
+                /** Add costs */
+                $price_base = 0;
+                $price_kg   = 0;
+
+                if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                    $price_base = $config->$config_key_base;
+                    $price_kg   = $config->$config_key_kg;
+                } else {
+                    if ($country_delivery->getIsEU()) {
+                        if (isset($config->$config_key_base_eu, $config->$config_key_kg_eu)) {
+                            $price_base = $config->$config_key_base_eu;
+                            $price_kg   = $config->$config_key_kg_eu;
+                        }
+                    } else {
+                        if (isset($config->$config_key_base_noneu, $config->$config_key_kg_noneu)) {
+                            $price_base = $config->$config_key_base_noneu;
+                            $price_kg   = $config->$config_key_kg_noneu;
                         }
                     }
                 }
 
-                $method_paket_international_premium = array(
-                    'id'    => 'paket-international-premium',
-                    'title' => 'DHL Paket (Premium)',
-                    'cost'  => $cost,
+                $method_paket_international_premium['cost']                    = $price_base + $price_kg * $shipping_weight_rounded_up;
+                $method_paket_international_premium['debug']['calculations'][] = sprintf(
+                    'Costs = Base price for Zone %d (%01.2f €) + kg price (%01.2f €) * shipping weight (%01.2f kg) = %01.2f €',
+                    $zone,
+                    $price_base,
+                    $price_kg,
+                    $shipping_weight_rounded_up,
+                    $method_paket_international_premium['cost']
                 );
 
                 $methods[] = $method_paket_international_premium;
@@ -867,41 +910,52 @@ class grandeljaydhl extends StdModule
              * Economy
              */
             if ('true' === $config->shippingInternationalEconomyEnable) {
-                $cost = 0;
-
-                /** Determine config keys for zone price */
-                for ($zone = 1; $zone <= 6; $zone++) {
-                    if ($zone === $country_delivery->getZone()) {
-                        /** Base */
-                        $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
-                        $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
-                        $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
-
-                        /** Kilogram */
-                        $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
-                        $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
-                        $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
-
-                        /** Add costs */
-                        if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                            $cost += $config->$config_key_base;
-                            $cost += $config->$config_key_kg * $shipping_weight;
-                        } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
-                            if ($country_delivery->getIsEU()) {
-                                $cost += $config->$config_key_base_eu;
-                                $cost += $config->$config_key_kg_eu * $shipping_weight;
-                            } else {
-                                $cost += $config->$config_key_base_noneu;
-                                $cost += $config->$config_key_kg_noneu * $shipping_weight;
-                            }
-                        }
-                    }
-                }
-
                 $method_paket_international_economy = array(
                     'id'    => 'paket-international-economy',
                     'title' => 'DHL Paket (Economy)',
-                    'cost'  => $cost,
+                    'cost'  => 0,
+                    'debug' => array(
+                        'calculations' => array(),
+                    ),
+                );
+
+                /** Determine config keys for zone price */
+
+                /** Base */
+                $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
+                $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
+                $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
+
+                /** Kilogram */
+                $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
+                $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
+                $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
+
+                /** Add costs */
+                $price_base = 0;
+                $price_kg   = 0;
+
+                if (isset($config->$config_key_base, $config->$config_key_kg)) {
+                    $price_base = $config->$config_key_base;
+                    $price_kg   = $config->$config_key_kg;
+                } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
+                    if ($country_delivery->getIsEU()) {
+                        $price_base = $config->$config_key_base_eu;
+                        $price_kg   = $config->$config_key_kg_eu;
+                    } else {
+                        $price_base = $config->$config_key_base_noneu;
+                        $price_kg   = $config->$config_key_kg_noneu;
+                    }
+                }
+
+                $method_paket_international_economy['cost']                    = $price_base + $price_kg * $shipping_weight_rounded_up;
+                $method_paket_international_economy['debug']['calculations'][] = sprintf(
+                    'Costs = Base price for Zone %d (%01.2f €) + kg price (%01.2f €) * shipping weight (%01.2f kg) = %01.2f €',
+                    $zone,
+                    $price_base,
+                    $price_kg,
+                    $shipping_weight_rounded_up,
+                    $method_paket_international_economy['cost']
                 );
 
                 $methods[] = $method_paket_international_economy;
@@ -911,12 +965,14 @@ class grandeljaydhl extends StdModule
         /**
          * Surcharges
          */
-        $surcharges = json_decode($config->surcharges, true);
+        $surcharges_config = json_decode($config->surcharges, true);
+        $surcharges        = array();
+        $surcharges_update = false;
 
-        foreach ($surcharges as &$surcharge) {
-            foreach ($methods as &$method) {
-                $method_cost = $method['cost'];
+        foreach ($methods as &$method) {
+            $cost_before_surcharges = $method['cost'];
 
+            foreach ($surcharges_config as $surcharge) {
                 if (!empty($surcharge['duration-start']) && !empty($surcharge['duration-end'])) {
                     /** Date now */
                     $date_now = new DateTime();
@@ -936,6 +992,8 @@ class grandeljaydhl extends StdModule
 
                         $surcharge['duration-start'] = $new_duration_start->format('Y-m-d');
                         $surcharge['duration-end']   = $new_duration_end->format('Y-m-d');
+
+                        $surcharges_update = true;
                     }
 
                     /** Duration now */
@@ -948,58 +1006,106 @@ class grandeljaydhl extends StdModule
 
                 switch ($surcharge['type']) {
                     case 'fixed':
-                        $method['cost'] += $surcharge['surcharge'];
+                        $method['cost']                    = $cost_before_surcharges + $surcharge['surcharge'];
+                        $method['debug']['calculations'][] = sprintf(
+                            'Costs before surcharges (%01.2f €) + %s (%01.2f €) = %01.2f €',
+                            $cost_before_surcharges,
+                            $surcharge['name'],
+                            $surcharge['surcharge'],
+                            $method['cost']
+                        );
                         break;
 
                     case 'percent':
-                        $method['cost'] += $method_cost * ($surcharge['surcharge'] / 100);
+                        $surcharge_amount = $cost_before_surcharges * ($surcharge['surcharge'] / 100);
+
+                        $method['cost']                   += $cost_before_surcharges * ($surcharge['surcharge'] / 100);
+                        $method['debug']['calculations'][] = sprintf(
+                            'Costs before surcharges (%01.2f €) * (%s: %d %% (%01.2f €)) = %01.2f €',
+                            $cost_before_surcharges,
+                            $surcharge['name'],
+                            $surcharge['surcharge'],
+                            $surcharge_amount,
+                            $method['cost']
+                        );
                         break;
                 }
             }
+
+            $surcharges[] = $surcharge;
         }
 
         /** Update surcharges option */
-        xtc_db_query(
-            sprintf(
-                'UPDATE `%s`
-                    SET `configuration_value` = "%s"
-                  WHERE `configuration_key`   = "%s"',
-                TABLE_CONFIGURATION,
-                addslashes(json_encode($surcharges)),
-                'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES'
-            )
-        );
+        if ($surcharges_update) {
+            xtc_db_query(
+                sprintf(
+                    'UPDATE `%s`
+                        SET `configuration_value` = "%s"
+                      WHERE `configuration_key`   = "%s"',
+                    TABLE_CONFIGURATION,
+                    addslashes(json_encode($surcharges)),
+                    'MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES'
+                )
+            );
+        }
 
         /** Round up */
         if ('true' === $config->surchargesRoundUp && is_numeric($config->surchargesRoundUpTo)) {
             $config->surchargesRoundUpTo = (float) $config->surchargesRoundUpTo;
 
             foreach ($methods as &$method) {
-                $cost            = $method['cost'];
-                $number_whole    = floor($cost);
-                $number_decimals = round($cost - $number_whole, 2);
+                $method_cost     = $method['cost'];
+                $number_whole    = floor($method_cost);
+                $number_decimals = round($method_cost - $number_whole, 2);
 
-                $round_up_to = $cost;
+                $round_up_to = $method_cost;
 
                 if ($number_decimals > $config->surchargesRoundUpTo) {
-                    $round_up_to = ceil($cost) + $config->surchargesRoundUpTo;
+                    $round_up_to = ceil($method_cost) + $config->surchargesRoundUpTo;
                 }
 
                 if ($number_decimals < $config->surchargesRoundUpTo) {
                     $round_up_to = $number_whole + $config->surchargesRoundUpTo;
                 }
 
+                $method['debug']['calculations'][] = sprintf(
+                    'Costs (%01.2f €) round up to %01.2f = %01.2f',
+                    $method_cost,
+                    $config->surchargesRoundUpTo,
+                    $round_up_to
+                );
+
                 $method['cost'] = $round_up_to;
             }
         }
         /** */
 
-        /** Finish up */
+        /** Debug mode */
+        if ('true' === $config->debugEnable) {
+            foreach ($methods as &$method) {
+                ob_start();
+                ?>
+                <br /><br />
+
+                <h3>Debug mode</h3>
+
+                <?php foreach ($method['debug']['calculations'] as $calculation) { ?>
+                    <p><?= $calculation ?></p>
+                <?php } ?>
+                <?php
+                $method['title'] .= ob_get_clean();
+            }
+        }
+        /** */
+
+        /**
+         * Finish up
+         */
         $quote = array(
             'id'      => $this->code,
             'module'  => sprintf(
-                'DHL Paket (%s kg)',
-                round($shipping_weight, 2)
+                'DHL Paket (%01.1f kg)',
+                $shipping_weight
             ),
             'methods' => $methods,
         );

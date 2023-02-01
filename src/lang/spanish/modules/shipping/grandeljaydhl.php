@@ -35,6 +35,13 @@ $translations_general = array(
     /** */
 
     /**
+     * Debug
+     */
+    'DEBUG_ENABLE_TITLE'                                       => 'Modo depuración',
+    'DEBUG_ENABLE_DESC'                                        => '¿Activar el modo de depuración? Se muestra información adicional, por ejemplo, cómo se han calculado los gastos de envío.',
+    /** */
+
+    /**
      * National
      */
     'SHIPPING_NATIONAL_START_TITLE'                            => 'Transporte marítimo nacional',

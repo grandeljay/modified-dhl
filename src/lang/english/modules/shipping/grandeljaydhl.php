@@ -35,6 +35,13 @@ $translations_general = array(
     /** */
 
     /**
+     * Debug
+     */
+    'DEBUG_ENABLE_TITLE'                                       => 'Debug mode',
+    'DEBUG_ENABLE_DESC'                                        => 'Activate debug mode? Additional information is displayed, e.g. how the shipping costs were calculated.',
+    /** */
+
+    /**
      * National
      */
     'SHIPPING_NATIONAL_START_TITLE'                            => 'National shipping',
