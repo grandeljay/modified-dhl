@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 - 2023-02-01
+
+### Added
+
+-   Option to enable/disable premium/economy methods
+-   Debug option to show how shipping costs are calculated (only visible to admins)
+-   Option to hide shipping method if a single product weighs more than a predefined amount.
+
+### Improved
+
+-   Many new design improvements.
+-   Number precision is no longer limited to the `PRICE_PRECISION` option.
+
+### Fixed
+
+-   Surcharge durations. You must now enter the year of a duration. It will automatically update if it is in the past.
+
 ## 0.2.1 - 2023-01-30
 
 ### Added
