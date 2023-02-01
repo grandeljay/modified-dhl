@@ -1111,7 +1111,9 @@ class grandeljaydhl extends StdModule
         /** */
 
         /** Debug mode */
-        if ('true' === $config->debugEnable) {
+        $user_is_admin = isset($_SESSION['customers_status']['customers_status_id']) && 0 === (int) $_SESSION['customers_status']['customers_status_id'];
+
+        if ('true' === $config->debugEnable && $user_is_admin) {
             foreach ($methods as &$method) {
                 ob_start();
                 ?>

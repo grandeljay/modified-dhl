@@ -38,7 +38,7 @@ $translations_general = array(
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Debug-Modus',
-    'DEBUG_ENABLE_DESC'                                        => 'Debug-Modus aktivieren? Es werden zusätzliche Informationen angezeigt z. B. wie die Versandkosten errechnet wurden.',
+    'DEBUG_ENABLE_DESC'                                        => 'Debug-Modus aktivieren? Es werden zusätzliche Informationen angezeigt z. B. wie die Versandkosten errechnet wurden. Nur für Admins sichtbar.',
     /** */
 
     /**

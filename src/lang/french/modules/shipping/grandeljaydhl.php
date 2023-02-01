@@ -38,7 +38,7 @@ $translations_general = array(
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Mode de débogage',
-    'DEBUG_ENABLE_DESC'                                        => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés.',
+    'DEBUG_ENABLE_DESC'                                        => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés. Visible uniquement par les admins.',
     /** */
 
     /**
