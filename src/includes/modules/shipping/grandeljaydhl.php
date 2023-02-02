@@ -177,6 +177,8 @@ class grandeljaydhl extends StdModule
                                     <?php
                                     $shipping_costs = json_decode($value, true);
 
+                                    asort($shipping_costs);
+
                                     foreach ($shipping_costs as $shipping_cost) {
                                         ?>
                                         <div class="row">
@@ -479,6 +481,8 @@ class grandeljaydhl extends StdModule
 
                                     <?php
                                     $pick_and_pack_costs = json_decode($value, true);
+
+                                    asort($pick_and_pack_costs);
 
                                     foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
                                         ?>
