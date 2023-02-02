@@ -637,19 +637,6 @@ class grandeljaydhl extends StdModule
 
         $config = self::_getConfig();
 
-        $prices_national = json_encode(
-            array(
-                array(
-                    'weight' => 20,
-                    'cost'   => 4.06,
-                ),
-                array(
-                    'weight' => 31.5,
-                    'cost'   => 4.90,
-                ),
-            ),
-        );
-
         /**
          * Required for modified compatibility
          */
@@ -665,7 +652,7 @@ class grandeljaydhl extends StdModule
         /**
          * Maximum weight
          */
-        $this->addConfiguration('SHIPPING_MAX_WEIGHT', SHIPPING_MAX_WEIGHT, 6, 1, self::class . '::inputNumber(');
+        $this->addConfiguration('SHIPPING_MAX_WEIGHT', 31.5, 6, 1, self::class . '::inputNumber(');
         /** */
 
         /**
@@ -673,8 +660,21 @@ class grandeljaydhl extends StdModule
          */
         $this->addConfiguration('SHIPPING_NATIONAL_START', $config->shippingNationalStartTitle, 6, 1, self::class . '::nationalStartSet(');
 
-        $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, self::class . '::nationalCountrySet(');
-        $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, self::class . '::nationalCostsSet(');
+            $prices_national = json_encode(
+                array(
+                    array(
+                        'weight' => 20,
+                        'cost'   => 4.06,
+                    ),
+                    array(
+                        'weight' => 31.5,
+                        'cost'   => 4.90,
+                    ),
+                ),
+            );
+
+            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, self::class . '::nationalCountrySet(');
+            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, self::class . '::nationalCostsSet(');
 
         $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, self::class . '::nationalEndSet(');
         /** */
@@ -936,14 +936,13 @@ class grandeljaydhl extends StdModule
 
     public function quote()
     {
-        global $order, $shipping_weight;
+        global $order;
 
         require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
 
-        $country_delivery           = new grandeljaydhl_country($order->delivery['country']);
-        $methods                    = array();
-        $config                     = self::_getConfig();
-        $shipping_weight_rounded_up = ceil($shipping_weight);
+        $country_delivery = new grandeljaydhl_country($order->delivery['country']);
+        $methods          = array();
+        $config           = self::_getConfig();
 
         /**
          * Maximum weight
@@ -958,9 +957,28 @@ class grandeljaydhl extends StdModule
         /**
          * Amount of boxes
          */
-        global $shipping_num_boxes;
+        global $total_weight;
 
-        $grandeljaydhl_shipping_num_boxes = ceil($shipping_weight / $config->shippingMaxWeight);
+        $boxes = array();
+        $box   = array(
+            'weight'   => 0,
+            'products' => array(),
+        );
+
+        foreach ($order->products as $product) {
+            for ($i = 1; $i <= $product['quantity']; $i++) {
+                if ($box['weight'] + $product['weight'] < $config->shippingMaxWeight) {
+                    $box['weight']    += $product['weight'];
+                    $box['products'][] = $product['id'];
+                } else {
+                    $boxes[] = $box;
+                    $box     = array(
+                        'weight'   => 0,
+                        'products' => array(),
+                    );
+                }
+            }
+        }
         /** */
 
         /**
@@ -984,21 +1002,26 @@ class grandeljaydhl extends StdModule
 
             asort($shipping_national_costs);
 
-            foreach ($shipping_national_costs as $shipping_national_cost) {
-                $max_weight                    = floatval($shipping_national_cost['weight']);
-                $cost_for_weight               = floatval($shipping_national_cost['cost']);
-                $method_paket_national['cost'] = $cost_for_weight;
+            foreach ($boxes as $box_index => $box) {
+                foreach ($shipping_national_costs as $shipping_national_cost) {
+                    $weight_max  = floatval($shipping_national_cost['weight']);
+                    $weight_cost = floatval($shipping_national_cost['cost']);
 
-                if ($shipping_weight < $max_weight) {
-                    /** Debug mode */
-                    $method_paket_national['debug']['calculations'][] = sprintf(
-                        'Costs = National shipping (%01.2f €)',
-                        $method_paket_national['cost'],
-                        $method_paket_national['cost']
-                    );
-                    /** */
+                    if ($box['weight'] <= $weight_max) {
+                        $costs_before = $method_paket_national['cost'];
 
-                    break;
+                        $method_paket_national['cost']                   += $weight_cost;
+                        $method_paket_national['debug']['calculations'][] = sprintf(
+                            'Costs (%01.2f €) + National shipping (%01.2f €) for box %d / %d = %01.2f €',
+                            $costs_before,
+                            $weight_cost,
+                            $box_index + 1,
+                            count($boxes),
+                            $method_paket_national['cost']
+                        );
+
+                        break;
+                    }
                 }
             }
 
@@ -1057,15 +1080,19 @@ class grandeljaydhl extends StdModule
                     }
                 }
 
-                $method_paket_international_premium['cost']                    = $price_base + $price_kg * $shipping_weight_rounded_up;
-                $method_paket_international_premium['debug']['calculations'][] = sprintf(
-                    'Costs = Base price for Zone %d (%01.2f €) + kg price (%01.2f €) * shipping weight (%01.2f kg) = %01.2f €',
-                    $zone,
-                    $price_base,
-                    $price_kg,
-                    $shipping_weight_rounded_up,
-                    $method_paket_international_premium['cost']
-                );
+                foreach ($boxes as $box_index => $box) {
+                    $costs_before = $method_paket_international_premium['cost'];
+
+                    $method_paket_international_premium['cost']                   += $price_base + $price_kg;
+                    $method_paket_international_premium['debug']['calculations'][] = sprintf(
+                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) = %01.2f €',
+                        $costs_before,
+                        $zone,
+                        $price_base,
+                        $price_kg,
+                        $method_paket_international_premium['cost']
+                    );
+                }
 
                 $methods[] = $method_paket_international_premium;
             }
@@ -1112,15 +1139,19 @@ class grandeljaydhl extends StdModule
                     }
                 }
 
-                $method_paket_international_economy['cost']                    = $price_base + $price_kg * $shipping_weight_rounded_up;
-                $method_paket_international_economy['debug']['calculations'][] = sprintf(
-                    'Costs = Base price for Zone %d (%01.2f €) + kg price (%01.2f €) * shipping weight (%01.2f kg) = %01.2f €',
-                    $zone,
-                    $price_base,
-                    $price_kg,
-                    $shipping_weight_rounded_up,
-                    $method_paket_international_economy['cost']
-                );
+                foreach ($boxes as $box_index => $box) {
+                    $costs_before = $method_paket_international_economy['cost'];
+
+                    $method_paket_international_economy['cost']                   += $price_base + $price_kg;
+                    $method_paket_international_economy['debug']['calculations'][] = sprintf(
+                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) = %01.2f €',
+                        $costs_before,
+                        $zone,
+                        $price_base,
+                        $price_kg,
+                        $method_paket_international_economy['cost']
+                    );
+                }
 
                 $methods[] = $method_paket_international_economy;
             }
@@ -1222,24 +1253,26 @@ class grandeljaydhl extends StdModule
 
             asort($pick_and_pack_costs);
 
-            foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
-                $max_weight      = floatval($pick_and_pack_cost['weight']);
-                $cost_for_weight = floatval($pick_and_pack_cost['cost']);
-                $cost            = $method['cost'];
-                $method_cost     = $method['cost'] + $cost_for_weight;
+            foreach ($boxes as $box_index => $box) {
+                foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
+                    $weight_max  = floatval($pick_and_pack_cost['weight']);
+                    $weight_cost = floatval($pick_and_pack_cost['cost']);
 
-                if ($shipping_weight < $max_weight) {
-                    /** Debug mode */
-                    $method['cost']                    = $method_cost;
-                    $method['debug']['calculations'][] = sprintf(
-                        'Costs (%01.2f €) + Pick and Pack (%01.2f €) = %01.2f €',
-                        $cost,
-                        $cost_for_weight,
-                        $method['cost']
-                    );
-                    /** */
+                    if ($box['weight'] <= $weight_max) {
+                        $cost_before = $method['cost'];
 
-                    break;
+                        $method['cost']                   += $weight_cost;
+                        $method['debug']['calculations'][] = sprintf(
+                            'Costs (%01.2f €) + Pick and Pack (%01.2f €) for box %d / %d = %01.2f €',
+                            $cost_before,
+                            $weight_cost,
+                            $box_index + 1,
+                            count($boxes),
+                            $method['cost']
+                        );
+
+                        break;
+                    }
                 }
             }
         }
@@ -1298,11 +1331,44 @@ class grandeljaydhl extends StdModule
         /**
          * Finish up
          */
+
+        /** Weight string */
+        $boxes_weight = array();
+
+        foreach ($boxes as $box) {
+            $key = $box['weight'] . ' kg';
+
+            if (isset($boxes_weight[$key])) {
+                $boxes_weight[$key]++;
+            } else {
+                $boxes_weight[$key] = 1;
+            }
+        }
+
+        $boxes_weight_unique = array_unique($boxes_weight);
+
+        arsort($boxes_weight_unique);
+
+        $boxes_weight_text = array();
+
+        foreach ($boxes_weight_unique as $weight_text => $quantity) {
+            preg_match('/[\d+\.]+/', $weight_text, $weight_matches);
+
+            $weight = round($weight_matches[0], 2) . ' kg';
+
+            $boxes_weight_text[] = sprintf(
+                '%dx %s',
+                $quantity,
+                $weight
+            );
+        }
+
+        /** Quote */
         $quote = array(
             'id'      => $this->code,
             'module'  => sprintf(
-                'DHL Paket (%01.1f kg)',
-                $shipping_weight
+                'DHL Paket (%s)',
+                implode(', ', $boxes_weight_text)
             ),
             'methods' => $methods,
         );
