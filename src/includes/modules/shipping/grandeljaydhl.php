@@ -936,7 +936,7 @@ class grandeljaydhl extends StdModule
 
     public function quote()
     {
-        global $order, $shipping_weight, $shipping_num_boxes;
+        global $order, $shipping_weight;
 
         require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
 
@@ -953,6 +953,14 @@ class grandeljaydhl extends StdModule
                 return false;
             }
         }
+        /** */
+
+        /**
+         * Amount of boxes
+         */
+        global $shipping_num_boxes;
+
+        $grandeljaydhl_shipping_num_boxes = ceil($shipping_weight / $config->shippingMaxWeight);
         /** */
 
         /**
