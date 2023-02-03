@@ -109,7 +109,7 @@ details > summary > :is(h1, h2, h3, h4, h5, h6) {
     text-overflow: ellipsis;
 }
 details[open] > summary > :is(h1, h2, h3, h4, h5, h6) {
-    white-space: normal
+    white-space: normal;
 }
 details > summary > h1 {
     font-size: 1.12em;
