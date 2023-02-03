@@ -193,13 +193,18 @@ dialog[open] {
 }
 
 dialog#MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES {
-    --columns: 5;
+    --columns: 6;
+
+    margin: auto 13px;
 }
 
 dialog .modulbox {
     width: auto;
     max-width: 800px;
     margin: 0;
+}
+dialog#MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES .modulbox {
+    max-width: 998px;
 }
 
 dialog .modulbox .contentTable,
@@ -218,17 +223,21 @@ dialog .modulbox td.infoBoxContent {
 }
 dialog .modulbox td.infoBoxContent > .container {
     max-height: 60vh;
-    padding: 4px 10px;
+    padding: 10px;
 
     overflow: auto;
 }
 
 /** Rows */
 dialog .row {
+    --gapX: 4px;
+    --gapY: 4px;
+    --gap: var(--gapY) var(--gapX);
+
     display: flex;
-    gap: 4px 10px;
+    gap: var(--gap);
     justify-content: space-between;
-    margin-bottom: 0.8em;
+    margin-bottom: var(--gapY);
 }
 dialog .row:last-child {
     margin-bottom: 0;
@@ -236,21 +245,36 @@ dialog .row:last-child {
 
 /** Columns */
 dialog .row > .column {
-    --columnWidth: calc(100% / var(--columns));
+    --columnWidth: calc(100% / var(--columns) + (var(--columns) * 2px) - var(--gapX));
 
-    flex: 1 1 var(--columnWidth);
+    flex: 0 0 var(--columnWidth);
 
     display: flex;
     gap: 4px;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: baseline;
+    overflow: hidden;
+}
+dialog#MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES .row > .column {
+    align-items: center;
+}
+dialog#MODULE_SHIPPING_GRANDELJAYDHL_SURCHARGES .row:first-of-type > .column {
+    align-items: baseline;
+}
+
+dialog .row > .column.select-option {
+    flex-basis: 100px;
+}
+
+dialog .row > .column > label {
+    width: 100%;
 }
 
 /** Inputs */
 dialog .modulbox .infoBoxContent :is(input, select) {
     width: 100% !important;
-    height: 100%;
+    height: auto;
     flex: 1 1 auto;
 
     /** To avoid outline being cut-off on focus */
@@ -258,13 +282,18 @@ dialog .modulbox .infoBoxContent :is(input, select) {
 
     box-sizing: border-box;
 }
+dialog .modulbox .infoBoxContent input[type="checkbox"] {
+    width: auto !important;
+    margin: 0 0 0 1px;
+    transform: scale(1.2);
+}
 dialog .modulbox .infoBoxContent :is(input[name="weight"], input[name="cost"]) {
     text-align: right;
 }
 
 /** Buttons */
 dialog > .buttons {
-    padding: 4px 10px;
+    padding: 10px;
 }
 
 dialog button {
@@ -283,5 +312,17 @@ dialog button {
 }
 dialog button[name="grandeljaydhl_add"] {
     width: 100%;
-    margin: 0;
+    max-width: 256px;
+    margin: auto;
+}
+
+/** Radio */
+dialog .cfg_select_option {
+    display: flex;
+}
+dialog .cfg_select_option > label {
+    flex: 1 1 50%;
+
+    user-select: none;
+    text-align: center;
 }

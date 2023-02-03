@@ -32,14 +32,12 @@ $translations_general = array(
      */
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
-    /** */
 
     /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Debug mode',
     'DEBUG_ENABLE_DESC'                                        => 'Activate debug mode? Additional information is displayed, e.g. how the shipping costs were calculated. Only visible for admins.',
-    /** */
 
     /**
      * Maximum weight
@@ -52,7 +50,6 @@ $translations_general = array(
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
         )
     ),
-    /** */
 
     /**
      * National
@@ -97,6 +94,7 @@ $translations_general = array(
 
     'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_TITLE'              => 'Activate Premium Shipping?',
     'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_DESC'               => '',
+
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Premium Base Price (EU)',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
     'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Premium Base Price (Non EU)',
@@ -206,6 +204,8 @@ $translations_general = array(
     'SURCHARGES_TYPE_DESC'                                     => 'What kind of surcharge are we talking about?',
     'SURCHARGES_TYPE_FIXED'                                    => 'Fixed',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Percentage',
+    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Per package',
+    'SURCHARGES_PER_PACKAGE_DESC'                              => 'The surcharge is calculated for each package.',
     'SURCHARGES_DURATION_START_TITLE'                          => 'From',
     'SURCHARGES_DURATION_START_DESC'                           => 'Optional. From when the surcharge should apply. Year numbers update automatically.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Until',

@@ -32,14 +32,12 @@ $translations_general = array(
      */
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
-    /** */
 
     /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Debug-Modus',
     'DEBUG_ENABLE_DESC'                                        => 'Debug-Modus aktivieren? Es werden zusätzliche Informationen angezeigt z. B. wie die Versandkosten errechnet wurden. Nur für Admins sichtbar.',
-    /** */
 
     /**
      * Maximum weight
@@ -52,7 +50,6 @@ $translations_general = array(
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
         )
     ),
-    /** */
 
     /**
      * National
@@ -84,7 +81,6 @@ $translations_general = array(
 
     'SHIPPING_NATIONAL_END_TITLE'                              => '',
     'SHIPPING_NATIONAL_END_DESC'                               => '',
-    /** */
 
     /**
      * International
@@ -208,6 +204,8 @@ $translations_general = array(
     'SURCHARGES_TYPE_DESC'                                     => 'Um was für einen Aufschlag handelt es sich?',
     'SURCHARGES_TYPE_FIXED'                                    => 'Fest',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Prozentual',
+    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Pro Paket',
+    'SURCHARGES_PER_PACKAGE_DESC'                              => 'Der Aufschlag wird für jedes Paket berechnet.',
     'SURCHARGES_DURATION_START_TITLE'                          => 'Von',
     'SURCHARGES_DURATION_START_DESC'                           => 'Optional. Ab wann der Zuschlag gelten soll. Jahreszahlen aktualisieren sich automatisch.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Bis',

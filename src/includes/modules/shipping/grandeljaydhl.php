@@ -193,6 +193,7 @@ class grandeljaydhl extends StdModule
                                         <?php
                                     }
                                     ?>
+
                                     <div class="row">
                                         <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
@@ -310,6 +311,12 @@ class grandeljaydhl extends StdModule
                                                 </select>
                                             </div>
 
+                                            <div class="column select-option">
+                                                <label>
+                                                    <?= xtc_cfg_select_option(array('true', 'false'), 'false') ?>
+                                                </label>
+                                            </div>
+
                                             <div class="column">
                                                 <input type="date" name="duration-start" />
                                             </div>
@@ -342,6 +349,13 @@ class grandeljaydhl extends StdModule
                                             </div>
                                         </div>
 
+                                        <div class="column select-option">
+                                            <div>
+                                                <b><?= self::_getConfig()->surchargesPerPackageTitle ?></b><br>
+                                                <?= self::_getConfig()->surchargesPerPackageDesc ?><br>
+                                            </div>
+                                        </div>
+
                                         <div class="column">
                                             <div>
                                                 <b><?= self::_getConfig()->surchargesDurationStartTitle ?></b><br>
@@ -360,7 +374,7 @@ class grandeljaydhl extends StdModule
                                     <?php
                                     $surcharges = json_decode($value, true);
                                     ?>
-                                    <?php foreach ($surcharges as $surcharge) { ?>
+                                    <?php foreach ($surcharges as $surcharge_index => $surcharge) { ?>
                                         <div class="row">
                                             <div class="column">
                                                 <input type="text" name="name" value="<?= $surcharge['name'] ?>" />
@@ -387,6 +401,16 @@ class grandeljaydhl extends StdModule
                                                     }
                                                     ?>
                                                 </select>
+                                            </div>
+
+                                            <div class="column select-option">
+                                                <?php
+                                                $key_write = sprintf('per-package-%d', $surcharge_index);
+                                                $key_read  = sprintf('configuration[%s]', $key_write);
+                                                ?>
+                                                <label>
+                                                    <?= xtc_cfg_select_option(array('true', 'false'), $surcharge[$key_read], $key_write) ?>
+                                                </label>
                                             </div>
 
                                             <div class="column">
@@ -498,8 +522,9 @@ class grandeljaydhl extends StdModule
                                         <?php
                                     }
                                     ?>
+
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -755,21 +780,24 @@ class grandeljaydhl extends StdModule
             $surcharges = json_encode(
                 array(
                     array(
-                        'name'      => 'Energiezuschlag',
-                        'surcharge' => 3.75,
-                        'type'      => 'percent',
+                        'name'                         => 'Energiezuschlag',
+                        'surcharge'                    => 3.75,
+                        'type'                         => 'percent',
+                        'configuration[per-package-0]' => 'false',
                     ),
                     array(
-                        'name'      => 'Maut',
-                        'surcharge' => 0.12,
-                        'type'      => 'fixed',
+                        'name'                         => 'Maut',
+                        'surcharge'                    => 0.12,
+                        'type'                         => 'fixed',
+                        'configuration[per-package-1]' => 'true',
                     ),
                     array(
-                        'name'           => 'Peak',
-                        'surcharge'      => 4.90,
-                        'type'           => 'fixed',
-                        'duration-start' => date('Y') . '-10-31',
-                        'duration-end'   => date('Y') + 1 . '-01-15',
+                        'name'                         => 'Peak',
+                        'surcharge'                    => 4.90,
+                        'type'                         => 'fixed',
+                        'configuration[per-package-2]' => 'false',
+                        'duration-start'               => date('Y') . '-10-31',
+                        'duration-end'                 => date('Y') + 1 . '-01-15',
                     ),
                 )
             );
@@ -959,26 +987,35 @@ class grandeljaydhl extends StdModule
          */
         global $total_weight;
 
-        $boxes = array();
-        $box   = array(
+        $boxes                   = array();
+        $box                     = array(
             'weight'   => 0,
             'products' => array(),
         );
+        $grandeljay_total_weight = 0;
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
-                if ($box['weight'] + $product['weight'] < $config->shippingMaxWeight) {
-                    $box['weight']    += $product['weight'];
-                    $box['products'][] = $product['id'];
-                } else {
+                if ($box['weight'] + $product['weight'] >= $config->shippingMaxWeight) {
                     $boxes[] = $box;
                     $box     = array(
                         'weight'   => 0,
                         'products' => array(),
                     );
                 }
+
+                $box['weight']    += $product['weight'];
+                $box['products'][] = $product['id'];
+
+                $grandeljay_total_weight += $product['weight'];
             }
         }
+
+        $boxes[] = $box;
+        $box     = array(
+            'weight'   => 0,
+            'products' => array(),
+        );
         /** */
 
         /**
@@ -1167,7 +1204,7 @@ class grandeljaydhl extends StdModule
         foreach ($methods as &$method) {
             $cost_before_surcharges = $method['cost'];
 
-            foreach ($surcharges_config as $surcharge) {
+            foreach ($surcharges_config as $surcharge_index => $surcharge) {
                 if (!empty($surcharge['duration-start']) && !empty($surcharge['duration-end'])) {
                     /** Date now */
                     $date_now = new DateTime();
@@ -1199,33 +1236,49 @@ class grandeljaydhl extends StdModule
                     }
                 }
 
+                $key_per_package = sprintf('configuration[per-package-%d]', $surcharge_index);
+
                 switch ($surcharge['type']) {
                     case 'fixed':
                         $surcharge_amount = $surcharge['surcharge'];
-                        $method_cost      = $method['cost'];
 
-                        $method['cost']                   += $surcharge_amount;
-                        $method['debug']['calculations'][] = sprintf(
-                            'Costs (%01.2f €) + %s (%01.2f €) = %01.2f €',
-                            $method_cost,
-                            $surcharge['name'],
-                            $surcharge['surcharge'],
-                            $method['cost']
-                        );
+                        foreach ($boxes as $box_index => $box) {
+                            $method_cost                       = $method['cost'];
+                            $method['cost']                   += $surcharge_amount;
+                            $method['debug']['calculations'][] = sprintf(
+                                'Costs (%01.2f €) + %s (%01.2f €) for box %d / %d = %01.2f €',
+                                $method_cost,
+                                $surcharge['name'],
+                                $surcharge['surcharge'],
+                                $box_index + 1,
+                                count($boxes),
+                                $method['cost']
+                            );
+
+                            if ('true' !== $surcharge[$key_per_package]) {
+                                break;
+                            }
+                        }
                         break;
 
                     case 'percent':
                         $surcharge_amount = $cost_before_surcharges * ($surcharge['surcharge'] / 100);
 
-                        $method['cost']                   += $surcharge_amount;
-                        $method['debug']['calculations'][] = sprintf(
-                            'Costs before surcharges (%01.2f €) * (%s: %01.2f %% (%01.2f €)) = %01.2f €',
-                            $cost_before_surcharges,
-                            $surcharge['name'],
-                            $surcharge['surcharge'],
-                            $surcharge_amount,
-                            $method['cost']
-                        );
+                        foreach ($boxes as $box_index => $box) {
+                            $method['cost']                   += $surcharge_amount;
+                            $method['debug']['calculations'][] = sprintf(
+                                'Costs before surcharges (%01.2f €) * (%s: %01.2f %% (%01.2f €)) = %01.2f €',
+                                $cost_before_surcharges,
+                                $surcharge['name'],
+                                $surcharge['surcharge'],
+                                $surcharge_amount,
+                                $method['cost']
+                            );
+
+                            if ('true' !== $surcharge[$key_per_package]) {
+                                break;
+                            }
+                        }
                         break;
                 }
             }

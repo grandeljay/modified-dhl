@@ -32,14 +32,12 @@ $translations_general = array(
      */
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
-    /** */
 
     /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Mode de débogage',
     'DEBUG_ENABLE_DESC'                                        => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés. Visible uniquement par les admins.',
-    /** */
 
     /**
      * Maximum weight
@@ -52,7 +50,6 @@ $translations_general = array(
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
         )
     ),
-    /** */
 
     /**
      * National
@@ -207,6 +204,8 @@ $translations_general = array(
     'SURCHARGES_TYPE_DESC'                                     => 'De quelle majoration s\'agit-il ?',
     'SURCHARGES_TYPE_FIXED'                                    => 'Fixe',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Pourcentage',
+    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Par paquet',
+    'SURCHARGES_PER_PACKAGE_DESC'                              => 'Le supplément est calculé pour chaque paquet.',
     'SURCHARGES_DURATION_START_TITLE'                          => 'De',
     'SURCHARGES_DURATION_START_DESC'                           => 'En option, vous pouvez choisir. Date à partir de laquelle le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',

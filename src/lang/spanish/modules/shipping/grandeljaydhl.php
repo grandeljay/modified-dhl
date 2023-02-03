@@ -32,14 +32,12 @@ $translations_general = array(
      */
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
-    /** */
 
     /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Modo depuración',
     'DEBUG_ENABLE_DESC'                                        => '¿Activar el modo de depuración? Se muestra información adicional, por ejemplo, cómo se han calculado los gastos de envío. Sólo visible para los administradores.',
-    /** */
 
     /**
      * Maximum weight
@@ -52,7 +50,6 @@ $translations_general = array(
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
         )
     ),
-    /** */
 
     /**
      * National
@@ -207,6 +204,8 @@ $translations_general = array(
     'SURCHARGES_TYPE_DESC'                                     => '¿De qué tipo de recargo estamos hablando?',
     'SURCHARGES_TYPE_FIXED'                                    => 'Fijo',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Porcentaje',
+    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Por envase',
+    'SURCHARGES_PER_PACKAGE_DESC'                              => 'El recargo se calcula para cada paquete.',
     'SURCHARGES_DURATION_START_TITLE'                          => 'En',
     'SURCHARGES_DURATION_START_DESC'                           => 'Opcional. A partir de cuándo debe aplicarse el recargo. Los números anuales se actualizan automáticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Hasta',

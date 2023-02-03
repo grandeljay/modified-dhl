@@ -43,10 +43,105 @@ function expandInputToPopup(option) {
     let button_add   = dialog.querySelector('button[name="grandeljaydhl_add"]');
 
     button_add.addEventListener('click', function() {
-        this.closest('.row').before(
-            template_row.content.cloneNode(true)
-        );
+        let content = template_row.content.cloneNode(true);
+
+        this.closest('.row').before(content);
+
+        verifySelectOptions(this.closest('.container'));
     });
+
+    function verifySelectOptions(container) {
+        let rows = Array.from(container.querySelectorAll('.row'));
+
+        rows.every(function(row, row_index) {
+            /**
+             * Skip header row
+             */
+            let input = row.querySelector('input');
+
+            if (!input) {
+                return true;
+            }
+
+            row_index--;
+
+            /**
+             * Input first
+             */
+            let input_first               = row.querySelector('.cfg_select_option > input[type="radio"]:first-of-type');
+            let input_first_value_target  = input_first.checked;
+
+            /** ID */
+            let input_first_id_current = input_first.getAttribute('id');
+            let input_first_id_target  = 'cfg_so_k_per-package-' + row_index;
+
+            if (input_first_id_current !== input_first_id_target) {
+                input_first.setAttribute('id', input_first_id_target);
+            }
+
+            /** Name */
+            let input_first_name_current = input_first.getAttribute('name');
+            let input_first_name_target  = 'configuration[per-package-' + row_index + ']';
+
+            if (input_first_name_current !== input_first_name_target) {
+                input_first.setAttribute('name', input_first_name_target);
+            }
+
+            input_first.checked = input_first_value_target;
+
+            /**
+             * Label first
+             */
+            let label_first = row.querySelector('.cfg_select_option > label:first-of-type');
+
+            /** For */
+            let label_first_for_current = label_first.getAttribute('for');
+            let label_first_for_target  = input_first_id_target;
+
+            if (label_first_for_current !== label_first_for_target) {
+                label_first.setAttribute('for', label_first_for_target);
+            }
+
+            /**
+             * Input last
+             */
+            let input_last               = row.querySelector('.cfg_select_option > input[type="radio"]:last-of-type');
+            let input_last_value_target  = input_last.checked;
+
+            /** ID */
+            let input_last_id_current = input_last.getAttribute('id');
+            let input_last_id_target  = 'cfg_so_k_per-package-' + row_index + '_1';
+
+            if (input_last_id_current !== input_last_id_target) {
+                input_last.setAttribute('id', input_last_id_target);
+            }
+
+            /** Name */
+            let input_last_name_current = input_last.getAttribute('name');
+            let input_last_name_target  = input_first_name_target;
+
+            if (input_last_name_current !== input_last_name_target) {
+                input_last.setAttribute('name', input_last_name_target);
+            }
+
+            input_last.checked = input_last_value_target;
+
+            /**
+             * Label last
+             */
+            let label_last = row.querySelector('.cfg_select_option > label:last-of-type');
+
+            /** For */
+            let label_last_for_current = label_last.getAttribute('for');
+            let label_last_for_target  = input_last_id_target;
+
+            if (label_last_for_current !== label_last_for_target) {
+                label_last.setAttribute('for', label_last_for_target);
+            }
+
+            return true;
+        });
+    }
 
     /**
      * Apply
@@ -56,8 +151,6 @@ function expandInputToPopup(option) {
     button_apply.addEventListener('click', function() {
         let input_json     = [];
         let input_required = [];
-
-        let rows = Array.from(dialog.querySelectorAll('.container > .row'));
 
         switch (option) {
             case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
@@ -75,9 +168,11 @@ function expandInputToPopup(option) {
                 break;
         }
 
+        let rows = Array.from(dialog.querySelectorAll('.container > .row'));
+
         rows.every(function(row) {
             let row_values = {};
-            let row_inputs = Array.from(row.querySelectorAll('.column > [name]'));
+            let row_inputs = Array.from(row.querySelectorAll('.column [name]'));
             let row_add    = row_inputs.every(function(element) {
                 let element_name = element.getAttribute('name');
 
@@ -89,7 +184,17 @@ function expandInputToPopup(option) {
                 }
 
                 /** Assign values */
-                row_values[element_name] = element.value;
+                switch (element.type) {
+                    case 'radio':
+                        if (element.checked) {
+                            row_values[element_name] = element.value;
+                        }
+                        break;
+
+                    default:
+                        row_values[element_name] = element.value;
+                        break;
+                }
 
                 return true;
             });

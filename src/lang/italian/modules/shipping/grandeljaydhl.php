@@ -16,6 +16,7 @@ if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPIN
     );
     $country       = xtc_db_fetch_array($country_query);
 }
+
 $translations_general = array(
     /**
      * Module
@@ -31,14 +32,12 @@ $translations_general = array(
      */
     'ALLOWED_TITLE'                                            => '',
     'ALLOWED_DESC'                                             => '',
-    /** */
 
     /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                       => 'Modalità Debug',
     'DEBUG_ENABLE_DESC'                                        => 'Attivare la modalità di debug? Vengono visualizzate ulteriori informazioni, ad esempio come sono stati calcolati i costi di spedizione. È visibile solo agli amministratori.',
-    /** */
 
     /**
      * Maximum weight
@@ -51,7 +50,6 @@ $translations_general = array(
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
         )
     ),
-    /** */
 
     /**
      * National
@@ -206,6 +204,8 @@ $translations_general = array(
     'SURCHARGES_TYPE_DESC'                                     => 'Di che tipo di sovrapprezzo stiamo parlando?',
     'SURCHARGES_TYPE_FIXED'                                    => 'Fisso',
     'SURCHARGES_TYPE_PERCENT'                                  => 'Percentuale',
+    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Per confezione',
+    'SURCHARGES_PER_PACKAGE_DESC'                              => 'Il supplemento viene calcolato per ogni pacchetto.',
     'SURCHARGES_DURATION_START_TITLE'                          => 'Da',
     'SURCHARGES_DURATION_START_DESC'                           => 'Opzionale. Da quando si applica il supplemento. I numeri dell\'anno si aggiornano automaticamente.',
     'SURCHARGES_DURATION_END_TITLE'                            => 'Fino a quando',
