@@ -1,12 +1,13 @@
 # Changelog
 
-## 0.3.0 - 2023-02-01
+## 0.3.0 - 2023-02-06
 
 ### Added
 
 -   Option to enable/disable premium/economy methods
 -   Debug option to show how shipping costs are calculated (only visible to admins)
 -   Option to hide shipping method if a single product weighs more than a predefined amount.
+-   Option for ideal weight
 
 ### Improved
 
