@@ -40,10 +40,18 @@ $translations_general = array(
     'DEBUG_ENABLE_DESC'                                        => 'Debug-Modus aktivieren? Es werden zusätzliche Informationen angezeigt z. B. wie die Versandkosten errechnet wurden. Nur für Admins sichtbar.',
 
     /**
-     * Maximum weight
+     * Weight
      */
-    'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Maximalgewicht',
-    'SHIPPING_MAX_WEIGHT_DESC'                                 => 'Maximalgewicht, das ein Artikel haben darf.',
+    'SHIPPING_WEIGHT_START_TITLE'                              => 'Gewicht',
+    'SHIPPING_WEIGHT_START_DESC'                               => 'Hier befinden sich alle Einstellungen bezüglich des Verpackens und Gewichts. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
+
+    'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Maximalgewicht',
+    'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Maximalgewicht, das ein Artikel haben darf.',
+    'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Idealgewicht',
+    'SHIPPING_WEIGHT_IDEAL_DESC'                              => 'Zielgewicht beim berechnen der Versandkosten um z. B. die Transportsicherheit zu erhöhen.',
+
+    'SHIPPING_WEIGHT_END_TITLE'                                => '',
+    'SHIPPING_WEIGHT_END_DESC'                                 => '',
 
     /**
      * National

@@ -40,10 +40,18 @@ $translations_general = array(
     'DEBUG_ENABLE_DESC'                                        => 'Activate debug mode? Additional information is displayed, e.g. how the shipping costs were calculated. Only visible for admins.',
 
     /**
-     * Maximum weight
+     * Weight
      */
-    'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Maximum weight',
-    'SHIPPING_MAX_WEIGHT_DESC'                                 => 'Maximum weight an item may have.',
+    'SHIPPING_WEIGHT_START_TITLE'                              => 'Weight',
+    'SHIPPING_WEIGHT_START_DESC'                               => 'Here you will find all the settings regarding packing and weight. Click on the group to open the settings.',
+
+    'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Maximum weight',
+    'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Maximum weight an item may have.',
+    'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Ideal weight',
+    'SHIPPING_WEIGHT_IDEAL_DESC'                              => 'Target weight when calculating shipping costs, e.g. to increase transport safety.',
+
+    'SHIPPING_WEIGHT_END_TITLE'                                => '',
+    'SHIPPING_WEIGHT_END_DESC'                                 => '',
 
     /**
      * National

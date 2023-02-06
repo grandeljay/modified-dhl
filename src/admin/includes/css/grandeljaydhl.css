@@ -148,11 +148,25 @@ details:not(:last-of-type) + :is(br, br + br) {
     display: initial;
 }
 
+details.shipping-weight-start > div,
 details.shipping-international-start > div > details > div {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 4px 10px;
     align-items: center;
+}
+
+details.shipping-weight-start > div {
+    align-items: flex-start;
+}
+
+details.shipping-weight-start > div > b {
+    grid-row-start: 1;
+
+    margin: 0 !important;
+}
+details.shipping-weight-start > div > input {
+    grid-row-start: 3;
 }
 
 /**

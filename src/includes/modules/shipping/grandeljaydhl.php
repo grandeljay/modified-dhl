@@ -92,6 +92,19 @@ class grandeljaydhl extends StdModule
     }
 
     /**
+     * Weight
+     */
+    public static function weightStartSet(string $value, string $option): string
+    {
+        return self::groupStart('<h2>' . $value . '</h2>', $option);
+    }
+
+    public static function weightEndSet(string $value, string $option): string
+    {
+        return self::groupEnd($value, $option);
+    }
+
+    /**
      * National
      */
     public static function nationalStartSet(string $value, string $option): string
@@ -558,9 +571,14 @@ class grandeljaydhl extends StdModule
         /** */
 
         /**
-         * Maximum weight
+         * Weight
          */
-        $this->addKey('SHIPPING_MAX_WEIGHT');
+        $this->addKey('SHIPPING_WEIGHT_START');
+
+            $this->addKey('SHIPPING_WEIGHT_MAX');
+            $this->addKey('SHIPPING_WEIGHT_IDEAL');
+
+        $this->addKey('SHIPPING_WEIGHT_END');
         /** */
 
         /**
@@ -671,13 +689,18 @@ class grandeljaydhl extends StdModule
         /**
          * Debug
          */
-        $this->addConfigurationSelect('DEBUG_ENABLE', 'false', 6, 1);
+        $this->addConfigurationSelect('DEBUG_ENABLE', 'true', 6, 1);
         /** */
 
         /**
-         * Maximum weight
+         * Weight
          */
-        $this->addConfiguration('SHIPPING_MAX_WEIGHT', 31.5, 6, 1, self::class . '::inputNumber(');
+        $this->addConfiguration('SHIPPING_WEIGHT_START', $config->shippingWeightStartTitle, 6, 1, self::class . '::weightStartSet(');
+
+            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, self::class . '::inputNumber(');
+            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, self::class . '::inputNumber(');
+
+        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, self::class . '::weightEndSet(');
         /** */
 
         /**
@@ -743,7 +766,7 @@ class grandeljaydhl extends StdModule
             /** Economy */
             $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $config->shippingInternationalEconomyStartTitle, 6, 1, self::class . '::internationalEconomyStartSet(');
 
-                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'true', 6, 1);
+                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'false', 6, 1);
 
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::class . '::inputNumber(');
                 $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::class . '::inputNumber(');
@@ -866,9 +889,12 @@ class grandeljaydhl extends StdModule
         /** */
 
         /**
-         * Maximum weight
+         * Weight
          */
-        $this->deleteConfiguration('SHIPPING_MAX_WEIGHT');
+        $this->deleteConfiguration('SHIPPING_WEIGHT_START');
+        $this->deleteConfiguration('SHIPPING_WEIGHT_MAX');
+        $this->deleteConfiguration('SHIPPING_WEIGHT_IDEAL');
+        $this->deleteConfiguration('SHIPPING_WEIGHT_END');
         /** */
 
         /**
@@ -888,7 +914,7 @@ class grandeljaydhl extends StdModule
             /** Premium */
             $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
+                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE');
 
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU');
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU');
@@ -917,7 +943,7 @@ class grandeljaydhl extends StdModule
             /** Economy */
             $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'true', 6, 1);
+                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE');
 
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU');
                 $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU');
@@ -973,10 +999,11 @@ class grandeljaydhl extends StdModule
         $config           = self::_getConfig();
 
         /**
-         * Maximum weight
+         * Weight
          */
+        /** Maximum */
         foreach ($order->products as $product) {
-            if ($product['weight'] >= $config->shippingMaxWeight) {
+            if ($product['weight'] >= $config->shippingWeightMax) {
                 return false;
             }
         }
@@ -985,8 +1012,6 @@ class grandeljaydhl extends StdModule
         /**
          * Amount of boxes
          */
-        global $total_weight;
-
         $boxes                   = array();
         $box                     = array(
             'weight'   => 0,
@@ -996,7 +1021,8 @@ class grandeljaydhl extends StdModule
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
-                if ($box['weight'] + $product['weight'] >= $config->shippingMaxWeight) {
+                /** Create a new box */
+                if ($box['weight'] + $product['weight'] > $config->shippingWeightIdeal) {
                     $boxes[] = $box;
                     $box     = array(
                         'weight'   => 0,
@@ -1049,11 +1075,12 @@ class grandeljaydhl extends StdModule
 
                         $method_paket_national['cost']                   += $weight_cost;
                         $method_paket_national['debug']['calculations'][] = sprintf(
-                            'Costs (%01.2f €) + National shipping (%01.2f €) for box %d / %d = %01.2f €',
+                            'Costs (%01.2f €) + National shipping (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                             $costs_before,
                             $weight_cost,
                             $box_index + 1,
                             count($boxes),
+                            $box['weight'],
                             $method_paket_national['cost']
                         );
 
@@ -1122,11 +1149,14 @@ class grandeljaydhl extends StdModule
 
                     $method_paket_international_premium['cost']                   += $price_base + $price_kg;
                     $method_paket_international_premium['debug']['calculations'][] = sprintf(
-                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) = %01.2f €',
+                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                         $costs_before,
                         $zone,
                         $price_base,
                         $price_kg,
+                        $box_index + 1,
+                        count($boxes),
+                        $box['weight'],
                         $method_paket_international_premium['cost']
                     );
                 }
@@ -1181,11 +1211,14 @@ class grandeljaydhl extends StdModule
 
                     $method_paket_international_economy['cost']                   += $price_base + $price_kg;
                     $method_paket_international_economy['debug']['calculations'][] = sprintf(
-                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) = %01.2f €',
+                        'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                         $costs_before,
                         $zone,
                         $price_base,
                         $price_kg,
+                        $box_index + 1,
+                        count($boxes),
+                        $box['weight'],
                         $method_paket_international_economy['cost']
                     );
                 }
@@ -1246,12 +1279,13 @@ class grandeljaydhl extends StdModule
                             $method_cost                       = $method['cost'];
                             $method['cost']                   += $surcharge_amount;
                             $method['debug']['calculations'][] = sprintf(
-                                'Costs (%01.2f €) + %s (%01.2f €) for box %d / %d = %01.2f €',
+                                'Costs (%01.2f €) + %s (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                                 $method_cost,
                                 $surcharge['name'],
                                 $surcharge['surcharge'],
                                 $box_index + 1,
                                 count($boxes),
+                                $box['weight'],
                                 $method['cost']
                             );
 
@@ -1316,11 +1350,12 @@ class grandeljaydhl extends StdModule
 
                         $method['cost']                   += $weight_cost;
                         $method['debug']['calculations'][] = sprintf(
-                            'Costs (%01.2f €) + Pick and Pack (%01.2f €) for box %d / %d = %01.2f €',
+                            'Costs (%01.2f €) + Pick and Pack (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                             $cost_before,
                             $weight_cost,
                             $box_index + 1,
                             count($boxes),
+                            $box['weight'],
                             $method['cost']
                         );
 
@@ -1420,7 +1455,7 @@ class grandeljaydhl extends StdModule
             $boxes_weight_text = array(
                 sprintf(
                     '%s kg',
-                    round($total_weight, 2)
+                    round($grandeljay_total_weight, 2)
                 ),
             );
         }

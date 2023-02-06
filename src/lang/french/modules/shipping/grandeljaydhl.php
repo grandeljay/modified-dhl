@@ -40,10 +40,18 @@ $translations_general = array(
     'DEBUG_ENABLE_DESC'                                        => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés. Visible uniquement par les admins.',
 
     /**
-     * Maximum weight
+     * Weight
      */
-    'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Poids maximal',
-    'SHIPPING_MAX_WEIGHT_DESC'                                 => 'Poids maximal qu\'un article peut avoir.',
+    'SHIPPING_WEIGHT_START_TITLE'                              => 'Poids',
+    'SHIPPING_WEIGHT_START_DESC'                               => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'emballage et au poids. Cliquez sur le groupe pour ouvrir les paramètres.',
+
+    'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Poids maximal',
+    'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Poids maximal qu\'un article peut avoir.',
+    'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Poids idéal',
+    'SHIPPING_WEIGHT_IDEAL_DESC'                              => 'Poids cible lors du calcul des frais d\'expédition afin d\'augmenter la sécurité du transport, par exemple.',
+
+    'SHIPPING_WEIGHT_END_TITLE'                                => '',
+    'SHIPPING_WEIGHT_END_DESC'                                 => '',
 
     /**
      * National

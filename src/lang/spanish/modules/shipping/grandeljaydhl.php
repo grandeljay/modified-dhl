@@ -40,10 +40,18 @@ $translations_general = array(
     'DEBUG_ENABLE_DESC'                                        => '¿Activar el modo de depuración? Se muestra información adicional, por ejemplo, cómo se han calculado los gastos de envío. Sólo visible para los administradores.',
 
     /**
-     * Maximum weight
+     * Weight
      */
-    'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Peso máximo',
-    'SHIPPING_MAX_WEIGHT_DESC'                                 => 'Peso máximo que puede tener un artículo.',
+    'SHIPPING_WEIGHT_START_TITLE'                              => 'Peso',
+    'SHIPPING_WEIGHT_START_DESC'                               => 'Aquí encontrará todos los ajustes relativos al embalaje y al peso. Pulse sobre el grupo para abrir los ajustes.',
+
+    'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Peso máximo',
+    'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Peso máximo que puede tener un artículo.',
+    'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Peso ideal',
+    'SHIPPING_WEIGHT_IDEAL_DESC'                               => 'Peso objetivo al calcular los gastos de envío, por ejemplo, para aumentar la seguridad del transporte.',
+
+    'SHIPPING_WEIGHT_END_TITLE'                                => '',
+    'SHIPPING_WEIGHT_END_DESC'                                 => '',
 
     /**
      * National
