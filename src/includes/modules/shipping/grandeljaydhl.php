@@ -1416,6 +1416,15 @@ class grandeljaydhl extends StdModule
             );
         }
 
+        if ('true' !== $config->debugEnable || !$user_is_admin) {
+            $boxes_weight_text = array(
+                sprintf(
+                    '%s kg',
+                    round($total_weight, 2)
+                ),
+            );
+        }
+
         /** Quote */
         $quote = array(
             'id'      => $this->code,
