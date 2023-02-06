@@ -48,7 +48,7 @@ $translations_general = array(
     'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Maximum weight',
     'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Maximum weight an item may have.',
     'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Ideal weight',
-    'SHIPPING_WEIGHT_IDEAL_DESC'                              => 'Target weight when calculating shipping costs, e.g. to increase transport safety.',
+    'SHIPPING_WEIGHT_IDEAL_DESC'                               => 'Target weight when calculating shipping costs, e.g. to increase transport safety.',
 
     'SHIPPING_WEIGHT_END_TITLE'                                => '',
     'SHIPPING_WEIGHT_END_DESC'                                 => '',
