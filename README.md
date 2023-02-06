@@ -35,5 +35,5 @@ A modified-shop module which adds a DHL shipping method.
 ## Requirements
 
 -   PHP >= v7.4 (only tested on v8.1)
--   Composer Autoload >= v1.3.0
--   Standard Module: >= v0.8.1
+-   Composer Autoload >= v1.3.0 (MMLC will handle this for you)
+-   Standard Module: >= v0.8.1 (MMLC will handle this for you)
