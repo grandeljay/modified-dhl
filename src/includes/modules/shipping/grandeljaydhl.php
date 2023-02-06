@@ -993,6 +993,7 @@ class grandeljaydhl extends StdModule
         global $order;
 
         require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
+        require_once DIR_WS_CLASSES . 'grandeljaydhl_parcel.php';
 
         $country_delivery = new grandeljaydhl_country($order->delivery['country']);
         $methods          = array();
@@ -1013,35 +1014,28 @@ class grandeljaydhl extends StdModule
          * Amount of boxes
          */
         $boxes                   = array();
-        $box                     = array(
-            'weight'   => 0,
-            'products' => array(),
-        );
+        $box                     = new grandeljaydhl_parcel();
         $grandeljay_total_weight = 0;
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
                 /** Create a new box */
-                if ($box['weight'] + $product['weight'] > $config->shippingWeightIdeal) {
+                $box_weight     = $box->getWeight();
+                $product_weight = $product['weight'];
+
+                if ($box_weight + $product_weight > $config->shippingWeightIdeal) {
                     $boxes[] = $box;
-                    $box     = array(
-                        'weight'   => 0,
-                        'products' => array(),
-                    );
+                    $box     = new grandeljaydhl_parcel();
                 }
 
-                $box['weight']    += $product['weight'];
-                $box['products'][] = $product['id'];
+                $box->addProduct($product);
 
-                $grandeljay_total_weight += $product['weight'];
+                $grandeljay_total_weight += $product_weight;
             }
         }
 
         $boxes[] = $box;
-        $box     = array(
-            'weight'   => 0,
-            'products' => array(),
-        );
+        $box     = new grandeljaydhl_parcel();
         /** */
 
         /**
