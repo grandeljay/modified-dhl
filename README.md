@@ -31,3 +31,9 @@ A modified-shop module which adds a DHL shipping method.
 -   **Expandable fields**
 
     Instead of painfully finding the right number within your option fields, a friendly popup will appear anytime you want to edit some settings, giving you a better overview of things.
+
+## Requirements
+
+-   PHP >= v7.4 (only tested on v8.1)
+-   Composer Autoload >= v1.3.0
+-   Standard Module: >= v0.8.1
