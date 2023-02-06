@@ -1147,7 +1147,7 @@ class grandeljaydhl extends StdModule
                 foreach ($boxes as $box_index => $box) {
                     $costs_before = $method_paket_international_premium['cost'];
 
-                    $method_paket_international_premium['cost']                   += $price_base + $price_kg;
+                    $method_paket_international_premium['cost']                   += $price_base + $price_kg * ceil($box['weight']);
                     $method_paket_international_premium['debug']['calculations'][] = sprintf(
                         'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                         $costs_before,
@@ -1209,7 +1209,7 @@ class grandeljaydhl extends StdModule
                 foreach ($boxes as $box_index => $box) {
                     $costs_before = $method_paket_international_economy['cost'];
 
-                    $method_paket_international_economy['cost']                   += $price_base + $price_kg;
+                    $method_paket_international_economy['cost']                   += $price_base + $price_kg * ceil($box['weight']);
                     $method_paket_international_economy['debug']['calculations'][] = sprintf(
                         'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                         $costs_before,
