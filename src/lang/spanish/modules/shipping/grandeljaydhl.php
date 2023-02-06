@@ -44,7 +44,7 @@ $translations_general = array(
      */
     'SHIPPING_MAX_WEIGHT_TITLE'                                => 'Peso máximo',
     'SHIPPING_MAX_WEIGHT_DESC'                                 => sprintf(
-        'Peso máximo que puede tener un paquete. Anula la opción %s.',
+        'Peso máximo que puede tener un artículo. Anula la opción %s.',
         sprintf(
             '<a href="/' . DIR_ADMIN . 'configuration.php?gID=7">%s</a>',
             defined('SHIPPING_MAX_WEIGHT_TITLE') ? SHIPPING_MAX_WEIGHT_TITLE : 'SHIPPING_MAX_WEIGHT',
