@@ -21,12 +21,12 @@ class grandeljaydhl extends StdModule
     private static Configuration $config;
 
     /**
-     * Cannot make non static method
-     * RobinTheHood\ModifiedStdModule\Classes\StdModule::getConfig() static
+     * Get configuration from
+     * RobinTheHood\ModifiedStdModule\Classes\StdModule::getConfig()
      *
-     * @return void
+     * @return RobinTheHood\ModifiedStdModule\Classes\Configuration
      */
-    private static function _getConfig()
+    private static function getStdConfig(): Configuration
     {
         if (!isset(self::$config)) {
             self::$config = new Configuration(self::NAME);
@@ -70,7 +70,7 @@ class grandeljaydhl extends StdModule
 
     private static function groupStart(string $value, string $option): string
     {
-        $config = self::_getConfig();
+        $config = self::getStdConfig();
 
         ob_start();
         ?>
@@ -132,7 +132,8 @@ class grandeljaydhl extends StdModule
 
     public static function nationalCostsSet(string $value, string $option): string
     {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $config = self::getStdConfig();
 
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -148,7 +149,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= self::_getConfig()->shippingNationalCostsTitle ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= $config->shippingNationalCostsTitle ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -174,15 +175,15 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->shippingNationalWeightTitle ?></b><br>
-                                                <?= self::_getConfig()->shippingNationalWeightDesc ?><br>
+                                                <b><?= $config->shippingNationalWeightTitle ?></b><br>
+                                                <?= $config->shippingNationalWeightDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->shippingNationalCostTitle ?></b><br>
-                                                <?= self::_getConfig()->shippingNationalCostDesc ?><br>
+                                                <b><?= $config->shippingNationalCostTitle ?></b><br>
+                                                <?= $config->shippingNationalCostDesc ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +209,7 @@ class grandeljaydhl extends StdModule
                                     ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -218,8 +219,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
         <?php
@@ -280,7 +281,8 @@ class grandeljaydhl extends StdModule
 
     public static function surchargesSet(string $value, string $option): string
     {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $config = self::getStdConfig();
 
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -296,7 +298,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= self::_getConfig()->surchargesTitle ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= $config->surchargesTitle ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -319,8 +321,8 @@ class grandeljaydhl extends StdModule
 
                                             <div class="column">
                                                 <select name="type">
-                                                    <option value="fixed"><?= self::_getConfig()->surchargesTypeFixed ?></option>
-                                                    <option value="percent"><?= self::_getConfig()->surchargesTypePercent ?></option>
+                                                    <option value="fixed"><?= $config->surchargesTypeFixed ?></option>
+                                                    <option value="percent"><?= $config->surchargesTypePercent ?></option>
                                                 </select>
                                             </div>
 
@@ -343,43 +345,43 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesNameTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesNameDesc ?><br>
+                                                <b><?= $config->surchargesNameTitle ?></b><br>
+                                                <?= $config->surchargesNameDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesSurchargeTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesSurchargeDesc ?><br>
+                                                <b><?= $config->surchargesSurchargeTitle ?></b><br>
+                                                <?= $config->surchargesSurchargeDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesTypeTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesTypeDesc ?><br>
+                                                <b><?= $config->surchargesTypeTitle ?></b><br>
+                                                <?= $config->surchargesTypeDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column select-option">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesPerPackageTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesPerPackageDesc ?><br>
+                                                <b><?= $config->surchargesPerPackageTitle ?></b><br>
+                                                <?= $config->surchargesPerPackageDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesDurationStartTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesDurationStartDesc ?><br>
+                                                <b><?= $config->surchargesDurationStartTitle ?></b><br>
+                                                <?= $config->surchargesDurationStartDesc ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= self::_getConfig()->surchargesDurationEndTitle ?></b><br>
-                                                <?= self::_getConfig()->surchargesDurationEndDesc ?><br>
+                                                <b><?= $config->surchargesDurationEndTitle ?></b><br>
+                                                <?= $config->surchargesDurationEndDesc ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -400,8 +402,8 @@ class grandeljaydhl extends StdModule
                                             <div class="column">
                                                 <select name="type">
                                                     <?php
-                                                    $fixedText   = self::_getConfig()->surchargesTypeFixed;
-                                                    $percentText = self::_getConfig()->surchargesTypePercent;
+                                                    $fixedText   = $config->surchargesTypeFixed;
+                                                    $percentText = $config->surchargesTypePercent;
                                                     $types       = array(
                                                         'fixed'   => $fixedText,
                                                         'percent' => $percentText,
@@ -437,7 +439,7 @@ class grandeljaydhl extends StdModule
                                     <?php } ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -447,8 +449,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= self::_getConfig()->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= self::_getConfig()->shippingNationalButtonCancel ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
             </div>
         </dialog>
         <?php
@@ -459,15 +461,14 @@ class grandeljaydhl extends StdModule
 
     public static function surchargesPickAndPackSet(string $value, string $option): string
     {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+        $config = self::getStdConfig();
 
         $html  = '';
         $html .= xtc_draw_input_field(
             'configuration[' . $option . ']',
             $value
         );
-
-        $config = self::_getConfig();
 
         ob_start();
         ?>
@@ -537,7 +538,7 @@ class grandeljaydhl extends StdModule
                                     ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= self::_getConfig()->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -678,7 +679,7 @@ class grandeljaydhl extends StdModule
     {
         parent::install();
 
-        $config = self::_getConfig();
+        $config = self::getStdConfig();
 
         /**
          * Required for modified compatibility
@@ -997,7 +998,7 @@ class grandeljaydhl extends StdModule
 
         $country_delivery = new grandeljaydhl_country($order->delivery['country']);
         $methods          = array();
-        $config           = self::_getConfig();
+        $config           = self::getStdConfig();
 
         /**
          * Weight
