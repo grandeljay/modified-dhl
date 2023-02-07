@@ -1,6 +1,6 @@
 <?php
 
-namespace grandeljay\DHL;
+namespace Grandeljay\Dhl;
 
 class Parcel
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace grandeljay\DHL\Configuration;
+namespace Grandeljay\Dhl\Configuration;
 
 class Field
 {

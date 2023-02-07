@@ -11,7 +11,7 @@
  * @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
  */
 
-use grandeljay\DHL\{Country, Parcel};
+use Grandeljay\Dhl\{Country, Parcel};
 use RobinTheHood\ModifiedStdModule\Classes\StdModule;
 
 /**
@@ -157,18 +157,18 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::weightStart(');
+        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::weightStart(');
 
-            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::weightStart(');
+        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::weightStart(');
         /** */
 
         /**
          * National
          */
-        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::nationalStart(');
+        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::nationalStart(');
 
             $prices_national = json_encode(
                 array(
@@ -183,84 +183,84 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, '\grandeljay\DHL\Configuration\Field::nationalCountry(');
-            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, '\grandeljay\DHL\Configuration\Field::nationalCosts(');
+            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, '\Grandeljay\Dhl\Configuration\Field::nationalCountry(');
+            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, '\Grandeljay\Dhl\Configuration\Field::nationalCosts(');
 
-        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::nationalEnd(');
+        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::nationalEnd(');
         /** */
 
         /**
          * International
          */
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalStart(');
+        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalStart(');
 
             /** Premium */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumStart(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalPremiumStart(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumEnd(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalPremiumEnd(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumEnd(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalPremiumEnd(');
 
             /** Economy */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEconomyStart(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalEconomyStart(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'false', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEconomyEnd(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalEconomyEnd(');
 
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEnd(');
+        $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::internationalEnd(');
         /** */
 
         /**
          * Surcharges
          */
-        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::surchargesStart(');
+        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, '\Grandeljay\Dhl\Configuration\Group::surchargesStart(');
 
             $surcharges = json_encode(
                 array(
@@ -287,7 +287,7 @@ class grandeljaydhl extends StdModule
                 )
             );
 
-            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, '\grandeljay\DHL\Configuration\Field::surcharges(');
+            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, '\Grandeljay\Dhl\Configuration\Field::surcharges(');
 
             $pick_and_pack = json_encode(
                 array(
@@ -314,12 +314,12 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, '\grandeljay\DHL\Configuration\Field::surchargesPickAndPack(');
+            $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, '\Grandeljay\Dhl\Configuration\Field::surchargesPickAndPack(');
 
             $this->addConfigurationSelect('SURCHARGES_ROUND_UP', 'true', 6, 1);
-            $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumberRoundUp(');
+            $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, '\Grandeljay\Dhl\Configuration\Field::inputNumberRoundUp(');
 
-        $this->addConfiguration('SURCHARGES_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::surchargesEnd(');
+        $this->addConfiguration('SURCHARGES_END', '', 6, 1, '\Grandeljay\Dhl\Configuration\Group::surchargesEnd(');
         /** */
     }
 
