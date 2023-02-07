@@ -23,7 +23,7 @@ class grandeljaydhl extends StdModule
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
     public const VERSION = '0.3.0';
 
-    private const NAMESPACE_CONFIGURATION = '\Grandeljay\Dhl\Configuration';
+    private const NAMESPACE_CONFIGURATION = '\\Grandeljay\\Dhl\\Configuration\\';
 
     public function __construct()
     {
@@ -160,18 +160,18 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_START', $this->getConfig(Group::SHIPPING_WEIGHT . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::SHIPPING_WEIGHTStart(');
+        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_START', $this->getConfig(Group::SHIPPING_WEIGHT . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::SHIPPING_WEIGHTStart(');
 
-            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_MAX', 31.5, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_IDEAL', 15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_MAX', 31.5, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_IDEAL', 15, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::SHIPPING_WEIGHTStart(');
+        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::SHIPPING_WEIGHTStart(');
         /** */
 
         /**
          * National
          */
-        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_START', $this->getConfig(Group::SHIPPING_NATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalStart(');
+        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_START', $this->getConfig(Group::SHIPPING_NATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::nationalStart(');
 
             $prices_national = json_encode(
                 array(
@@ -186,84 +186,84 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY', STORE_COUNTRY, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCountry(');
-            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COSTS', $prices_national, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCosts(');
+            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY', STORE_COUNTRY, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::nationalCountry(');
+            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COSTS', $prices_national, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::nationalCosts(');
 
-        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalEnd(');
+        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::nationalEnd(');
         /** */
 
         /**
          * International
          */
-        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalStart(');
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalStart(');
 
             /** Premium */
-            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumStart(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalPremiumStart(');
 
                 $this->addConfigurationSelect(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE', 'true', 6, 1);
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalPremiumEnd(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalPremiumEnd(');
 
             /** Economy */
-            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyStart(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalEconomyStart(');
 
                 $this->addConfigurationSelect(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE', 'false', 6, 1);
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumber(');
 
-            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyEnd(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalEconomyEnd(');
 
-        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEnd(');
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::internationalEnd(');
         /** */
 
         /**
          * Surcharges
          */
-        $this->addConfiguration(Group::SURCHARGES . '_START', $this->getConfig(Group::SURCHARGES . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesStart(');
+        $this->addConfiguration(Group::SURCHARGES . '_START', $this->getConfig(Group::SURCHARGES . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::surchargesStart(');
 
             $surcharges = json_encode(
                 array(
@@ -290,7 +290,7 @@ class grandeljaydhl extends StdModule
                 )
             );
 
-            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::surcharges(');
+            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::surcharges(');
 
             $pick_and_pack = json_encode(
                 array(
@@ -317,12 +317,12 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration(Group::SURCHARGES . '_PICK_AND_PACK', $pick_and_pack, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::surchargesPickAndPack(');
+            $this->addConfiguration(Group::SURCHARGES . '_PICK_AND_PACK', $pick_and_pack, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::surchargesPickAndPack(');
 
             $this->addConfigurationSelect(Group::SURCHARGES . '_ROUND_UP', 'true', 6, 1);
-            $this->addConfiguration(Group::SURCHARGES . '_ROUND_UP_TO', 0.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumberRoundUp(');
+            $this->addConfiguration(Group::SURCHARGES . '_ROUND_UP_TO', 0.90, 6, 1, self::NAMESPACE_CONFIGURATION . 'Field::inputNumberRoundUp(');
 
-        $this->addConfiguration(Group::SURCHARGES . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesEnd(');
+        $this->addConfiguration(Group::SURCHARGES . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . 'Group::surchargesEnd(');
         /** */
     }
 
