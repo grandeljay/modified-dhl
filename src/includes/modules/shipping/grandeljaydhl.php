@@ -12,7 +12,7 @@
  */
 
 use grandeljay\DHL\{Country, Parcel};
-use RobinTheHood\ModifiedStdModule\Classes\{StdModule, CaseConverter};
+use RobinTheHood\ModifiedStdModule\Classes\StdModule;
 
 /**
  * Shipping methods musn't contain underscores.
@@ -21,527 +21,6 @@ class grandeljaydhl extends StdModule
 {
     public const VERSION = '0.3.0';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
-
-    /**
-     * Number type for option inputs
-     */
-    public static function inputNumber(string $value, string $option): string
-    {
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value,
-            sprintf('step="any" min="0.00"'),
-            false,
-            'number'
-        );
-
-        return $html;
-    }
-
-    public static function inputNumberRoundUp(string $value, string $option): string
-    {
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value,
-            'step="0.01" min="0.00" max="0.99"',
-            false,
-            'number'
-        );
-
-        return $html;
-    }
-    /** */
-
-    private static function groupStart(string $value, string $option): string
-    {
-        $key_without_module_name = substr($option, strlen(self::NAME) + 1);
-        $key_lisp                = CaseConverter::screamingToLisp($key_without_module_name);
-
-        ob_start();
-        ?>
-        <details class="<?= $key_lisp ?>">
-            <summary><?= $value ?></summary>
-            <div>
-        <?php
-        return ob_get_clean();
-    }
-
-    private static function groupEnd(string $value, string $option): string
-    {
-        ob_start();
-        ?>
-            </div>
-        </details>
-        <?php
-        return ob_get_clean();
-    }
-
-    /**
-     * Weight
-     */
-    public static function weightStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h2>' . $value . '</h2>', $option);
-    }
-
-    public static function weightEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-
-    /**
-     * National
-     */
-    public static function nationalStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h2>' . $value . '</h2>', $option);
-    }
-
-    public static function nationalEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-
-    public static function nationalCountrySet(string $countryID, string $option): string
-    {
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $countryID,
-            'readonly="readonly"
-             style="opacity: 0.4;"'
-        );
-
-        return $html;
-    }
-
-    public static function nationalCostsSet(string $value, string $option): string
-    {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value
-        );
-
-        ob_start();
-        ?>
-        <dialog id="<?= $option ?>">
-            <div class="modulbox">
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxHeading">
-                            <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COSTS_TITLE') ?></b></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxContent">
-                            <td class="infoBoxContent">
-                                <div class="container">
-                                    <template id="grandeljaydhl_row">
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                    </template>
-
-                                    <div class="row">
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_DESC') ?><br>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php
-                                    $shipping_costs = json_decode($value, true);
-
-                                    asort($shipping_costs);
-
-                                    foreach ($shipping_costs as $shipping_cost) {
-                                        ?>
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $shipping_cost['weight'] ?>" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $shipping_cost['cost'] ?>" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
-            </div>
-        </dialog>
-        <?php
-        $html .= ob_get_clean();
-
-        return $html;
-    }
-    /** */
-
-    /**
-     * International
-     */
-    public static function internationalStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h2>' . $value . '</h2>', $option);
-    }
-
-    public static function internationalEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-
-    /** Premium */
-    public static function internationalPremiumStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h3>' . $value . '</h3>', $option);
-    }
-
-    public static function internationalPremiumEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-
-    /** Economy */
-    public static function internationalEconomyStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h3>' . $value . '</h3>', $option);
-    }
-
-    public static function internationalEconomyEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-    /** */
-
-    /**
-     * Surcharges
-     */
-    public static function surchargesStartSet(string $value, string $option): string
-    {
-        return self::groupStart('<h2>' . $value . '</h2>', $option);
-    }
-
-    public static function surchargesEndSet(string $value, string $option): string
-    {
-        return self::groupEnd($value, $option);
-    }
-
-    public static function surchargesSet(string $value, string $option): string
-    {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value
-        );
-
-        ob_start();
-        ?>
-        <dialog id="<?= $option ?>">
-            <div class="modulbox">
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxHeading">
-                            <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SURCHARGES_TITLE') ?></b></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxContent">
-                            <td class="infoBoxContent">
-                                <div class="container">
-                                    <template id="grandeljaydhl_row">
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="text" name="name" />
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" name="surcharge" />
-                                            </div>
-
-                                            <div class="column">
-                                                <select name="type">
-                                                    <option value="fixed"><?= constant(self::NAME . '_SURCHARGES_TYPE_FIXED') ?></option>
-                                                    <option value="percent"><?= constant(self::NAME . '_SURCHARGES_TYPE_PERCENT') ?></option>
-                                                </select>
-                                            </div>
-
-                                            <div class="column select-option">
-                                                <label>
-                                                    <?= xtc_cfg_select_option(array('true', 'false'), 'false') ?>
-                                                </label>
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="date" name="duration-start" />
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="date" name="duration-end" />
-                                            </div>
-                                        </div>
-                                    </template>
-
-                                    <div class="row">
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_NAME_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_NAME_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_SURCHARGE_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_SURCHARGE_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_TYPE_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_TYPE_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column select-option">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_PER_PACKAGE_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_PER_PACKAGE_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_DURATION_START_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_DURATION_START_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SURCHARGES_DURATION_END_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SURCHARGES_DURATION_END_DESC') ?><br>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php
-                                    $surcharges = json_decode($value, true);
-                                    ?>
-                                    <?php foreach ($surcharges as $surcharge_index => $surcharge) { ?>
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="text" name="name" value="<?= $surcharge['name'] ?>" />
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" name="surcharge" value="<?= $surcharge['surcharge'] ?>" />
-                                            </div>
-
-                                            <div class="column">
-                                                <select name="type">
-                                                    <?php
-                                                    $fixedText   = constant(self::NAME . '_SURCHARGES_TYPE_FIXED');
-                                                    $percentText = constant(self::NAME . '_SURCHARGES_TYPE_PERCENT');
-                                                    $types       = array(
-                                                        'fixed'   => $fixedText,
-                                                        'percent' => $percentText,
-                                                    );
-
-                                                    foreach ($types as $type => $text) {
-                                                        $selected = $type === $surcharge['type'] ? ' selected' : '';
-
-                                                        echo '<option value="' . $type . '"' . $selected . '>' . $text . '</option>';
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="column select-option">
-                                                <?php
-                                                $key_write = sprintf('per-package-%d', $surcharge_index);
-                                                $key_read  = sprintf('configuration[%s]', $key_write);
-                                                ?>
-                                                <label>
-                                                    <?= xtc_cfg_select_option(array('true', 'false'), $surcharge[$key_read], $key_write) ?>
-                                                </label>
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="date" name="duration-start" value="<?= $surcharge['duration-start'] ?? '' ?>" />
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="date" name="duration-end" value="<?= $surcharge['duration-end'] ?? '' ?>" />
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-
-                                    <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
-            </div>
-        </dialog>
-        <?php
-        $html .= ob_get_clean();
-
-        return $html;
-    }
-
-    public static function surchargesPickAndPackSet(string $value, string $option): string
-    {
-        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-
-        $html  = '';
-        $html .= xtc_draw_input_field(
-            'configuration[' . $option . ']',
-            $value
-        );
-
-        ob_start();
-        ?>
-        <dialog id="<?= $option ?>">
-            <div class="modulbox">
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxHeading">
-                            <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SURCHARGES_PICK_AND_PACK_TITLE') ?></b></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="contentTable">
-                    <tbody>
-                        <tr class="infoBoxContent">
-                            <td class="infoBoxContent">
-                                <div class="container">
-                                    <template id="grandeljaydhl_row">
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                    </template>
-
-                                    <div class="row">
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_DESC') ?><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="column">
-                                            <div>
-                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_TITLE') ?></b><br>
-                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_DESC') ?><br>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php
-                                    $pick_and_pack_costs = json_decode($value, true);
-
-                                    asort($pick_and_pack_costs);
-
-                                    foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
-                                        ?>
-                                        <div class="row">
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['weight'] ?>" name="weight" /> Kg
-                                            </div>
-
-                                            <div class="column">
-                                                <input type="number" step="any" min="0.00" value="<?= $pick_and_pack_cost['cost'] ?>" name="cost" /> EUR
-                                            </div>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
-            </div>
-        </dialog>
-        <?php
-        $html .= ob_get_clean();
-
-        return $html;
-    }
-    /** */
 
     public function __construct()
     {
@@ -678,18 +157,18 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, self::class . '::weightStartSet(');
+        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::weightStart(');
 
-            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, self::class . '::inputNumber(');
-            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, self::class . '::inputNumber(');
+            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, self::class . '::weightEndSet(');
+        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::weightStart(');
         /** */
 
         /**
          * National
          */
-        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, self::class . '::nationalStartSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::nationalStart(');
 
             $prices_national = json_encode(
                 array(
@@ -704,84 +183,84 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, self::class . '::nationalCountrySet(');
-            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, self::class . '::nationalCostsSet(');
+            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, '\grandeljay\DHL\Configuration\Field::nationalCountry(');
+            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, '\grandeljay\DHL\Configuration\Field::nationalCosts(');
 
-        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, self::class . '::nationalEndSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::nationalEnd(');
         /** */
 
         /**
          * International
          */
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, self::class . '::internationalStartSet(');
+        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalStart(');
 
             /** Premium */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, self::class . '::internationalPremiumStartSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumStart(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, self::class . '::internationalPremiumEndSet(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumEnd(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, self::class . '::internationalPremiumEndSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalPremiumEnd(');
 
             /** Economy */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, self::class . '::internationalEconomyStartSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEconomyStart(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'false', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, self::class . '::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::class . '::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
+                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END', '', 6, 1, self::class . '::internationalEconomyEndSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEconomyEnd(');
 
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, self::class . '::internationalEndSet(');
+        $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::internationalEnd(');
         /** */
 
         /**
          * Surcharges
          */
-        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, self::class . '::surchargesStartSet(');
+        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, '\grandeljay\DHL\Configuration\Group::surchargesStart(');
 
             $surcharges = json_encode(
                 array(
@@ -808,7 +287,7 @@ class grandeljaydhl extends StdModule
                 )
             );
 
-            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::surchargesSet(');
+            $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, '\grandeljay\DHL\Configuration\Field::surcharges(');
 
             $pick_and_pack = json_encode(
                 array(
@@ -835,12 +314,12 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, self::class . '::surchargesPickAndPackSet(');
+            $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, '\grandeljay\DHL\Configuration\Field::surchargesPickAndPack(');
 
             $this->addConfigurationSelect('SURCHARGES_ROUND_UP', 'true', 6, 1);
-            $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, self::class . '::inputNumberRoundUp(');
+            $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, '\grandeljay\DHL\Configuration\Field::inputNumberRoundUp(');
 
-        $this->addConfiguration('SURCHARGES_END', '', 6, 1, self::class . '::surchargesEndSet(');
+        $this->addConfiguration('SURCHARGES_END', '', 6, 1, '\grandeljay\DHL\Configuration\Group::surchargesEnd(');
         /** */
     }
 
