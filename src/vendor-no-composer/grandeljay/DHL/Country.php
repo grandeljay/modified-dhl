@@ -1,6 +1,8 @@
 <?php
 
-class grandeljaydhl_country
+namespace grandeljay\DHL;
+
+class Country
 {
     /**
      * Countries and their zone

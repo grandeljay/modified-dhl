@@ -11,6 +11,7 @@
  * @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
  */
 
+use grandeljay\DHL\{Country, Parcel};
 use RobinTheHood\ModifiedStdModule\Classes\{StdModule, CaseConverter};
 
 /**
@@ -974,10 +975,7 @@ class grandeljaydhl extends StdModule
     {
         global $order;
 
-        require_once DIR_WS_CLASSES . 'grandeljaydhl_country.php';
-        require_once DIR_WS_CLASSES . 'grandeljaydhl_parcel.php';
-
-        $country_delivery = new grandeljaydhl_country($order->delivery['country']);
+        $country_delivery = new Country($order->delivery['country']);
         $methods          = array();
 
         /**
@@ -995,7 +993,7 @@ class grandeljaydhl extends StdModule
          * Amount of boxes
          */
         $boxes                   = array();
-        $box                     = new grandeljaydhl_parcel();
+        $box                     = new Parcel();
         $grandeljay_total_weight = 0;
 
         foreach ($order->products as $product) {
@@ -1006,7 +1004,7 @@ class grandeljaydhl extends StdModule
 
                 if ($box_weight + $product_weight > $this->getConfig('SHIPPING_WEIGHT_IDEAL')) {
                     $boxes[] = $box;
-                    $box     = new grandeljaydhl_parcel();
+                    $box     = new Parcel();
                 }
 
                 $box->addProduct($product);
@@ -1016,7 +1014,7 @@ class grandeljaydhl extends StdModule
         }
 
         $boxes[] = $box;
-        $box     = new grandeljaydhl_parcel();
+        $box     = new Parcel();
         /** */
 
         /**

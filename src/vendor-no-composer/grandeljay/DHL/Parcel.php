@@ -1,6 +1,8 @@
 <?php
 
-class grandeljaydhl_parcel
+namespace grandeljay\DHL;
+
+class Parcel
 {
     private static array $sizes = array(
         array(
