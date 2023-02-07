@@ -6,9 +6,12 @@
  * @author  Jay Trees <dhl@grandels.email>
  * @link    https://github.com/grandeljay/modified-dhl
  * @package GrandelJayDHL
+ *
+ * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
+ * @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
  */
 
-use RobinTheHood\ModifiedStdModule\Classes\{Configuration, StdModule};
+use RobinTheHood\ModifiedStdModule\Classes\{StdModule, CaseConverter};
 
 /**
  * Shipping methods musn't contain underscores.
@@ -17,24 +20,6 @@ class grandeljaydhl extends StdModule
 {
     public const VERSION = '0.3.0';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
-
-    private static Configuration $config;
-
-    /**
-     * Get configuration from
-     * RobinTheHood\ModifiedStdModule\Classes\StdModule::getConfig()
-     *
-     * @return RobinTheHood\ModifiedStdModule\Classes\Configuration
-     */
-    private static function getStdConfig(): Configuration
-    {
-        if (!isset(self::$config)) {
-            self::$config = new Configuration(self::NAME);
-        }
-
-        return self::$config;
-    }
-    /** */
 
     /**
      * Number type for option inputs
@@ -70,11 +55,12 @@ class grandeljaydhl extends StdModule
 
     private static function groupStart(string $value, string $option): string
     {
-        $config = self::getStdConfig();
+        $key_without_module_name = substr($option, strlen(self::NAME) + 1);
+        $key_lisp                = CaseConverter::screamingToLisp($key_without_module_name);
 
         ob_start();
         ?>
-        <details class="<?= $config->screamingCaseToLispCase(substr($option, strlen(self::NAME) + 1)) ?>">
+        <details class="<?= $key_lisp ?>">
             <summary><?= $value ?></summary>
             <div>
         <?php
@@ -132,8 +118,7 @@ class grandeljaydhl extends StdModule
 
     public static function nationalCostsSet(string $value, string $option): string
     {
-        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-        $config = self::getStdConfig();
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
 
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -149,7 +134,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= $config->shippingNationalCostsTitle ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COSTS_TITLE') ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -175,15 +160,15 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->shippingNationalWeightTitle ?></b><br>
-                                                <?= $config->shippingNationalWeightDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->shippingNationalCostTitle ?></b><br>
-                                                <?= $config->shippingNationalCostDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_DESC') ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +194,7 @@ class grandeljaydhl extends StdModule
                                     ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -219,8 +204,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
             </div>
         </dialog>
         <?php
@@ -281,8 +266,7 @@ class grandeljaydhl extends StdModule
 
     public static function surchargesSet(string $value, string $option): string
     {
-        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-        $config = self::getStdConfig();
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
 
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -298,7 +282,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= $config->surchargesTitle ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SURCHARGES_TITLE') ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -321,8 +305,8 @@ class grandeljaydhl extends StdModule
 
                                             <div class="column">
                                                 <select name="type">
-                                                    <option value="fixed"><?= $config->surchargesTypeFixed ?></option>
-                                                    <option value="percent"><?= $config->surchargesTypePercent ?></option>
+                                                    <option value="fixed"><?= constant(self::NAME . '_SURCHARGES_TYPE_FIXED') ?></option>
+                                                    <option value="percent"><?= constant(self::NAME . '_SURCHARGES_TYPE_PERCENT') ?></option>
                                                 </select>
                                             </div>
 
@@ -345,43 +329,43 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->surchargesNameTitle ?></b><br>
-                                                <?= $config->surchargesNameDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_NAME_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_NAME_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->surchargesSurchargeTitle ?></b><br>
-                                                <?= $config->surchargesSurchargeDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_SURCHARGE_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_SURCHARGE_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->surchargesTypeTitle ?></b><br>
-                                                <?= $config->surchargesTypeDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_TYPE_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_TYPE_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column select-option">
                                             <div>
-                                                <b><?= $config->surchargesPerPackageTitle ?></b><br>
-                                                <?= $config->surchargesPerPackageDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_PER_PACKAGE_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_PER_PACKAGE_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->surchargesDurationStartTitle ?></b><br>
-                                                <?= $config->surchargesDurationStartDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_DURATION_START_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_DURATION_START_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->surchargesDurationEndTitle ?></b><br>
-                                                <?= $config->surchargesDurationEndDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SURCHARGES_DURATION_END_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SURCHARGES_DURATION_END_DESC') ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -402,8 +386,8 @@ class grandeljaydhl extends StdModule
                                             <div class="column">
                                                 <select name="type">
                                                     <?php
-                                                    $fixedText   = $config->surchargesTypeFixed;
-                                                    $percentText = $config->surchargesTypePercent;
+                                                    $fixedText   = constant(self::NAME . '_SURCHARGES_TYPE_FIXED');
+                                                    $percentText = constant(self::NAME . '_SURCHARGES_TYPE_PERCENT');
                                                     $types       = array(
                                                         'fixed'   => $fixedText,
                                                         'percent' => $percentText,
@@ -439,7 +423,7 @@ class grandeljaydhl extends StdModule
                                     <?php } ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -449,8 +433,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
             </div>
         </dialog>
         <?php
@@ -461,8 +445,7 @@ class grandeljaydhl extends StdModule
 
     public static function surchargesPickAndPackSet(string $value, string $option): string
     {
-        $value  = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
-        $config = self::getStdConfig();
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
 
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -478,7 +461,7 @@ class grandeljaydhl extends StdModule
                     <tbody>
                         <tr class="infoBoxHeading">
                             <td class="infoBoxHeading">
-                                <div class="infoBoxHeadingTitle"><b><?= $config->surchargesPickAndPackTitle ?></b></div>
+                                <div class="infoBoxHeadingTitle"><b><?= constant(self::NAME . '_SURCHARGES_PICK_AND_PACK_TITLE') ?></b></div>
                             </td>
                         </tr>
                     </tbody>
@@ -504,15 +487,15 @@ class grandeljaydhl extends StdModule
                                     <div class="row">
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->shippingNationalWeightTitle ?></b><br>
-                                                <?= $config->shippingNationalWeightDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_WEIGHT_DESC') ?><br>
                                             </div>
                                         </div>
 
                                         <div class="column">
                                             <div>
-                                                <b><?= $config->shippingNationalCostTitle ?></b><br>
-                                                <?= $config->shippingNationalCostDesc ?><br>
+                                                <b><?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_TITLE') ?></b><br>
+                                                <?= constant(self::NAME . '_SHIPPING_NATIONAL_COST_DESC') ?><br>
                                             </div>
                                         </div>
                                     </div>
@@ -538,7 +521,7 @@ class grandeljaydhl extends StdModule
                                     ?>
 
                                     <div class="row">
-                                        <button name="grandeljaydhl_add" type="button"><?= $config->shippingNationalButtonAdd ?></button>
+                                        <button name="grandeljaydhl_add" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
                                     </div>
                                 </div>
                             </td>
@@ -548,8 +531,8 @@ class grandeljaydhl extends StdModule
             </div>
 
             <div class="buttons">
-                <button name="grandeljaydhl_apply" value="default" type="button"><?= $config->shippingNationalButtonApply ?></button>
-                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= $config->shippingNationalButtonCancel ?></button>
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(self::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
             </div>
         </dialog>
         <?php
@@ -679,8 +662,6 @@ class grandeljaydhl extends StdModule
     {
         parent::install();
 
-        $config = self::getStdConfig();
-
         /**
          * Required for modified compatibility
          */
@@ -696,7 +677,7 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addConfiguration('SHIPPING_WEIGHT_START', $config->shippingWeightStartTitle, 6, 1, self::class . '::weightStartSet(');
+        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, self::class . '::weightStartSet(');
 
             $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, self::class . '::inputNumber(');
             $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, self::class . '::inputNumber(');
@@ -707,7 +688,7 @@ class grandeljaydhl extends StdModule
         /**
          * National
          */
-        $this->addConfiguration('SHIPPING_NATIONAL_START', $config->shippingNationalStartTitle, 6, 1, self::class . '::nationalStartSet(');
+        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, self::class . '::nationalStartSet(');
 
             $prices_national = json_encode(
                 array(
@@ -731,10 +712,10 @@ class grandeljaydhl extends StdModule
         /**
          * International
          */
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $config->shippingInternationalStartTitle, 6, 1, self::class . '::internationalStartSet(');
+        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, self::class . '::internationalStartSet(');
 
             /** Premium */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $config->shippingInternationalPremiumStartTitle, 6, 1, self::class . '::internationalPremiumStartSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, self::class . '::internationalPremiumStartSet(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
 
@@ -765,7 +746,7 @@ class grandeljaydhl extends StdModule
             $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, self::class . '::internationalPremiumEndSet(');
 
             /** Economy */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $config->shippingInternationalEconomyStartTitle, 6, 1, self::class . '::internationalEconomyStartSet(');
+            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, self::class . '::internationalEconomyStartSet(');
 
                 $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'false', 6, 1);
 
@@ -799,7 +780,7 @@ class grandeljaydhl extends StdModule
         /**
          * Surcharges
          */
-        $this->addConfiguration('SURCHARGES_START', $config->surchargesStartTitle, 6, 1, self::class . '::surchargesStartSet(');
+        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, self::class . '::surchargesStartSet(');
 
             $surcharges = json_encode(
                 array(
@@ -998,14 +979,13 @@ class grandeljaydhl extends StdModule
 
         $country_delivery = new grandeljaydhl_country($order->delivery['country']);
         $methods          = array();
-        $config           = self::getStdConfig();
 
         /**
          * Weight
          */
         /** Maximum */
         foreach ($order->products as $product) {
-            if ($product['weight'] >= $config->shippingWeightMax) {
+            if ($product['weight'] >= $this->getConfig('SHIPPING_WEIGHT_MAX')) {
                 return false;
             }
         }
@@ -1024,7 +1004,7 @@ class grandeljaydhl extends StdModule
                 $box_weight     = $box->getWeight();
                 $product_weight = $product['weight'];
 
-                if ($box_weight + $product_weight > $config->shippingWeightIdeal) {
+                if ($box_weight + $product_weight > $this->getConfig('SHIPPING_WEIGHT_IDEAL')) {
                     $boxes[] = $box;
                     $box     = new grandeljaydhl_parcel();
                 }
@@ -1056,7 +1036,7 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $shipping_national_costs = json_decode($config->shippingNationalCosts, true);
+            $shipping_national_costs = json_decode($this->getConfig('SHIPPING_NATIONAL_COSTS'), true);
 
             asort($shipping_national_costs);
 
@@ -1096,7 +1076,7 @@ class grandeljaydhl extends StdModule
             /**
              * Premium
              */
-            if ('true' === $config->shippingInternationalPremiumEnable) {
+            if ('true' === $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE')) {
                 $method_paket_international_premium = array(
                     'id'    => 'paket-international-premium',
                     'title' => 'DHL Paket (Premium)',
@@ -1109,32 +1089,32 @@ class grandeljaydhl extends StdModule
                 /** Determine config keys for zone price */
 
                 /** Base */
-                $config_key_base       = 'shippingInternationalPremiumZ' . $zone . 'PriceBase';
-                $config_key_base_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseEu';
-                $config_key_base_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceBaseNoneu';
+                $config_base       = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE', false);
+                $config_base_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE_EU', false);
+                $config_base_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE_NONEU', false);
 
                 /** Kilogram */
-                $config_key_kg       = 'shippingInternationalPremiumZ' . $zone . 'PriceKg';
-                $config_key_kg_eu    = 'shippingInternationalPremiumZ' . $zone . 'PriceKgEu';
-                $config_key_kg_noneu = 'shippingInternationalPremiumZ' . $zone . 'PriceKgNoneu';
+                $config_kg       = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG', false);
+                $config_kg_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG_EU', false);
+                $config_kg_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG_NONEU', false);
 
                 /** Add costs */
                 $price_base = 0;
                 $price_kg   = 0;
 
-                if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                    $price_base = $config->$config_key_base;
-                    $price_kg   = $config->$config_key_kg;
+                if (!in_array(false, array($config_base, $config_kg), true)) {
+                    $price_base = $config_base;
+                    $price_kg   = $config_kg;
                 } else {
                     if ($country_delivery->getIsEU()) {
-                        if (isset($config->$config_key_base_eu, $config->$config_key_kg_eu)) {
-                            $price_base = $config->$config_key_base_eu;
-                            $price_kg   = $config->$config_key_kg_eu;
+                        if (!in_array(false, array($config_base_eu, $config_kg_eu), true)) {
+                            $price_base = $config_base_eu;
+                            $price_kg   = $config_kg_eu;
                         }
                     } else {
-                        if (isset($config->$config_key_base_noneu, $config->$config_key_kg_noneu)) {
-                            $price_base = $config->$config_key_base_noneu;
-                            $price_kg   = $config->$config_key_kg_noneu;
+                        if (!in_array(false, array($config_base_noneu, $config_kg_noneu), true)) {
+                            $price_base = $config_base_noneu;
+                            $price_kg   = $config_kg_noneu;
                         }
                     }
                 }
@@ -1162,7 +1142,7 @@ class grandeljaydhl extends StdModule
             /**
              * Economy
              */
-            if ('true' === $config->shippingInternationalEconomyEnable) {
+            if ('true' === $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE')) {
                 $method_paket_international_economy = array(
                     'id'    => 'paket-international-economy',
                     'title' => 'DHL Paket (Economy)',
@@ -1175,29 +1155,31 @@ class grandeljaydhl extends StdModule
                 /** Determine config keys for zone price */
 
                 /** Base */
-                $config_key_base       = 'shippingInternationalEconomyZ' . $zone . 'PriceBase';
-                $config_key_base_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseEu';
-                $config_key_base_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceBaseNoneu';
+                $config_base       = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE', false);
+                $config_base_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE_EU', false);
+                $config_base_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE_NONEU', false);
 
                 /** Kilogram */
-                $config_key_kg       = 'shippingInternationalEconomyZ' . $zone . 'PriceKg';
-                $config_key_kg_eu    = 'shippingInternationalEconomyZ' . $zone . 'PriceKgEu';
-                $config_key_kg_noneu = 'shippingInternationalEconomyZ' . $zone . 'PriceKgNoneu';
+                $config_kg       = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG', false);
+                $config_kg_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG_EU', false);
+                $config_kg_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG_NONEU', false);
 
                 /** Add costs */
                 $price_base = 0;
                 $price_kg   = 0;
 
-                if (isset($config->$config_key_base, $config->$config_key_kg)) {
-                    $price_base = $config->$config_key_base;
-                    $price_kg   = $config->$config_key_kg;
-                } elseif (isset($config->$config_key_base_eu, $config->$config_key_base_noneu)) {
-                    if ($country_delivery->getIsEU()) {
-                        $price_base = $config->$config_key_base_eu;
-                        $price_kg   = $config->$config_key_kg_eu;
-                    } else {
-                        $price_base = $config->$config_key_base_noneu;
-                        $price_kg   = $config->$config_key_kg_noneu;
+                if (!in_array(false, array($config_base, $config_kg), true)) {
+                    $price_base = $config_base;
+                    $price_kg   = $config_kg;
+                } elseif ($country_delivery->getIsEU()) {
+                    if (!in_array(false, array($config_base_eu, $config_kg_eu), true)) {
+                        $price_base = $config_base_eu;
+                        $price_kg   = $config_kg_eu;
+                    }
+                } else {
+                    if (!in_array(false, array($config_base_noneu, $config_kg_noneu), true)) {
+                        $price_base = $config_base_noneu;
+                        $price_kg   = $config_kg_noneu;
                     }
                 }
 
@@ -1225,7 +1207,7 @@ class grandeljaydhl extends StdModule
         /**
          * Surcharges
          */
-        $surcharges_config = json_decode($config->surcharges, true);
+        $surcharges_config = json_decode($this->getConfig('SURCHARGES'), true);
         $surcharges        = array();
         $surcharges_update = false;
 
@@ -1331,7 +1313,7 @@ class grandeljaydhl extends StdModule
 
         /** Pick and Pack */
         foreach ($methods as &$method) {
-            $pick_and_pack_costs = json_decode($config->surchargesPickAndPack, true);
+            $pick_and_pack_costs = json_decode($this->getConfig('SURCHARGES_PICK_AND_PACK', '[]'), true);
 
             asort($pick_and_pack_costs);
 
@@ -1361,8 +1343,10 @@ class grandeljaydhl extends StdModule
         }
 
         /** Round up */
-        if ('true' === $config->surchargesRoundUp && is_numeric($config->surchargesRoundUpTo)) {
-            $config->surchargesRoundUpTo = (float) $config->surchargesRoundUpTo;
+        $surcharges_round_up_to = $this->getConfig('SURCHARGES_ROUND_UP');
+
+        if ('true' === $surcharges_round_up_to && is_numeric($surcharges_round_up_to)) {
+            $surcharges_round_up_to = (float) $surcharges_round_up_to;
 
             foreach ($methods as &$method) {
                 $method_cost     = $method['cost'];
@@ -1371,18 +1355,18 @@ class grandeljaydhl extends StdModule
 
                 $round_up_to = $method_cost;
 
-                if ($number_decimals > $config->surchargesRoundUpTo) {
-                    $round_up_to = ceil($method_cost) + $config->surchargesRoundUpTo;
+                if ($number_decimals > $surcharges_round_up_to) {
+                    $round_up_to = ceil($method_cost) + $surcharges_round_up_to;
                 }
 
-                if ($number_decimals < $config->surchargesRoundUpTo) {
-                    $round_up_to = $number_whole + $config->surchargesRoundUpTo;
+                if ($number_decimals < $surcharges_round_up_to) {
+                    $round_up_to = $number_whole + $surcharges_round_up_to;
                 }
 
                 $method['debug']['calculations'][] = sprintf(
                     'Costs (%01.2f €) round up to %01.2f = %01.2f',
                     $method_cost,
-                    $config->surchargesRoundUpTo,
+                    $surcharges_round_up_to,
                     $round_up_to
                 );
 
@@ -1392,9 +1376,10 @@ class grandeljaydhl extends StdModule
         /** */
 
         /** Debug mode */
-        $user_is_admin = isset($_SESSION['customers_status']['customers_status_id']) && 0 === (int) $_SESSION['customers_status']['customers_status_id'];
+        $debug_is_enabled = $this->getConfig('DEBUG_ENABLE');
+        $user_is_admin    = isset($_SESSION['customers_status']['customers_status_id']) && 0 === (int) $_SESSION['customers_status']['customers_status_id'];
 
-        if ('true' === $config->debugEnable && $user_is_admin) {
+        if ('true' === $debug_is_enabled && $user_is_admin) {
             foreach ($methods as &$method) {
                 ob_start();
                 ?>
@@ -1446,7 +1431,7 @@ class grandeljaydhl extends StdModule
             );
         }
 
-        if ('true' !== $config->debugEnable || !$user_is_admin) {
+        if ('true' !== $debug_is_enabled || !$user_is_admin) {
             $boxes_weight_text = array(
                 sprintf(
                     '%s kg',
