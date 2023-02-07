@@ -39,7 +39,7 @@ class Field
     /**
      * National
      */
-    public static function nationalCountry(string $countryID, string $option): string
+    public static function shippingNationalCountry(string $countryID, string $option): string
     {
         $html  = '';
         $html .= xtc_draw_input_field(
@@ -52,7 +52,7 @@ class Field
         return $html;
     }
 
-    public static function nationalCosts(string $value, string $option): string
+    public static function shippingNationalCosts(string $value, string $option): string
     {
         $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
 

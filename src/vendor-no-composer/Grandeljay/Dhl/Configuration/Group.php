@@ -35,12 +35,12 @@ class Group
      */
     public const SHIPPING_WEIGHT = 'SHIPPING_WEIGHT';
 
-    public static function weightStart(string $value, string $option): string
+    public static function shippingWeightStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
     }
 
-    public static function weightEnd(string $value, string $option): string
+    public static function shippingWeightEnd(string $value, string $option): string
     {
         return self::end($value, $option);
     }
@@ -50,12 +50,12 @@ class Group
      */
     public const SHIPPING_NATIONAL = 'SHIPPING_NATIONAL';
 
-    public static function nationalStart(string $value, string $option): string
+    public static function shippingNationalStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
     }
 
-    public static function nationalEnd(string $value, string $option): string
+    public static function shippingNationalEnd(string $value, string $option): string
     {
         return self::end($value, $option);
     }
@@ -65,34 +65,34 @@ class Group
      */
     public const SHIPPING_INTERNATIONAL = 'SHIPPING_INTERNATIONAL';
 
-    public static function internationalStart(string $value, string $option): string
+    public static function shippingInternationalStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
     }
 
-    public static function internationalEnd(string $value, string $option): string
+    public static function shippingInternationalEnd(string $value, string $option): string
     {
         return self::end($value, $option);
     }
 
     /** Premium */
-    public static function internationalPremiumStart(string $value, string $option): string
+    public static function shippingInternationalPremiumStart(string $value, string $option): string
     {
         return self::start('<h3>' . $value . '</h3>', $option);
     }
 
-    public static function internationalPremiumEnd(string $value, string $option): string
+    public static function shippingInternationalPremiumEnd(string $value, string $option): string
     {
         return self::end($value, $option);
     }
 
     /** Economy */
-    public static function internationalEconomyStart(string $value, string $option): string
+    public static function shippingInternationalEconomyStart(string $value, string $option): string
     {
         return self::start('<h3>' . $value . '</h3>', $option);
     }
 
-    public static function internationalEconomyEnd(string $value, string $option): string
+    public static function shippingInternationalEconomyEnd(string $value, string $option): string
     {
         return self::end($value, $option);
     }
