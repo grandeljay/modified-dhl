@@ -19,8 +19,8 @@ use RobinTheHood\ModifiedStdModule\Classes\StdModule;
  */
 class grandeljaydhl extends StdModule
 {
-    public const VERSION = '0.3.0';
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
+    public const VERSION = '0.3.0';
 
     private const NAMESPACE_CONFIGURATION = '\Grandeljay\Dhl\Configuration';
 
