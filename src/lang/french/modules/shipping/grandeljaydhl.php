@@ -8,6 +8,8 @@
  * @package GrandelJayDHL
  */
 
+use Grandeljay\Dhl\Configuration\Group;
+
 if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY')) {
     $country_query = xtc_db_query(
         'SELECT *
@@ -21,46 +23,46 @@ $translations_general = array(
     /**
      * Module
      */
-    'TITLE'                                                    => 'grandeljay - DHL',
-    'LONG_DESCRIPTION'                                         => 'Mode d\'expédition DHL',
-    'STATUS_TITLE'                                             => 'Activer le module ?',
-    'STATUS_DESC'                                              => 'Permet l\'envoi via DHL.',
-    'TEXT_TITLE'                                               => 'DHL',
+    'TITLE'                                                              => 'grandeljay - DHL',
+    'LONG_DESCRIPTION'                                                   => 'Mode d\'expédition DHL',
+    'STATUS_TITLE'                                                       => 'Activer le module ?',
+    'STATUS_DESC'                                                        => 'Permet l\'envoi via DHL.',
+    'TEXT_TITLE'                                                         => 'DHL',
 
     /**
      * Required for modified compatibility
      */
-    'ALLOWED_TITLE'                                            => '',
-    'ALLOWED_DESC'                                             => '',
+    'ALLOWED_TITLE'                                                      => '',
+    'ALLOWED_DESC'                                                       => '',
 
     /**
      * Debug
      */
-    'DEBUG_ENABLE_TITLE'                                       => 'Mode de débogage',
-    'DEBUG_ENABLE_DESC'                                        => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés. Visible uniquement par les admins.',
+    'DEBUG_ENABLE_TITLE'                                                 => 'Mode de débogage',
+    'DEBUG_ENABLE_DESC'                                                  => 'Activer le mode de débogage ? Des informations supplémentaires sont affichées, par exemple comment les frais de port ont été calculés. Visible uniquement par les admins.',
 
     /**
      * Weight
      */
-    'SHIPPING_WEIGHT_START_TITLE'                              => 'Poids',
-    'SHIPPING_WEIGHT_START_DESC'                               => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'emballage et au poids. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SHIPPING_WEIGHT . '_START_TITLE'                              => 'Poids',
+    Group::SHIPPING_WEIGHT . '_START_DESC'                               => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'emballage et au poids. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SHIPPING_WEIGHT_MAX_TITLE'                                => 'Poids maximal',
-    'SHIPPING_WEIGHT_MAX_DESC'                                 => 'Poids maximal qu\'un article peut avoir.',
-    'SHIPPING_WEIGHT_IDEAL_TITLE'                              => 'Poids idéal',
-    'SHIPPING_WEIGHT_IDEAL_DESC'                               => 'Poids cible lors du calcul des frais d\'expédition afin d\'augmenter la sécurité du transport, par exemple.',
+    Group::SHIPPING_WEIGHT . '_MAX_TITLE'                                => 'Poids maximal',
+    Group::SHIPPING_WEIGHT . '_MAX_DESC'                                 => 'Poids maximal qu\'un article peut avoir.',
+    Group::SHIPPING_WEIGHT . '_IDEAL_TITLE'                              => 'Poids idéal',
+    Group::SHIPPING_WEIGHT . '_IDEAL_DESC'                               => 'Poids cible lors du calcul des frais d\'expédition afin d\'augmenter la sécurité du transport, par exemple.',
 
-    'SHIPPING_WEIGHT_END_TITLE'                                => '',
-    'SHIPPING_WEIGHT_END_DESC'                                 => '',
+    Group::SHIPPING_WEIGHT . '_END_TITLE'                                => '',
+    Group::SHIPPING_WEIGHT . '_END_DESC'                                 => '',
 
     /**
      * National
      */
-    'SHIPPING_NATIONAL_START_TITLE'                            => 'Envoi national',
-    'SHIPPING_NATIONAL_START_DESC'                             => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi national. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SHIPPING_NATIONAL . '_START_TITLE'                            => 'Envoi national',
+    Group::SHIPPING_NATIONAL . '_START_DESC'                             => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi national. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SHIPPING_NATIONAL_COUNTRY_TITLE'                          => 'Envoi national',
-    'SHIPPING_NATIONAL_COUNTRY_DESC'                           => sprintf(
+    Group::SHIPPING_NATIONAL . '_COUNTRY_TITLE'                          => 'Envoi national',
+    Group::SHIPPING_NATIONAL . '_COUNTRY_DESC'                           => sprintf(
         'L\'emplacement de la boutique en ligne est actuellement %s et peut être modifié sous %s.',
         $country['countries_name'] ?? 'Inconnu',
         sprintf(
@@ -69,160 +71,160 @@ $translations_general = array(
             defined('BOX_CONFIGURATION_1') ? BOX_CONFIGURATION_1 : 'BOX_CONFIGURATION_1',
         )
     ),
-    'SHIPPING_NATIONAL_COSTS_TITLE'                            => 'Frais d\'envoi nationaux',
-    'SHIPPING_NATIONAL_COSTS_DESC'                             => 'Affectation des frais de port pour différents poids.',
+    Group::SHIPPING_NATIONAL . '_COSTS_TITLE'                            => 'Frais d\'envoi nationaux',
+    Group::SHIPPING_NATIONAL . '_COSTS_DESC'                             => 'Affectation des frais de port pour différents poids.',
 
-    'SHIPPING_NATIONAL_WEIGHT_TITLE'                           => 'Poids',
-    'SHIPPING_NATIONAL_WEIGHT_DESC'                            => 'Poids maximum autorisé (en Kg) pour ce prix.',
-    'SHIPPING_NATIONAL_COST_TITLE'                             => 'Coûts',
-    'SHIPPING_NATIONAL_COST_DESC'                              => 'Frais d\'expédition pour le poids en EUR.',
+    Group::SHIPPING_NATIONAL . '_WEIGHT_TITLE'                           => 'Poids',
+    Group::SHIPPING_NATIONAL . '_WEIGHT_DESC'                            => 'Poids maximum autorisé (en Kg) pour ce prix.',
+    Group::SHIPPING_NATIONAL . '_COST_TITLE'                             => 'Coûts',
+    Group::SHIPPING_NATIONAL . '_COST_DESC'                              => 'Frais d\'expédition pour le poids en EUR.',
 
-    'SHIPPING_NATIONAL_BUTTON_ADD'                             => 'Ajouter',
-    'SHIPPING_NATIONAL_BUTTON_APPLY'                           => 'Reprendre',
-    'SHIPPING_NATIONAL_BUTTON_CANCEL'                          => 'Annuler',
+    Group::SHIPPING_NATIONAL . '_BUTTON_ADD'                             => 'Ajouter',
+    Group::SHIPPING_NATIONAL . '_BUTTON_APPLY'                           => 'Reprendre',
+    Group::SHIPPING_NATIONAL . '_BUTTON_CANCEL'                          => 'Annuler',
 
-    'SHIPPING_NATIONAL_END_TITLE'                              => '',
-    'SHIPPING_NATIONAL_END_DESC'                               => '',
+    Group::SHIPPING_NATIONAL . '_END_TITLE'                              => '',
+    Group::SHIPPING_NATIONAL . '_END_DESC'                               => '',
 
     /**
      * International
      */
-    'SHIPPING_INTERNATIONAL_START_TITLE'                       => 'Expédition internationale',
-    'SHIPPING_INTERNATIONAL_START_DESC'                        => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'expédition internationale. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SHIPPING_INTERNATIONAL . '_START_TITLE'                       => 'Expédition internationale',
+    Group::SHIPPING_INTERNATIONAL . '_START_DESC'                        => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'expédition internationale. Cliquez sur le groupe pour ouvrir les paramètres.',
 
     /** Premium */
-    'SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'               => 'Expédition premium',
-    'SHIPPING_INTERNATIONAL_PREMIUM_START_DESC'                => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi international de permium. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE'               => 'Expédition premium',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_DESC'                => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi international de permium. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_TITLE'              => 'Activer l\'expédition premium ?',
-    'SHIPPING_INTERNATIONAL_PREMIUM_ENABLE_DESC'               => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE_TITLE'              => 'Activer l\'expédition premium ?',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE_DESC'               => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Premium Prix de base (UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Premium Prix de base (hors UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU_DESC'  => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU_TITLE'      => 'Zone 1 Premium Prix au kilogramme (UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU_DESC'       => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU_TITLE'   => 'Zone 1 Premium Prix au kilogramme (hors UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU_DESC'    => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Premium Prix de base (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU_DESC'     => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Premium Prix de base (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU_DESC'  => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU_TITLE'      => 'Zone 1 Premium Prix au kilogramme (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU_DESC'       => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU_TITLE'   => 'Zone 1 Premium Prix au kilogramme (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU_DESC'    => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE_TITLE'       => 'Zone 2 Premium Prix de base',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG_TITLE'         => 'Zone 2 Premium Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE_TITLE'       => 'Zone 2 Premium Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG_TITLE'         => 'Zone 2 Premium Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU_TITLE'    => 'Zone 3 Premium Prix de base (UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU_DESC'     => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU_TITLE' => 'Zone 3 Premium Prix de base (hors UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU_DESC'  => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU_TITLE'      => 'Zone 3 Premium Prix au kilogramme (UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU_DESC'       => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU_TITLE'   => 'Zone 3 Premium Prix au kilogramme (hors UE)',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU_DESC'    => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU_TITLE'    => 'Zone 3 Premium Prix de base (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU_DESC'     => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU_TITLE' => 'Zone 3 Premium Prix de base (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU_DESC'  => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU_TITLE'      => 'Zone 3 Premium Prix au kilogramme (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU_DESC'       => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU_TITLE'   => 'Zone 3 Premium Prix au kilogramme (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU_DESC'    => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE_TITLE'       => 'Zone 4 Premium Prix de base',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG_TITLE'         => 'Zone 4 Premium Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE_TITLE'       => 'Zone 4 Premium Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG_TITLE'         => 'Zone 4 Premium Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE_TITLE'       => 'Zone 5 Premium Prix de base',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG_TITLE'         => 'Zone 5 Premium Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE_TITLE'       => 'Zone 5 Premium Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG_TITLE'         => 'Zone 5 Premium Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE_TITLE'       => 'Zone 6 Premium Prix de base',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_TITLE'         => 'Zone 6 Premium Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE_TITLE'       => 'Zone 6 Premium Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG_TITLE'         => 'Zone 6 Premium Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_PREMIUM_END_TITLE'                 => '',
-    'SHIPPING_INTERNATIONAL_PREMIUM_END_DESC'                  => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END_TITLE'                 => '',
+    Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END_DESC'                  => '',
 
     /** Economy */
-    'SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'               => 'Expédition économique',
-    'SHIPPING_INTERNATIONAL_ECONOMY_START_DESC'                => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi économique international. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE'               => 'Expédition économique',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_DESC'                => 'C\'est ici que se trouvent tous les paramètres relatifs à l\'envoi économique international. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_ENABLE_TITLE'              => 'Activer l\'envoi en mode économique ?',
-    'SHIPPING_INTERNATIONAL_ECONOMY_ENABLE_DESC'               => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE_TITLE'              => 'Activer l\'envoi en mode économique ?',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE_DESC'               => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Economy Prix de base (UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU_DESC'     => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Economy Prix de base (hors UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU_DESC'  => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU_TITLE'      => 'Zone 1 Economy Prix au kilogramme (UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU_DESC'       => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU_TITLE'   => 'Zone 1 Prix économique au kilogramme (hors UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU_DESC'    => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU_TITLE'    => 'Zone 1 Economy Prix de base (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU_DESC'     => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU_TITLE' => 'Zone 1 Economy Prix de base (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU_DESC'  => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU_TITLE'      => 'Zone 1 Economy Prix au kilogramme (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU_DESC'       => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU_TITLE'   => 'Zone 1 Prix économique au kilogramme (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU_DESC'    => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE_TITLE'       => 'Zone 2 Economy Prix de base',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG_TITLE'         => 'Zone 2 Economy Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE_TITLE'       => 'Zone 2 Economy Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG_TITLE'         => 'Zone 2 Economy Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU_TITLE'    => 'Zone 3 Economy Prix de base (UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU_DESC'     => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU_TITLE' => 'Zone 3 Economy Prix de base (hors UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU_DESC'  => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU_TITLE'      => 'Zone 3 Economy Prix au kilogramme (UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU_DESC'       => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU_TITLE'   => 'Zone 3 Economy Prix au kilogramme (hors UE)',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU_DESC'    => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU_TITLE'    => 'Zone 3 Economy Prix de base (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU_DESC'     => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU_TITLE' => 'Zone 3 Economy Prix de base (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU_DESC'  => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU_TITLE'      => 'Zone 3 Economy Prix au kilogramme (UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU_DESC'       => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU_TITLE'   => 'Zone 3 Economy Prix au kilogramme (hors UE)',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU_DESC'    => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE_TITLE'       => 'Zone 4 Economy Prix de base',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG_TITLE'         => 'Zone 4 Economy Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE_TITLE'       => 'Zone 4 Economy Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG_TITLE'         => 'Zone 4 Economy Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE_TITLE'       => 'Zone 5 Economy Prix de base',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG_TITLE'         => 'Zone 5 Economy Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE_TITLE'       => 'Zone 5 Economy Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG_TITLE'         => 'Zone 5 Economy Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_TITLE'       => 'Zone 6 Economy Prix de base',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE_DESC'        => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_TITLE'         => 'Zone 6 Economy Prix au kilogramme',
-    'SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG_DESC'          => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE_TITLE'       => 'Zone 6 Economy Prix de base',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE_DESC'        => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG_TITLE'         => 'Zone 6 Economy Prix au kilogramme',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG_DESC'          => '',
 
-    'SHIPPING_INTERNATIONAL_ECONOMY_END_TITLE'                 => '',
-    'SHIPPING_INTERNATIONAL_ECONOMY_END_DESC'                  => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END_TITLE'                 => '',
+    Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END_DESC'                  => '',
 
-    'SHIPPING_INTERNATIONAL_END_TITLE'                         => '',
-    'SHIPPING_INTERNATIONAL_END_DESC'                          => '',
+    Group::SHIPPING_INTERNATIONAL . '_END_TITLE'                         => '',
+    Group::SHIPPING_INTERNATIONAL . '_END_DESC'                          => '',
 
     /**
      * Surcharges
      */
-    'SURCHARGES_START_TITLE'                                   => 'Suppléments',
-    'SURCHARGES_START_DESC'                                    => 'C\'est ici que se trouvent tous les paramètres relatifs aux majorations. Cliquez sur le groupe pour ouvrir les paramètres.',
+    Group::SURCHARGES . '_START_TITLE'                                   => 'Suppléments',
+    Group::SURCHARGES . '_START_DESC'                                    => 'C\'est ici que se trouvent tous les paramètres relatifs aux majorations. Cliquez sur le groupe pour ouvrir les paramètres.',
 
-    'SURCHARGES_TITLE'                                         => 'Suppléments',
-    'SURCHARGES_DESC'                                          => '',
+    Group::SURCHARGES . '_TITLE'                                         => 'Suppléments',
+    Group::SURCHARGES . '_DESC'                                          => '',
 
-    'SURCHARGES_NAME_TITLE'                                    => 'Nom',
-    'SURCHARGES_NAME_DESC'                                     => 'Terme désignant le service.',
-    'SURCHARGES_SURCHARGE_TITLE'                               => 'Service',
-    'SURCHARGES_SURCHARGE_DESC'                                => 'Quel est le montant de la majoration ?',
-    'SURCHARGES_TYPE_TITLE'                                    => 'Art',
-    'SURCHARGES_TYPE_DESC'                                     => 'De quelle majoration s\'agit-il ?',
-    'SURCHARGES_TYPE_FIXED'                                    => 'Fixe',
-    'SURCHARGES_TYPE_PERCENT'                                  => 'Pourcentage',
-    'SURCHARGES_PER_PACKAGE_TITLE'                             => 'Par paquet',
-    'SURCHARGES_PER_PACKAGE_DESC'                              => 'Le supplément est calculé pour chaque paquet.',
-    'SURCHARGES_DURATION_START_TITLE'                          => 'De',
-    'SURCHARGES_DURATION_START_DESC'                           => 'En option, vous pouvez choisir. Date à partir de laquelle le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
-    'SURCHARGES_DURATION_END_TITLE'                            => 'Jusqu\'à',
-    'SURCHARGES_DURATION_END_DESC'                             => 'En option, vous pouvez choisir. Jusqu\'à quelle date le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
+    Group::SURCHARGES . '_NAME_TITLE'                                    => 'Nom',
+    Group::SURCHARGES . '_NAME_DESC'                                     => 'Terme désignant le service.',
+    Group::SURCHARGES . '_SURCHARGE_TITLE'                               => 'Service',
+    Group::SURCHARGES . '_SURCHARGE_DESC'                                => 'Quel est le montant de la majoration ?',
+    Group::SURCHARGES . '_TYPE_TITLE'                                    => 'Art',
+    Group::SURCHARGES . '_TYPE_DESC'                                     => 'De quelle majoration s\'agit-il ?',
+    Group::SURCHARGES . '_TYPE_FIXED'                                    => 'Fixe',
+    Group::SURCHARGES . '_TYPE_PERCENT'                                  => 'Pourcentage',
+    Group::SURCHARGES . '_PER_PACKAGE_TITLE'                             => 'Par paquet',
+    Group::SURCHARGES . '_PER_PACKAGE_DESC'                              => 'Le supplément est calculé pour chaque paquet.',
+    Group::SURCHARGES . '_DURATION_START_TITLE'                          => 'De',
+    Group::SURCHARGES . '_DURATION_START_DESC'                           => 'En option, vous pouvez choisir. Date à partir de laquelle le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
+    Group::SURCHARGES . '_DURATION_END_TITLE'                            => 'Jusqu\'à',
+    Group::SURCHARGES . '_DURATION_END_DESC'                             => 'En option, vous pouvez choisir. Jusqu\'à quelle date le supplément doit s\'appliquer. Les années sont automatiquement mises à jour.',
 
-    'SURCHARGES_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
-    'SURCHARGES_PICK_AND_PACK_DESC'                            => 'Frais encourus pour la préparation et l\'emballage de la commande.',
+    Group::SURCHARGES . '_PICK_AND_PACK_TITLE'                           => 'Pick & Pack',
+    Group::SURCHARGES . '_PICK_AND_PACK_DESC'                            => 'Frais encourus pour la préparation et l\'emballage de la commande.',
 
-    'SURCHARGES_ROUND_UP_TITLE'                                => 'Arrondir les frais de port ?',
-    'SURCHARGES_ROUND_UP_DESC'                                 => 'Permet de présenter les frais d\'expédition de manière plus cohérente en arrondissant toujours les montants (à XX,90 € par exemple) vers le haut.',
-    'SURCHARGES_ROUND_UP_TO_TITLE'                             => 'Arrondir à l\'unité supérieure',
-    'SURCHARGES_ROUND_UP_TO_DESC'                              => 'A quelle décimale doit-on toujours arrondir ?',
+    Group::SURCHARGES . '_ROUND_UP_TITLE'                                => 'Arrondir les frais de port ?',
+    Group::SURCHARGES . '_ROUND_UP_DESC'                                 => 'Permet de présenter les frais d\'expédition de manière plus cohérente en arrondissant toujours les montants (à XX,90 € par exemple) vers le haut.',
+    Group::SURCHARGES . '_ROUND_UP_TO_TITLE'                             => 'Arrondir à l\'unité supérieure',
+    Group::SURCHARGES . '_ROUND_UP_TO_DESC'                              => 'A quelle décimale doit-on toujours arrondir ?',
 
-    'SURCHARGES_END_TITLE'                                     => '',
-    'SURCHARGES_END_DESC'                                      => '',
+    Group::SURCHARGES . '_END_TITLE'                                     => '',
+    Group::SURCHARGES . '_END_DESC'                                      => '',
 );
 
 /**

@@ -33,6 +33,8 @@ class Group
     /**
      * Weight
      */
+    public const SHIPPING_WEIGHT = 'SHIPPING_WEIGHT';
+
     public static function weightStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
@@ -46,6 +48,8 @@ class Group
     /**
      * National
      */
+    public const SHIPPING_NATIONAL = 'SHIPPING_NATIONAL';
+
     public static function nationalStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
@@ -59,6 +63,8 @@ class Group
     /**
      * International
      */
+    public const SHIPPING_INTERNATIONAL = 'SHIPPING_INTERNATIONAL';
+
     public static function internationalStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);
@@ -95,6 +101,8 @@ class Group
     /**
      * Surcharges
      */
+    public const SURCHARGES = 'SURCHARGES';
+
     public static function surchargesStart(string $value, string $option): string
     {
         return self::start('<h2>' . $value . '</h2>', $option);

@@ -12,6 +12,7 @@
  */
 
 use Grandeljay\Dhl\{Country, Parcel};
+use Grandeljay\Dhl\Configuration\Group;
 use RobinTheHood\ModifiedStdModule\Classes\StdModule;
 
 /**
@@ -39,104 +40,104 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addKey('SHIPPING_WEIGHT_START');
+        $this->addKey(Group::SHIPPING_WEIGHT . '_START');
 
-            $this->addKey('SHIPPING_WEIGHT_MAX');
-            $this->addKey('SHIPPING_WEIGHT_IDEAL');
+            $this->addKey(Group::SHIPPING_WEIGHT . '_MAX');
+            $this->addKey(Group::SHIPPING_WEIGHT . '_IDEAL');
 
-        $this->addKey('SHIPPING_WEIGHT_END');
+        $this->addKey(Group::SHIPPING_WEIGHT . '_END');
         /** */
 
         /**
          * National
          */
-        $this->addKey('SHIPPING_NATIONAL_START');
+        $this->addKey(Group::SHIPPING_NATIONAL . '_START');
 
-            $this->addKey('SHIPPING_NATIONAL_COUNTRY');
-            $this->addKey('SHIPPING_NATIONAL_COSTS');
+            $this->addKey(Group::SHIPPING_NATIONAL . '_COUNTRY');
+            $this->addKey(Group::SHIPPING_NATIONAL . '_COSTS');
 
-        $this->addKey('SHIPPING_NATIONAL_END');
+        $this->addKey(Group::SHIPPING_NATIONAL . '_END');
         /** */
 
         /**
          * International
          */
-        $this->addKey('SHIPPING_INTERNATIONAL_START');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_START');
 
             /** Premium */
-            $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_START');
+            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
 
-            $this->addKey('SHIPPING_INTERNATIONAL_PREMIUM_END');
+            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
 
             /** Economy */
-            $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_START');
+            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
 
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE');
-                $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
+                $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
 
-            $this->addKey('SHIPPING_INTERNATIONAL_ECONOMY_END');
+            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
 
-        $this->addKey('SHIPPING_INTERNATIONAL_END');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_END');
         /** */
 
         /**
          * Surcharges
          */
-        $this->addKey('SURCHARGES_START');
+        $this->addKey(Group::SURCHARGES . '_START');
 
             $this->addKey('SURCHARGES');
 
-            $this->addKey('SURCHARGES_PICK_AND_PACK');
+            $this->addKey(Group::SURCHARGES . '_PICK_AND_PACK');
 
-            $this->addKey('SURCHARGES_ROUND_UP');
-            $this->addKey('SURCHARGES_ROUND_UP_TO');
+            $this->addKey(Group::SURCHARGES . '_ROUND_UP');
+            $this->addKey(Group::SURCHARGES . '_ROUND_UP_TO');
 
-        $this->addKey('SURCHARGES_END');
+        $this->addKey(Group::SURCHARGES . '_END');
         /** */
     }
 
@@ -159,18 +160,18 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->addConfiguration('SHIPPING_WEIGHT_START', $this->getConfig('SHIPPING_WEIGHT_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::weightStart(');
+        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_START', $this->getConfig(Group::SHIPPING_WEIGHT . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::SHIPPING_WEIGHTStart(');
 
-            $this->addConfiguration('SHIPPING_WEIGHT_MAX', 31.5, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-            $this->addConfiguration('SHIPPING_WEIGHT_IDEAL', 15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_MAX', 31.5, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+            $this->addConfiguration(Group::SHIPPING_WEIGHT . '_IDEAL', 15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-        $this->addConfiguration('SHIPPING_WEIGHT_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::weightStart(');
+        $this->addConfiguration(Group::SHIPPING_WEIGHT . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::SHIPPING_WEIGHTStart(');
         /** */
 
         /**
          * National
          */
-        $this->addConfiguration('SHIPPING_NATIONAL_START', $this->getConfig('SHIPPING_NATIONAL_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalStart(');
+        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_START', $this->getConfig(Group::SHIPPING_NATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalStart(');
 
             $prices_national = json_encode(
                 array(
@@ -185,84 +186,84 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SHIPPING_NATIONAL_COUNTRY', STORE_COUNTRY, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCountry(');
-            $this->addConfiguration('SHIPPING_NATIONAL_COSTS', $prices_national, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCosts(');
+            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY', STORE_COUNTRY, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCountry(');
+            $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COSTS', $prices_national, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::nationalCosts(');
 
-        $this->addConfiguration('SHIPPING_NATIONAL_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalEnd(');
+        $this->addConfiguration(Group::SHIPPING_NATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::nationalEnd(');
         /** */
 
         /**
          * International
          */
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_START', $this->getConfig('SHIPPING_INTERNATIONAL_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalStart(');
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalStart(');
 
             /** Premium */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START', $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumStart(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumStart(');
 
-                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE', 'true', 6, 1);
+                $this->addConfigurationSelect(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE', 'true', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU', 10.44, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU', 19.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU', 0.64, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE', 10.76, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG', 0.75, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU', 10.97, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU', 17.79, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU', 0.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU', 1.81, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE', 24.45, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG', 2.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG', 6.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE', 35.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG', 7.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalPremiumEnd(');
 
             /** Economy */
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START', $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyStart(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyStart(');
 
-                $this->addConfigurationSelect('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE', 'false', 6, 1);
+                $this->addConfigurationSelect(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE', 'false', 6, 1);
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU', 10.15, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU', 14.48, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU', 0.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU', 0.27, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE', 10.70, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG', 0.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU', 10.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU', 13.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU', 1.00, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE', 23.80, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG', 1.40, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE', 26.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG', 3.30, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
-                $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE', 31.85, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
+                $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumber(');
 
-            $this->addConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyEnd(');
+            $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEconomyEnd(');
 
-        $this->addConfiguration('SHIPPING_INTERNATIONAL_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEnd(');
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::internationalEnd(');
         /** */
 
         /**
          * Surcharges
          */
-        $this->addConfiguration('SURCHARGES_START', $this->getConfig('SURCHARGES_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesStart(');
+        $this->addConfiguration(Group::SURCHARGES . '_START', $this->getConfig(Group::SURCHARGES . '_START_TITLE'), 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesStart(');
 
             $surcharges = json_encode(
                 array(
@@ -316,12 +317,12 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $this->addConfiguration('SURCHARGES_PICK_AND_PACK', $pick_and_pack, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::surchargesPickAndPack(');
+            $this->addConfiguration(Group::SURCHARGES . '_PICK_AND_PACK', $pick_and_pack, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::surchargesPickAndPack(');
 
-            $this->addConfigurationSelect('SURCHARGES_ROUND_UP', 'true', 6, 1);
-            $this->addConfiguration('SURCHARGES_ROUND_UP_TO', 0.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumberRoundUp(');
+            $this->addConfigurationSelect(Group::SURCHARGES . '_ROUND_UP', 'true', 6, 1);
+            $this->addConfiguration(Group::SURCHARGES . '_ROUND_UP_TO', 0.90, 6, 1, self::NAMESPACE_CONFIGURATION . '\Field::inputNumberRoundUp(');
 
-        $this->addConfiguration('SURCHARGES_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesEnd(');
+        $this->addConfiguration(Group::SURCHARGES . '_END', '', 6, 1, self::NAMESPACE_CONFIGURATION . '\Group::surchargesEnd(');
         /** */
     }
 
@@ -355,100 +356,100 @@ class grandeljaydhl extends StdModule
         /**
          * Weight
          */
-        $this->deleteConfiguration('SHIPPING_WEIGHT_START');
-        $this->deleteConfiguration('SHIPPING_WEIGHT_MAX');
-        $this->deleteConfiguration('SHIPPING_WEIGHT_IDEAL');
-        $this->deleteConfiguration('SHIPPING_WEIGHT_END');
+        $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_START');
+        $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_MAX');
+        $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_IDEAL');
+        $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_END');
         /** */
 
         /**
          * National
          */
-        $this->deleteConfiguration('SHIPPING_NATIONAL_START');
-        $this->deleteConfiguration('SHIPPING_NATIONAL_COUNTRY');
-        $this->deleteConfiguration('SHIPPING_NATIONAL_COSTS');
-        $this->deleteConfiguration('SHIPPING_NATIONAL_END');
+        $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_START');
+        $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY');
+        $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_COSTS');
+        $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_END');
         /** */
 
         /**
          * International
          */
-        $this->deleteConfiguration('SHIPPING_INTERNATIONAL_START');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_START');
 
             /** Premium */
-            $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_START');
+            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_BASE_NONEU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z1_PRICE_KG_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z2_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_BASE_NONEU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z3_PRICE_KG_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z4_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z5_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_Z6_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
 
-            $this->deleteConfiguration('SHIPPING_INTERNATIONAL_PREMIUM_END');
+            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
 
             /** Economy */
-            $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_START');
+            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_BASE_NONEU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z1_PRICE_KG_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z2_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_BASE_NONEU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_EU');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z3_PRICE_KG_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z4_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z5_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
 
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_BASE');
-                $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_Z6_PRICE_KG');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
+                $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
 
-            $this->deleteConfiguration('SHIPPING_INTERNATIONAL_ECONOMY_END');
+            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
 
-        $this->deleteConfiguration('SHIPPING_INTERNATIONAL_END');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_END');
         /** */
 
         /**
          * Surcharges
          */
-        $this->deleteConfiguration('SURCHARGES_START');
+        $this->deleteConfiguration(Group::SURCHARGES . '_START');
 
             $this->deleteConfiguration('SURCHARGES');
 
-            $this->deleteConfiguration('SURCHARGES_PICK_AND_PACK');
+            $this->deleteConfiguration(Group::SURCHARGES . '_PICK_AND_PACK');
 
-            $this->deleteConfiguration('SURCHARGES_ROUND_UP');
-            $this->deleteConfiguration('SURCHARGES_ROUND_UP_TO');
+            $this->deleteConfiguration(Group::SURCHARGES . '_ROUND_UP');
+            $this->deleteConfiguration(Group::SURCHARGES . '_ROUND_UP_TO');
 
-        $this->deleteConfiguration('SURCHARGES_END');
+        $this->deleteConfiguration(Group::SURCHARGES . '_END');
         /** */
     }
 
@@ -464,7 +465,7 @@ class grandeljaydhl extends StdModule
          */
         /** Maximum */
         foreach ($order->products as $product) {
-            if ($product['weight'] >= $this->getConfig('SHIPPING_WEIGHT_MAX')) {
+            if ($product['weight'] >= $this->getConfig(Group::SHIPPING_WEIGHT . '_MAX')) {
                 return false;
             }
         }
@@ -483,7 +484,7 @@ class grandeljaydhl extends StdModule
                 $box_weight     = $box->getWeight();
                 $product_weight = $product['weight'];
 
-                if ($box_weight + $product_weight > $this->getConfig('SHIPPING_WEIGHT_IDEAL')) {
+                if ($box_weight + $product_weight > $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL')) {
                     $boxes[] = $box;
                     $box     = new Parcel();
                 }
@@ -515,7 +516,7 @@ class grandeljaydhl extends StdModule
                 ),
             );
 
-            $shipping_national_costs = json_decode($this->getConfig('SHIPPING_NATIONAL_COSTS'), true);
+            $shipping_national_costs = json_decode($this->getConfig(Group::SHIPPING_NATIONAL . '_COSTS'), true);
 
             asort($shipping_national_costs);
 
@@ -555,7 +556,7 @@ class grandeljaydhl extends StdModule
             /**
              * Premium
              */
-            if ('true' === $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_ENABLE')) {
+            if ('true' === $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE')) {
                 $method_paket_international_premium = array(
                     'id'    => 'paket-international-premium',
                     'title' => 'DHL Paket (Premium)',
@@ -568,14 +569,14 @@ class grandeljaydhl extends StdModule
                 /** Determine config keys for zone price */
 
                 /** Base */
-                $config_base       = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE', false);
-                $config_base_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE_EU', false);
-                $config_base_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_BASE_NONEU', false);
+                $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE', false);
+                $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_EU', false);
+                $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_NONEU', false);
 
                 /** Kilogram */
-                $config_kg       = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG', false);
-                $config_kg_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG_EU', false);
-                $config_kg_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_PREMIUM_Z' . $zone . '_PRICE_KG_NONEU', false);
+                $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG', false);
+                $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_EU', false);
+                $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_NONEU', false);
 
                 /** Add costs */
                 $price_base = 0;
@@ -621,7 +622,7 @@ class grandeljaydhl extends StdModule
             /**
              * Economy
              */
-            if ('true' === $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_ENABLE')) {
+            if ('true' === $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE')) {
                 $method_paket_international_economy = array(
                     'id'    => 'paket-international-economy',
                     'title' => 'DHL Paket (Economy)',
@@ -634,14 +635,14 @@ class grandeljaydhl extends StdModule
                 /** Determine config keys for zone price */
 
                 /** Base */
-                $config_base       = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE', false);
-                $config_base_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE_EU', false);
-                $config_base_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_BASE_NONEU', false);
+                $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE', false);
+                $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_EU', false);
+                $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_NONEU', false);
 
                 /** Kilogram */
-                $config_kg       = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG', false);
-                $config_kg_eu    = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG_EU', false);
-                $config_kg_noneu = $this->getConfig('SHIPPING_INTERNATIONAL_ECONOMY_Z' . $zone . '_PRICE_KG_NONEU', false);
+                $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG', false);
+                $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_EU', false);
+                $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_NONEU', false);
 
                 /** Add costs */
                 $price_base = 0;
@@ -792,7 +793,7 @@ class grandeljaydhl extends StdModule
 
         /** Pick and Pack */
         foreach ($methods as &$method) {
-            $pick_and_pack_costs = json_decode($this->getConfig('SURCHARGES_PICK_AND_PACK', '[]'), true);
+            $pick_and_pack_costs = json_decode($this->getConfig(Group::SURCHARGES . '_PICK_AND_PACK', '[]'), true);
 
             asort($pick_and_pack_costs);
 
@@ -822,7 +823,7 @@ class grandeljaydhl extends StdModule
         }
 
         /** Round up */
-        $surcharges_round_up_to = $this->getConfig('SURCHARGES_ROUND_UP');
+        $surcharges_round_up_to = $this->getConfig(Group::SURCHARGES . '_ROUND_UP');
 
         if ('true' === $surcharges_round_up_to && is_numeric($surcharges_round_up_to)) {
             $surcharges_round_up_to = (float) $surcharges_round_up_to;
