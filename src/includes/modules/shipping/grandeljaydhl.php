@@ -455,7 +455,7 @@ class grandeljaydhl extends StdModule
 
     public function quote()
     {
-        $quote = new Quote();
+        $quote = new Quote(self::NAME);
 
         if ($quote->exceedsMaximumWeight()) {
             return false;

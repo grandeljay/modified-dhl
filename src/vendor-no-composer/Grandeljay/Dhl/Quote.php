@@ -3,23 +3,33 @@
 namespace Grandeljay\Dhl;
 
 use Grandeljay\Dhl\Configuration\Group;
+use RobinTheHood\ModifiedStdModule\Classes\{Configuration, CaseConverter};
 
 class Quote
 {
+    private Configuration $config;
     private Country $country;
     private float $total_weight = 0;
     private array $boxes        = array();
     private array $methods      = array();
 
-    public function __construct()
+    public function __construct(string $module)
     {
         global $order;
 
+        $this->config  = new Configuration($module);
         $this->country = new Country($order->delivery['country']);
         $this->boxes   = $this->getBoxes();
         $this->methods = $this->getShippingMethods();
 
         $this->setSurcharges();
+    }
+
+    private function getConfig(string $screaming_key): mixed
+    {
+        $camelKey = CaseConverter::screamingToCamel($screaming_key);
+
+        $this->config->$camelKey;
     }
 
     public function exceedsMaximumWeight(): bool
