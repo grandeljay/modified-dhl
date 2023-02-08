@@ -15,7 +15,7 @@
     "price": "free",
     "require": {
         "psr-4": {
-            "grandeljay\\": "/vendor-no-composer/grandeljay"
+            "Grandeljay\\": "/vendor-no-composer/Grandeljay"
         },
         "composer/autoload": "^1.3.0",
         "robinthehood/modified-std-module": "^0.8.1"
