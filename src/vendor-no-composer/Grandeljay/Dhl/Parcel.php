@@ -70,17 +70,17 @@ class Parcel
 
     public function getLength(): float
     {
-        return getDimension('length');
+        return $this->getDimension('length');
     }
 
     public function getWidth(): float
     {
-        return getDimension('width');
+        return $this->getDimension('width');
     }
 
     public function getHeight(): float
     {
-        return getDimension('height');
+        return $this->getDimension('height');
     }
     /** */
 
