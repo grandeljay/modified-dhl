@@ -139,8 +139,9 @@ class Quote
             foreach ($shipping_national_costs as $shipping_national_cost) {
                 $weight_max  = floatval($shipping_national_cost['weight']);
                 $weight_cost = floatval($shipping_national_cost['cost']);
+                $box_weight  = $box->getWeight();
 
-                if ($box['weight'] <= $weight_max) {
+                if ($box_weight <= $weight_max) {
                     $costs_before = $method_paket_national['cost'];
 
                     $method_paket_national['cost']                   += $weight_cost;
@@ -150,7 +151,7 @@ class Quote
                         $weight_cost,
                         $box_index + 1,
                         count($boxes),
-                        $box['weight'],
+                        $box_weight,
                         $method_paket_national['cost']
                     );
 
@@ -210,8 +211,9 @@ class Quote
 
         foreach ($this->boxes as $box_index => $box) {
             $costs_before = $method_paket_international_premium['cost'];
+            $box_weight   = $box->getWeight();
 
-            $method_paket_international_premium['cost']                   += $price_base + $price_kg * ceil($box['weight']);
+            $method_paket_international_premium['cost']                   += $price_base + $price_kg * ceil($box_weight);
             $method_paket_international_premium['debug']['calculations'][] = sprintf(
                 'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                 $costs_before,
@@ -220,7 +222,7 @@ class Quote
                 $price_kg,
                 $box_index + 1,
                 count($this->boxes),
-                $box['weight'],
+                $box_weight,
                 $method_paket_international_premium['cost']
             );
         }
@@ -274,8 +276,9 @@ class Quote
 
         foreach ($this->boxes as $box_index => $box) {
             $costs_before = $method_paket_international_economy['cost'];
+            $box_weight   = $box->getWeight();
 
-            $method_paket_international_economy['cost']                   += $price_base + $price_kg * ceil($box['weight']);
+            $method_paket_international_economy['cost']                   += $price_base + $price_kg * ceil($box_weight);
             $method_paket_international_economy['debug']['calculations'][] = sprintf(
                 'Costs (%01.2f €) + Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg) = %01.2f €',
                 $costs_before,
@@ -284,7 +287,7 @@ class Quote
                 $price_kg,
                 $box_index + 1,
                 count($this->boxes),
-                $box['weight'],
+                $box_weight,
                 $method_paket_international_economy['cost']
             );
         }
@@ -352,7 +355,7 @@ class Quote
                                 $surcharge['surcharge'],
                                 $box_index + 1,
                                 count($this->boxes),
-                                $box['weight'],
+                                $box->getWeight(),
                                 $method['cost']
                             );
 
@@ -411,8 +414,9 @@ class Quote
                 foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
                     $weight_max  = floatval($pick_and_pack_cost['weight']);
                     $weight_cost = floatval($pick_and_pack_cost['cost']);
+                    $box_weight  = $box->getWeight();
 
-                    if ($box['weight'] <= $weight_max) {
+                    if ($box_weight <= $weight_max) {
                         $cost_before = $method['cost'];
 
                         $method['cost']                   += $weight_cost;
@@ -422,7 +426,7 @@ class Quote
                             $weight_cost,
                             $box_index + 1,
                             count($this->boxes),
-                            $box['weight'],
+                            $box_weight,
                             $method['cost']
                         );
 
@@ -490,7 +494,7 @@ class Quote
         $boxes_weight = array();
 
         foreach ($this->boxes as $box) {
-            $key = $box['weight'] . ' kg';
+            $key = $box->getWeight() . ' kg';
 
             if (isset($boxes_weight[$key])) {
                 $boxes_weight[$key]++;
