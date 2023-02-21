@@ -36,7 +36,7 @@ class Parcel
     );
 
     private float $weight   = 0;
-    private array $prodcuts = array();
+    private array $products = array();
 
     public function __construct()
     {
@@ -89,7 +89,7 @@ class Parcel
      */
     public function addProduct(array $product): void
     {
-        $this->products[] = $prodcut['id'];
+        $this->products[] = $product['id'];
         $this->weight    += $product['weight'];
     }
     /** */
