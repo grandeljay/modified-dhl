@@ -29,7 +29,11 @@ class Quote
     {
         $camelKey = CaseConverter::screamingToCamel($screaming_key);
 
-        return $this->config->$camelKey;
+        if (isset($this->config->$camelKey)) {
+            return $this->config->$camelKey;
+        }
+
+        return false;
     }
 
     public function exceedsMaximumWeight(): bool
@@ -179,14 +183,14 @@ class Quote
         /** Determine config keys for zone price */
 
         /** Base */
-        $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE', false);
-        $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_EU', false);
-        $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_NONEU', false);
+        $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE');
+        $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_EU');
+        $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_BASE_NONEU');
 
         /** Kilogram */
-        $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG', false);
-        $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_EU', false);
-        $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_NONEU', false);
+        $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG');
+        $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_EU');
+        $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z' . $zone . '_PRICE_KG_NONEU');
 
         /** Add costs */
         $price_base = 0;
@@ -246,14 +250,14 @@ class Quote
         /** Determine config keys for zone price */
 
         /** Base */
-        $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE', false);
-        $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_EU', false);
-        $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_NONEU', false);
+        $config_base       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE');
+        $config_base_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_EU');
+        $config_base_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_BASE_NONEU');
 
         /** Kilogram */
-        $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG', false);
-        $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_EU', false);
-        $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_NONEU', false);
+        $config_kg       = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG');
+        $config_kg_eu    = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_EU');
+        $config_kg_noneu = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z' . $zone . '_PRICE_KG_NONEU');
 
         /** Add costs */
         $price_base = 0;
