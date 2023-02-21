@@ -150,7 +150,7 @@ class Quote
                         $costs_before,
                         $weight_cost,
                         $box_index + 1,
-                        count($boxes),
+                        count($this->boxes),
                         $box_weight,
                         $method_paket_national['cost']
                     );
