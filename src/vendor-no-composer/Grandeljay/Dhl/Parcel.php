@@ -87,7 +87,7 @@ class Parcel
     /**
      * Products
      */
-    public function addProduct(): void
+    public function addProduct(array $product): void
     {
         $this->products[] = $prodcut['id'];
         $this->weight    += $product['weight'];
