@@ -29,7 +29,7 @@ class Quote
     {
         $camelKey = CaseConverter::screamingToCamel($screaming_key);
 
-        $this->config->$camelKey;
+        return $this->config->$camelKey;
     }
 
     public function exceedsMaximumWeight(): bool
