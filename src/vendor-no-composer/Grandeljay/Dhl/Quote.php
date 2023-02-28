@@ -540,7 +540,7 @@ class Quote
         $quote = array(
             'id'      => 'grandeljaydhl',
             'module'  => sprintf(
-                'DHL Paket (%s)',
+                'DHL (%s)',
                 $this->getNameBoxWeight()
             ),
             'methods' => $this->methods,
