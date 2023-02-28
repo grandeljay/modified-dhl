@@ -87,6 +87,11 @@ class Parcel
     /**
      * Products
      */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
     public function addProduct(array $product): void
     {
         $this->products[] = $product['id'];

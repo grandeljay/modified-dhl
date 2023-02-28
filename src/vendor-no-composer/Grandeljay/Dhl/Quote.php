@@ -77,13 +77,11 @@ class Quote
             }
         }
 
-        if (count($boxes) > 0) {
-            $last_box        = end($boxes);
-            $last_box_weight = $last_box->getWeight();
+        /** Add last box */
+        $box_last_products = $box->getProducts();
 
-            if ($last_box_weight > 0) {
-                $boxes[] = $box;
-            }
+        if (count($box_last_products) > 0) {
+            $boxes[] = $box;
         }
 
         return $boxes;
