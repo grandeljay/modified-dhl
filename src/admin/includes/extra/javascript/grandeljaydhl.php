@@ -13,7 +13,7 @@ if (rth_is_module_disabled('MODULE_SHIPPING_GRANDELJAYDHL')) {
 }
 
 /** Only enqueue JavaScript when module settings are open */
-$grandeljayups_admin_screen = array(
+$grandeljaydhl_admin_screen = array(
     'set'    => 'shipping',
     'module' => grandeljaydhl::class,
     'action' => 'edit',
