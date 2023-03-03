@@ -148,6 +148,9 @@ details:not(:last-of-type) + :is(br, br + br) {
     display: initial;
 }
 
+/**
+ * Weight
+ */
 details.shipping-weight-start > div,
 details.shipping-international-start > div > details > div {
     display: grid;
