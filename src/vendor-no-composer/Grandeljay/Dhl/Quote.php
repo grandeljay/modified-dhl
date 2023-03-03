@@ -65,7 +65,7 @@ class Quote
                 $box_weight     = $box->getWeight();
                 $product_weight = $product['weight'];
 
-                if ($box_weight + $product_weight > $shipping_weight_ideal) {
+                if ($box_weight + $product_weight > $shipping_weight_ideal && $box_weight > 0) {
                     $boxes[] = $box;
                     $box     = new Parcel();
                 }
