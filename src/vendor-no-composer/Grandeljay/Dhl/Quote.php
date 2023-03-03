@@ -439,9 +439,10 @@ class Quote
         }
 
         /** Round up */
-        $surcharges_round_up_to = $this->getConfig(Group::SURCHARGES . '_ROUND_UP');
+        $surcharges_round_up    = $this->getConfig(Group::SURCHARGES . '_ROUND_UP');
+        $surcharges_round_up_to = $this->getConfig(Group::SURCHARGES . '_ROUND_UP_TO');
 
-        if ('true' === $surcharges_round_up_to && is_numeric($surcharges_round_up_to)) {
+        if ('true' === $surcharges_round_up && is_numeric($surcharges_round_up_to)) {
             $surcharges_round_up_to = (float) $surcharges_round_up_to;
 
             foreach ($this->methods as &$method) {
