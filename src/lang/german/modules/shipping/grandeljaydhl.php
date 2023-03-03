@@ -48,9 +48,9 @@ $translations_general = array(
     Group::SHIPPING_WEIGHT . '_START_DESC'                               => 'Hier befinden sich alle Einstellungen bezüglich des Verpackens und Gewichts. Klicken Sie auf die Gruppe um die Einstellungen zu öffnen.',
 
     Group::SHIPPING_WEIGHT . '_MAX_TITLE'                                => 'Maximalgewicht',
-    Group::SHIPPING_WEIGHT . '_MAX_DESC'                                 => 'Maximalgewicht, das ein Artikel haben darf.',
+    Group::SHIPPING_WEIGHT . '_MAX_DESC'                                 => 'Maximalgewicht in Kilogramm, das ein Artikel haben darf. Wenn ein Artikel im Warenkorb diesen Wert überschreitet, wird die Versandart ausgeblendet.',
     Group::SHIPPING_WEIGHT . '_IDEAL_TITLE'                              => 'Idealgewicht',
-    Group::SHIPPING_WEIGHT . '_IDEAL_DESC'                               => 'Zielgewicht beim berechnen der Versandkosten um z. B. die Transportsicherheit zu erhöhen.',
+    Group::SHIPPING_WEIGHT . '_IDEAL_DESC'                               => 'Zielgewicht beim berechnen der Versandkosten um z. B. die Transportsicherheit zu erhöhen. Pakete werden bis zu diesem Wert gepackt, außer ein Artikel wiegt mehr.',
 
     Group::SHIPPING_WEIGHT . '_END_TITLE'                                => '',
     Group::SHIPPING_WEIGHT . '_END_DESC'                                 => '',
