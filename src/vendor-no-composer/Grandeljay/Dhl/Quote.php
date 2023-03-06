@@ -506,13 +506,9 @@ class Quote
             }
         }
 
-        $boxes_weight_unique = array_unique($boxes_weight);
-
-        arsort($boxes_weight_unique);
-
         $boxes_weight_text = array();
 
-        foreach ($boxes_weight_unique as $weight_text => $quantity) {
+        foreach ($boxes_weight as $weight_text => $quantity) {
             preg_match('/[\d+\.]+/', $weight_text, $weight_matches);
 
             $weight = round($weight_matches[0], 2) . ' kg';
