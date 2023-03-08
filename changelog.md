@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2023-03-08
+
+### Improved
+
+-   Many parts of the module have been completly to improve maintainability
+
+### Fixed
+
+-   Various minor issues
+
 ## 0.3.0 - 2023-02-06
 
 ### Added
