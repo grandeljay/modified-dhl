@@ -56,32 +56,35 @@ class Quote
         global $order;
 
         $boxes                 = array();
-        $box                   = new Parcel();
         $shipping_weight_ideal = $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL');
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
-                /** Create a new box */
-                $box_weight     = $box->getWeight();
-                $product_weight = $product['weight'];
+                $product_weight      = (float) $product['weight'];
+                $this->total_weight += $product_weight;
 
-                if ($box_weight + $product_weight > $shipping_weight_ideal && $box_weight > 0) {
-                    $boxes[] = $box;
-                    $box     = new Parcel();
+                /** Find a box empty enough to fit product */
+                foreach ($boxes as &$box) {
+                    $box_weight          = $box->getWeight();
+                    $box_can_fit_product = $box_weight + $product_weight < $shipping_weight_ideal;
+
+                    if ($box_can_fit_product) {
+                        $box->addProduct($product);
+
+                        continue 2;
+                    }
                 }
 
-                /** Also adds product weight to box */
+                /** Break the reference binding so $box can be assigned a new value */
+                unset($box);
+
+                /** Add product to a new box */
+                $box = new Parcel();
                 $box->addProduct($product);
 
-                $this->total_weight += $product_weight;
+                /** Add box to list */
+                $boxes[] = $box;
             }
-        }
-
-        /** Add last box */
-        $box_last_products = $box->getProducts();
-
-        if (count($box_last_products) > 0) {
-            $boxes[] = $box;
         }
 
         return $boxes;

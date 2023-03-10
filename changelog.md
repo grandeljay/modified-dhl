@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1 - Unreleased
+
+### Fixed
+
+-   The way parcels are calculated.
+
 ## 0.4.0 - 2023-03-08
 
 ### Improved
