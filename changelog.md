@@ -1,9 +1,10 @@
 # Changelog
 
-## 0.4.1 - Unreleased
+## 0.4.1 - 2023-03-15
 
 ### Fixed
 
+-   admin dialogs not working when language parameter is set.
 -   The way parcels are calculated.
 
 ## 0.4.0 - 2023-03-08
