@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Grandeljay\\": "/vendor-no-composer/Grandeljay"
+            "Grandeljay\\Dhl\\": "/vendor-no-composer/grandeljay/dhl"
         }
     }
 }
