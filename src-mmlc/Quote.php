@@ -129,7 +129,7 @@ class Quote
     {
         $method_paket_national = array(
             'id'    => 'paket-national',
-            'title' => 'DHL Paket',
+            'title' => '<strong>DHL Paket</strong><br>Nationaler Versand',
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
@@ -174,7 +174,7 @@ class Quote
 
         $method_paket_international_premium = array(
             'id'    => 'paket-international-premium',
-            'title' => 'DHL Paket (Premium)',
+            'title' => '<strong>DHL Paket</strong><br>Internationaler Premium Versand',
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
@@ -241,7 +241,7 @@ class Quote
 
         $method_paket_international_economy = array(
             'id'    => 'paket-international-economy',
-            'title' => 'DHL Paket (Economy)',
+            'title' => '<strong>DHL Paket</strong><br>Internationaler Economy Versand',
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
