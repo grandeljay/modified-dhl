@@ -17,8 +17,23 @@ class Quote
     {
         global $order;
 
+        if (isset($order->delivery['country'])) {
+            $country = $order->delivery['country'];
+        } else {
+            $country_query = xtc_db_query(
+                sprintf(
+                    'SELECT *
+                       FROM `%s`
+                      WHERE `countries_id` = %s',
+                    TABLE_COUNTRIES,
+                    STORE_COUNTRY
+                )
+            );
+            $country       = xtc_db_fetch_array($country_query);
+        }
+
         $this->config  = new Configuration($module);
-        $this->country = new Country($order->delivery['country']);
+        $this->country = new Country($country);
         $this->boxes   = $this->getBoxes();
         $this->methods = $this->getShippingMethods();
 
