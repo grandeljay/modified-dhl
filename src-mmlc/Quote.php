@@ -55,6 +55,10 @@ class Quote
     {
         global $order;
 
+        if (null === $order) {
+            return false;
+        }
+
         $shipping_weight_max = $this->getConfig(Group::SHIPPING_WEIGHT . '_MAX');
 
         foreach ($order->products as $product) {
@@ -72,6 +76,10 @@ class Quote
 
         $boxes                 = array();
         $shipping_weight_ideal = $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL');
+
+        if (null === $order) {
+            return $boxes;
+        }
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
