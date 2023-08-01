@@ -70,16 +70,6 @@ class Quote
         return false;
     }
 
-    public function getEmpty(): array
-    {
-        $emptyQuote = array(
-            'module'  => \grandeljaydhl::class,
-            'methods' => array(),
-        );
-
-        return $emptyQuote;
-    }
-
     public function getBoxes(): array
     {
         global $order;
@@ -125,8 +115,6 @@ class Quote
 
     private function getShippingMethods(): array
     {
-        global $order;
-
         $methods = array();
 
         /** National */

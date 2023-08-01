@@ -177,8 +177,6 @@ class grandeljaydhl extends StdModule
 
         $this->addKey(Group::SURCHARGES . '_END');
         /** */
-
-        $this->quotes = $this->quote();
     }
 
     public function install()
@@ -493,12 +491,13 @@ class grandeljaydhl extends StdModule
 
     public function quote()
     {
-        $quote = new Quote(self::NAME);
+        $quote  = new Quote(self::NAME);
+        $quotes = $quote->getQuote();
 
-        if ($quote->exceedsMaximumWeight()) {
-            return $quote->getEmpty();
+        if (count($quotes['methods']) > 0 && !$quote->exceedsMaximumWeight()) {
+            $this->quotes = $quotes;
         }
 
-        return $quote->getQuote();
+        return $quotes;
     }
 }
