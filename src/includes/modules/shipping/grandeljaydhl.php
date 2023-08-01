@@ -494,7 +494,7 @@ class grandeljaydhl extends StdModule
         $quote  = new Quote(self::NAME);
         $quotes = $quote->getQuote();
 
-        if (count($quotes['methods']) > 0 && !$quote->exceedsMaximumWeight()) {
+        if (isset($quotes['methods']) && count($quotes['methods']) > 0 && !$quote->exceedsMaximumWeight()) {
             $this->quotes = $quotes;
         }
 
