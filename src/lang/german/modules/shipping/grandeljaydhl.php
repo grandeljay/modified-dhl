@@ -36,6 +36,12 @@ $translations_general = array(
     'ALLOWED_DESC'                                                       => '',
 
     /**
+     * Sort Order
+     */
+    'SORT_ORDER_TITLE'                                                   => 'Sortierreihenfolge',
+    'SORT_ORDER_DESC'                                                    => 'Bestimmt die Sortierung im Admin und Checkout. Niedrigste Zahlen werden zuerst angezeigt.',
+
+    /**
      * Debug
      */
     'DEBUG_ENABLE_TITLE'                                                 => 'Debug-Modus',

@@ -70,6 +70,11 @@ class grandeljaydhl extends StdModule
         $this->checkForUpdate(true);
 
         /**
+         * Sort Order
+         */
+        $this->addKey('SORT_ORDER');
+
+        /**
          * Debug
          */
         $this->addKey('DEBUG_ENABLE');
@@ -188,6 +193,11 @@ class grandeljaydhl extends StdModule
          */
         $this->addConfiguration('ALLOWED', '', 6, 1);
         /** */
+
+        /**
+         * Sort Order
+         */
+        $this->addConfiguration('SORT_ORDER', 1, 6, 1);
 
         /**
          * Debug
@@ -382,6 +392,11 @@ class grandeljaydhl extends StdModule
          */
         $this->deleteConfiguration('ALLOWED');
         /** */
+
+        /**
+         * Sort Order
+         */
+        $this->deleteConfiguration('SORT_ORDER');
 
         /**
          * Debug

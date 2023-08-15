@@ -42,6 +42,12 @@ $translations_general = array(
     'DEBUG_ENABLE_DESC'                                                  => 'Attivare la modalità di debug? Vengono visualizzate ulteriori informazioni, ad esempio come sono stati calcolati i costi di spedizione. È visibile solo agli amministratori.',
 
     /**
+     * Sort Order
+     */
+    'SORT_ORDER_TITLE'                                                   => 'Ordinamento',
+    'SORT_ORDER_DESC'                                                    => 'Determina l\'ordinamento nell\'Admin e nel Checkout. I numeri più bassi vengono visualizzati per primi.',
+
+    /**
      * Weight
      */
     Group::SHIPPING_WEIGHT . '_START_TITLE'                              => 'Peso',
