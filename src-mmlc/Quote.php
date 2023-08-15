@@ -83,8 +83,7 @@ class Quote
 
         foreach ($order->products as $product) {
             for ($i = 1; $i <= $product['quantity']; $i++) {
-                $product_weight      = (float) $product['weight'];
-                $this->total_weight += $product_weight;
+                $product_weight = (float) $product['weight'];
 
                 /** Find a box empty enough to fit product */
                 foreach ($boxes as &$box) {
@@ -108,6 +107,12 @@ class Quote
                 /** Add box to list */
                 $boxes[] = $box;
             }
+        }
+
+        $this->total_weight = 0;
+
+        foreach ($boxes as $box) {
+            $this->total_weight += $box->getWeight();
         }
 
         return $boxes;

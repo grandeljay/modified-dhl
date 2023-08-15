@@ -50,11 +50,6 @@ class Parcel
     {
         return $this->weight;
     }
-
-    public function setWeight(float $weight): void
-    {
-        $this->weight = $weight;
-    }
     /** */
 
     /**
