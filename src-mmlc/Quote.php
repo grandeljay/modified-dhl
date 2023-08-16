@@ -153,9 +153,16 @@ class Quote
 
     private function getShippingMethodNational(): array
     {
+        $text_title                    = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
+        $shipping_national_start_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_NATIONAL . '_START_TITLE');
+
         $method_paket_national = array(
             'id'    => 'paket-national',
-            'title' => '<strong>DHL Paket</strong><br>Nationaler Versand',
+            'title' => sprintf(
+                '<strong>%s</strong><br>%s',
+                $text_title,
+                $shipping_national_start_title
+            ),
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
@@ -198,9 +205,18 @@ class Quote
     {
         $zone = $this->country->getZone();
 
+        $text_title                           = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
+        $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
+        $shipping_international_premium_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE');
+
         $method_paket_international_premium = array(
             'id'    => 'paket-international-premium',
-            'title' => '<strong>DHL Paket</strong><br>Internationaler Premium Versand',
+            'title' => sprintf(
+                '<strong>%s</strong><br>%s (%s)',
+                $text_title,
+                $shipping_international_title,
+                $shipping_international_premium_title
+            ),
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
@@ -265,9 +281,18 @@ class Quote
     {
         $zone = $this->country->getZone();
 
+        $text_title                           = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
+        $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
+        $shipping_international_economy_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE');
+
         $method_paket_international_economy = array(
             'id'    => 'paket-international-economy',
-            'title' => '<strong>DHL Paket</strong><br>Internationaler Economy Versand',
+            'title' => sprintf(
+                '<strong>%s</strong><br>%s (%s)',
+                $text_title,
+                $shipping_international_title,
+                $shipping_international_economy_title
+            ),
             'cost'  => 0,
             'debug' => array(
                 'calculations' => array(),
