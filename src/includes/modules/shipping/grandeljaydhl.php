@@ -391,6 +391,11 @@ class grandeljaydhl extends StdModule
     {
         parent::remove();
 
+        $this->removeConfigurations();
+    }
+
+    private function removeConfigurations(): void
+    {
         /**
          * Required for modified compatibility
          */
@@ -408,104 +413,108 @@ class grandeljaydhl extends StdModule
         $this->deleteConfiguration('DEBUG_ENABLE');
         /** */
 
-        /**
-         * Weight
-         */
+        $this->removeConfigurationWeight();
+        $this->removeConfigurationShippingNational();
+        $this->removeConfigurationShippingInternational();
+        $this->removeConfigurationSurcharges();
+    }
+
+    private function removeConfigurationWeight(): void
+    {
         $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_START');
         $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_MAX');
         $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_IDEAL');
         $this->deleteConfiguration(Group::SHIPPING_WEIGHT . '_END');
-        /** */
+    }
 
-        /**
-         * National
-         */
+    private function removeConfigurationShippingNational(): void
+    {
         $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_START');
         $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY');
         $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_COSTS');
         $this->deleteConfiguration(Group::SHIPPING_NATIONAL . '_END');
-        /** */
+    }
 
-        /**
-         * International
-         */
+    private function removeConfigurationShippingInternational(): void
+    {
         $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_START');
 
-        /** Premium */
-        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
-
-        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
-
-        /** Economy */
-        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
-
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
-            $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
-
-        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
+        $this->removeConfigurationShippingInternationalPremium();
+        $this->removeConfigurationShippingInternationalEconomy();
 
         $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_END');
-        /** */
+    }
 
-        /**
-         * Surcharges
-         */
+    private function removeConfigurationShippingInternationalPremium(): void
+    {
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
+    }
+
+    private function removeConfigurationShippingInternationalEconomy(): void
+    {
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
+
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
+    }
+
+    private function removeConfigurationSurcharges(): void
+    {
         $this->deleteConfiguration(Group::SURCHARGES . '_START');
-
         $this->deleteConfiguration('SURCHARGES');
-
         $this->deleteConfiguration(Group::SURCHARGES . '_PICK_AND_PACK');
-
         $this->deleteConfiguration(Group::SURCHARGES . '_ROUND_UP');
         $this->deleteConfiguration(Group::SURCHARGES . '_ROUND_UP_TO');
-
         $this->deleteConfiguration(Group::SURCHARGES . '_END');
-        /** */
     }
 
     /**
