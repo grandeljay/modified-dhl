@@ -4,39 +4,39 @@ namespace Grandeljay\Dhl;
 
 class Parcel
 {
-    private static array $sizes = array(
-        array(
+    private static array $sizes = [
+        [
             'weight' => 2,
 
             'length' => 60,
             'width'  => 30,
             'height' => 15,
-        ),
-        array(
+        ],
+        [
             'weight' => 5,
 
             'length' => 120,
             'width'  => 60,
             'height' => 60,
-        ),
-        array(
+        ],
+        [
             'weight' => 10,
 
             'length' => 120,
             'width'  => 60,
             'height' => 60,
-        ),
-        array(
+        ],
+        [
             'weight' => 31.5,
 
             'length' => 120,
             'width'  => 60,
             'height' => 60,
-        ),
-    );
+        ],
+    ];
 
     private float $weight   = 0;
-    private array $products = array();
+    private array $products = [];
 
     public function __construct()
     {

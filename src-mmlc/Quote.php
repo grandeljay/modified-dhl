@@ -10,8 +10,8 @@ class Quote
     private Configuration $config;
     private Country $country;
     private float $total_weight = 0;
-    private array $boxes        = array();
-    private array $methods      = array();
+    private array $boxes        = [];
+    private array $methods      = [];
 
     public function __construct(string $module)
     {
@@ -74,7 +74,7 @@ class Quote
     {
         global $order;
 
-        $boxes                 = array();
+        $boxes                 = [];
         $shipping_weight_ideal = $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL');
 
         if (null === $order) {
@@ -120,7 +120,7 @@ class Quote
 
     private function getShippingMethods(): array
     {
-        $methods = array();
+        $methods = [];
 
         /** National */
         $shipping_is_national = intval(\STORE_COUNTRY) === $this->country->getCountryID();
@@ -156,7 +156,7 @@ class Quote
         $text_title                    = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
         $shipping_national_start_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_NATIONAL . '_START_TITLE');
 
-        $method_paket_national = array(
+        $method_paket_national = [
             'id'    => 'paket-national',
             'title' => sprintf(
                 '<strong>%s</strong><br>%s',
@@ -164,10 +164,10 @@ class Quote
                 $shipping_national_start_title
             ),
             'cost'  => 0,
-            'debug' => array(
-                'calculations' => array(),
-            ),
-        );
+            'debug' => [
+                'calculations' => [],
+            ],
+        ];
 
         $shipping_national_costs = json_decode($this->getConfig(Group::SHIPPING_NATIONAL . '_COSTS'), true);
 
@@ -209,7 +209,7 @@ class Quote
         $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
         $shipping_international_premium_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE');
 
-        $method_paket_international_premium = array(
+        $method_paket_international_premium = [
             'id'    => 'paket-international-premium',
             'title' => sprintf(
                 '<strong>%s</strong><br>%s (%s)',
@@ -218,10 +218,10 @@ class Quote
                 $shipping_international_premium_title
             ),
             'cost'  => 0,
-            'debug' => array(
-                'calculations' => array(),
-            ),
-        );
+            'debug' => [
+                'calculations' => [],
+            ],
+        ];
 
         /** Determine config keys for zone price */
 
@@ -239,17 +239,17 @@ class Quote
         $price_base = 0;
         $price_kg   = 0;
 
-        if (!in_array(false, array($config_base, $config_kg), true)) {
+        if (!in_array(false, [$config_base, $config_kg], true)) {
             $price_base = $config_base;
             $price_kg   = $config_kg;
         } else {
             if ($this->country->getIsEU()) {
-                if (!in_array(false, array($config_base_eu, $config_kg_eu), true)) {
+                if (!in_array(false, [$config_base_eu, $config_kg_eu], true)) {
                     $price_base = $config_base_eu;
                     $price_kg   = $config_kg_eu;
                 }
             } else {
-                if (!in_array(false, array($config_base_noneu, $config_kg_noneu), true)) {
+                if (!in_array(false, [$config_base_noneu, $config_kg_noneu], true)) {
                     $price_base = $config_base_noneu;
                     $price_kg   = $config_kg_noneu;
                 }
@@ -285,7 +285,7 @@ class Quote
         $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
         $shipping_international_economy_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE');
 
-        $method_paket_international_economy = array(
+        $method_paket_international_economy = [
             'id'    => 'paket-international-economy',
             'title' => sprintf(
                 '<strong>%s</strong><br>%s (%s)',
@@ -294,10 +294,10 @@ class Quote
                 $shipping_international_economy_title
             ),
             'cost'  => 0,
-            'debug' => array(
-                'calculations' => array(),
-            ),
-        );
+            'debug' => [
+                'calculations' => [],
+            ],
+        ];
 
         /** Determine config keys for zone price */
 
@@ -315,16 +315,16 @@ class Quote
         $price_base = 0;
         $price_kg   = 0;
 
-        if (!in_array(false, array($config_base, $config_kg), true)) {
+        if (!in_array(false, [$config_base, $config_kg], true)) {
             $price_base = $config_base;
             $price_kg   = $config_kg;
         } elseif ($this->country->getIsEU()) {
-            if (!in_array(false, array($config_base_eu, $config_kg_eu), true)) {
+            if (!in_array(false, [$config_base_eu, $config_kg_eu], true)) {
                 $price_base = $config_base_eu;
                 $price_kg   = $config_kg_eu;
             }
         } else {
-            if (!in_array(false, array($config_base_noneu, $config_kg_noneu), true)) {
+            if (!in_array(false, [$config_base_noneu, $config_kg_noneu], true)) {
                 $price_base = $config_base_noneu;
                 $price_kg   = $config_kg_noneu;
             }
@@ -357,7 +357,7 @@ class Quote
          * Surcharges
          */
         $surcharges_config = json_decode($this->getConfig('SURCHARGES'), true);
-        $surcharges        = array();
+        $surcharges        = [];
         $surcharges_update = false;
 
         foreach ($this->methods as &$method) {
@@ -548,7 +548,7 @@ class Quote
             }
         }
 
-        $boxes_weight = array();
+        $boxes_weight = [];
 
         foreach ($this->boxes as $box) {
             $key = $box->getWeight() . ' kg';
@@ -560,7 +560,7 @@ class Quote
             }
         }
 
-        $boxes_weight_text = array();
+        $boxes_weight_text = [];
 
         foreach ($boxes_weight as $weight_text => $quantity) {
             preg_match('/[\d+\.]+/', $weight_text, $weight_matches);
@@ -575,12 +575,12 @@ class Quote
         }
 
         if ('true' !== $debug_is_enabled || !$user_is_admin) {
-            $boxes_weight_text = array(
+            $boxes_weight_text = [
                 sprintf(
                     '%s kg',
                     round($this->total_weight, 2)
                 ),
-            );
+            ];
         }
 
         return implode(', ', $boxes_weight_text);
@@ -592,14 +592,14 @@ class Quote
             return null;
         }
 
-        $quote = array(
+        $quote = [
             'id'      => 'grandeljaydhl',
             'module'  => sprintf(
                 'DHL (%s)',
                 $this->getNameBoxWeight()
             ),
             'methods' => $this->methods,
-        );
+        ];
 
         return $quote;
     }

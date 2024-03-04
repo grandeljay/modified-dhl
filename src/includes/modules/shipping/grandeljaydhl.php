@@ -61,7 +61,7 @@ class grandeljaydhl extends StdModule
      *
      * @var array
      */
-    public array $quotes = array();
+    public array $quotes = [];
 
     /**
      * Used to calculate the tax.
@@ -229,16 +229,16 @@ class grandeljaydhl extends StdModule
         $this->addConfiguration(Group::SHIPPING_NATIONAL . '_START', $this->getConfig(Group::SHIPPING_NATIONAL . '_START_TITLE'), 6, 1, self::class . '::setFunction(');
 
         $prices_national = json_encode(
-            array(
-                array(
+            [
+                [
                     'weight' => 20,
                     'cost'   => 4.06,
-                ),
-                array(
+                ],
+                [
                     'weight' => 31.5,
                     'cost'   => 4.90,
-                ),
-            ),
+                ],
+            ],
         );
 
         $this->addConfiguration(Group::SHIPPING_NATIONAL . '_COUNTRY', \STORE_COUNTRY, 6, 1, self::class . '::setFunction(');
@@ -319,55 +319,55 @@ class grandeljaydhl extends StdModule
         $this->addConfiguration(Group::SURCHARGES . '_START', $this->getConfig(Group::SURCHARGES . '_START_TITLE'), 6, 1, self::class . '::setFunction(');
 
         $surcharges = json_encode(
-            array(
-                array(
+            [
+                [
                     'name'                         => 'Energiezuschlag',
                     'surcharge'                    => 3.75,
                     'type'                         => 'percent',
                     'configuration[per-package-0]' => 'false',
-                ),
-                array(
+                ],
+                [
                     'name'                         => 'Maut',
                     'surcharge'                    => 0.12,
                     'type'                         => 'fixed',
                     'configuration[per-package-1]' => 'true',
-                ),
-                array(
+                ],
+                [
                     'name'                         => 'Peak',
                     'surcharge'                    => 4.90,
                     'type'                         => 'fixed',
                     'configuration[per-package-2]' => 'false',
                     'duration-start'               => date('Y') . '-10-31',
                     'duration-end'                 => date('Y') + 1 . '-01-15',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->addConfiguration('SURCHARGES', $surcharges, 6, 1, self::class . '::setFunction(');
 
         $pick_and_pack = json_encode(
-            array(
-                array(
+            [
+                [
                     'weight' => 1.00,
                     'cost'   => 1.30,
-                ),
-                array(
+                ],
+                [
                     'weight' => 5.00,
                     'cost'   => 1.60,
-                ),
-                array(
+                ],
+                [
                     'weight' => 10.00,
                     'cost'   =>  2.00,
-                ),
-                array(
+                ],
+                [
                     'weight' => 20.00,
                     'cost'   =>  2.60,
-                ),
-                array(
+                ],
+                [
                     'weight' => 60.00,
                     'cost'   =>  3.00,
-                ),
-            ),
+                ],
+            ],
         );
 
         $this->addConfiguration(Group::SURCHARGES . '_PICK_AND_PACK', $pick_and_pack, 6, 1, self::class . '::setFunction(');

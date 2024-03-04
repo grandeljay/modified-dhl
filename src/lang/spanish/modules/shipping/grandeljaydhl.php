@@ -19,7 +19,7 @@ if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPIN
     $country       = xtc_db_fetch_array($country_query);
 }
 
-$translations_general = array(
+$translations_general = [
     /**
      * Module
      */
@@ -231,7 +231,7 @@ $translations_general = array(
 
     Group::SURCHARGES . '_END_TITLE'                                     => '',
     Group::SURCHARGES . '_END_DESC'                                      => '',
-);
+];
 
 /**
  * Define

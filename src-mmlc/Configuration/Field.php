@@ -201,7 +201,7 @@ class Field
 
                                             <div class="column select-option">
                                                 <label>
-                                                    <?= xtc_cfg_select_option(array('true', 'false'), 'false') ?>
+                                                    <?= xtc_cfg_select_option(['true', 'false'], 'false') ?>
                                                 </label>
                                             </div>
 
@@ -277,10 +277,10 @@ class Field
                                                     <?php
                                                     $fixedText   = constant(\grandeljaydhl::NAME . '_SURCHARGES_TYPE_FIXED');
                                                     $percentText = constant(\grandeljaydhl::NAME . '_SURCHARGES_TYPE_PERCENT');
-                                                    $types       = array(
+                                                    $types       = [
                                                         'fixed'   => $fixedText,
                                                         'percent' => $percentText,
-                                                    );
+                                                    ];
 
                                                     foreach ($types as $type => $text) {
                                                         $selected = $type === $surcharge['type'] ? ' selected' : '';
@@ -297,7 +297,7 @@ class Field
                                                 $key_read  = sprintf('configuration[%s]', $key_write);
                                                 ?>
                                                 <label>
-                                                    <?= xtc_cfg_select_option(array('true', 'false'), $surcharge[$key_read], $key_write) ?>
+                                                    <?= xtc_cfg_select_option(['true', 'false'], $surcharge[$key_read], $key_write) ?>
                                                 </label>
                                             </div>
 
