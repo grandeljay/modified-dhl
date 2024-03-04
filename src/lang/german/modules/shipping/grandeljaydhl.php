@@ -17,6 +17,7 @@ if (defined('TABLE_COUNTRIES') && defined('MODULE_SHIPPING_GRANDELJAYDHL_SHIPPIN
           WHERE `countries_id` = ' . MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COUNTRY
     );
     $country       = xtc_db_fetch_array($country_query);
+    $country_name  = $country['countries_name'] ?? 'Unbekannt';
 }
 
 $translations_general = [
@@ -70,7 +71,7 @@ $translations_general = [
     Group::SHIPPING_NATIONAL . '_COUNTRY_TITLE'                          => 'Nationaler Versand',
     Group::SHIPPING_NATIONAL . '_COUNTRY_DESC'                           => sprintf(
         'Standort des Online Shops ist aktuell %s und kann unter %s angepasst werden.',
-        $country['countries_name'] ?? 'Unbekannt',
+        '<em>' . $country_name . '</em>',
         sprintf(
             '<a href="/' . DIR_ADMIN . 'configuration.php?gID=1">%s -> %s</a>',
             defined('BOX_HEADING_CONFIGURATION') ? BOX_HEADING_CONFIGURATION : 'BOX_HEADING_CONFIGURATION',
