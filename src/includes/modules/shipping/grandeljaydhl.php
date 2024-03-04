@@ -75,7 +75,11 @@ class grandeljaydhl extends StdModule
         parent::__construct(self::NAME);
 
         $this->checkForUpdate(true);
+        $this->addKeys();
+    }
 
+    private function addKeys(): void
+    {
         /**
          * Sort Order
          */
@@ -87,108 +91,90 @@ class grandeljaydhl extends StdModule
         $this->addKey('DEBUG_ENABLE');
         /** */
 
-        /**
-         * Weight
-         */
-        $this->addKey(Group::SHIPPING_WEIGHT . '_START');
+        $this->addKeysWeight();
+        $this->addKeysShippingNational();
+        $this->addKeysShippingInternational();
+        $this->addKeysSurcharges();
+    }
 
+    private function addKeysWeight(): void
+    {
+        $this->addKey(Group::SHIPPING_WEIGHT . '_START');
         $this->addKey(Group::SHIPPING_WEIGHT . '_MAX');
         $this->addKey(Group::SHIPPING_WEIGHT . '_IDEAL');
-
         $this->addKey(Group::SHIPPING_WEIGHT . '_END');
-        /** */
+    }
 
-        /**
-         * National
-         */
+    private function addKeysShippingNational(): void
+    {
         $this->addKey(Group::SHIPPING_NATIONAL . '_START');
-
         $this->addKey(Group::SHIPPING_NATIONAL . '_COUNTRY');
         $this->addKey(Group::SHIPPING_NATIONAL . '_COSTS');
-
         $this->addKey(Group::SHIPPING_NATIONAL . '_END');
-        /** */
+    }
 
-        /**
-         * International
-         */
+    private function addKeysShippingInternational(): void
+    {
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_START');
-
-        /** Premium */
-        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
-
-        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
-
-        /** Economy */
-        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
-
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
-            $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
-
-        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
-
+        $this->addKeysShippingInternationalPremium();
+        $this->addKeysShippingInternationalEconomy();
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_END');
-        /** */
+    }
 
-        /**
-         * Surcharges
-         */
+    private function addKeysShippingInternationalPremium(): void
+    {
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_ENABLE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_BASE_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z1_PRICE_KG_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z2_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_BASE_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z3_PRICE_KG_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z4_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z5_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_Z6_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_PREMIUM_END');
+    }
+
+    private function addKeysShippingInternationalEconomy(): void
+    {
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_ENABLE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_BASE_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z1_PRICE_KG_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z2_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_BASE_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_EU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z3_PRICE_KG_NONEU');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z4_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z5_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
+    }
+
+    private function addKeysSurcharges(): void
+    {
         $this->addKey(Group::SURCHARGES . '_START');
-
         $this->addKey('SURCHARGES');
-
         $this->addKey(Group::SURCHARGES . '_PICK_AND_PACK');
-
         $this->addKey(Group::SURCHARGES . '_ROUND_UP');
         $this->addKey(Group::SURCHARGES . '_ROUND_UP_TO');
-
         $this->addKey(Group::SURCHARGES . '_END');
-        /** */
     }
 
     public function install()
