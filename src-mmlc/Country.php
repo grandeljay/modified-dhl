@@ -630,4 +630,9 @@ class Country
             return $this->in_eu;
         }
     }
+
+    public function getCountryCode(): string
+    {
+        return $this->iso_code_2;
+    }
 }

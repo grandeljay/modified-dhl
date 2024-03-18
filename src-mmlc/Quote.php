@@ -148,6 +148,35 @@ class Quote
         }
         /** */
 
+        /** Exceptions */
+        if ($shipping_is_international) {
+            $delivery_country_code = $this->country->getCountryCode();
+
+            $exceptions_data = $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA');
+            $exceptions      = \json_decode($exceptions_data, true);
+
+            foreach ($exceptions as $exception) {
+                if ($exception['country'] !== $delivery_country_code) {
+                    continue;
+                }
+
+                foreach ($methods as &$method) {
+                    if ('paket-international-premium' !== $method['id']) {
+                        continue;
+                    }
+
+                    $method['debug']['calculations'][] = sprintf(
+                        'Exception found for %s. Cost has changed from %s to %s.',
+                        $exception['country'],
+                        $method['cost'],
+                        $exception['cost']
+                    );
+                    $method['cost']                    = $exception['cost'];
+                }
+            }
+        }
+        /** */
+
         return $methods;
     }
 
