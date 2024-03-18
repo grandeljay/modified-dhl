@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const MODULE_NAME = 'MODULE_SHIPPING_GRANDELJAYDHL';
     const OPTIONS = [
         MODULE_NAME + '_SHIPPING_NATIONAL_COSTS',
+        MODULE_NAME + '_SHIPPING_INTERNATIONAL_EXCEPTIONS_DATA',
         MODULE_NAME + '_SURCHARGES',
         MODULE_NAME + '_SURCHARGES_PICK_AND_PACK'
     ];
@@ -156,6 +157,13 @@ function expandInputToPopup(option) {
             case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_NATIONAL_COSTS':
                 input_required = [
                     'weight',
+                    'cost'
+                ];
+                break;
+
+            case 'MODULE_SHIPPING_GRANDELJAYDHL_SHIPPING_INTERNATIONAL_EXCEPTIONS_DATA':
+                input_required = [
+                    'country',
                     'cost'
                 ];
                 break;

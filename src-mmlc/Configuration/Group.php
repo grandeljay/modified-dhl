@@ -98,6 +98,18 @@ class Group
     }
     /** */
 
+    /** Excptions */
+    public static function shippingInternationalExceptionsStart(string $value, string $option): string
+    {
+        return self::start('<h3>' . $value . '</h3>', $option);
+    }
+
+    public static function shippingInternationalExceptionsEnd(string $value, string $option): string
+    {
+        return self::end($value, $option);
+    }
+    /** */
+
     /**
      * Surcharges
      */

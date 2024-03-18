@@ -198,6 +198,21 @@ $translations_general = [
     Group::SHIPPING_INTERNATIONAL . '_END_TITLE'                         => '',
     Group::SHIPPING_INTERNATIONAL . '_END_DESC'                          => '',
 
+    /** Exceptions */
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START_TITLE'            => 'Exceptions',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START_DESC'             => '',
+
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_TITLE'             => 'Exceptions :',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_DESC'              => '',
+
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COUNTRY_TITLE'     => 'Code du pays',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COUNTRY_DESC'      => 'Le code de pays à deux caractères pour cette exception.',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COST_TITLE'        => 'Coûts',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COST_DESC'         => 'Frais d\'envoi pour le pays indiqué',
+
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_END_TITLE'              => '',
+    Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_END_DESC'               => '',
+
     /**
      * Surcharges
      */

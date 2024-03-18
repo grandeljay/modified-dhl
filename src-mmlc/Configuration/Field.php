@@ -151,6 +151,105 @@ class Field
     }
 
     /**
+     * International
+     */
+    public static function shippingInternationalExceptionsData(string $value, string $option): string
+    {
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5);
+
+        $html  = '';
+        $html .= xtc_draw_input_field(
+            'configuration[' . $option . ']',
+            $value
+        );
+
+        ob_start();
+        ?>
+        <dialog id="<?= $option ?>">
+            <div class="modulbox">
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxHeading">
+                            <td class="infoBoxHeading">
+                                <div class="infoBoxHeadingTitle"><b><?= constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START_TITLE') ?></b></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="contentTable">
+                    <tbody>
+                        <tr class="infoBoxContent">
+                            <td class="infoBoxContent">
+                                <div class="container">
+                                    <template id="grandeljaydhl_row">
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="text" name="country" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" name="cost" />
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <div class="row">
+                                        <div class="column">
+                                            <div>
+                                                <b><?= constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COUNTRY_TITLE') ?></b><br>
+                                                <?= constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COUNTRY_DESC') ?><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div>
+                                                <b><?= constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COST_TITLE') ?></b><br>
+                                                <?= constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA_COST_DESC') ?><br>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                    $shipping_costs = json_decode($value, true);
+
+                                    foreach ($shipping_costs as $shipping_cost) {
+                                        ?>
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="text" value="<?= $shipping_cost['country'] ?>" name="country" />
+                                            </div>
+
+                                            <div class="column">
+                                                <input type="number" step="any" min="0.00" value="<?= $shipping_cost['cost'] ?>" name="cost" /> EUR
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <div class="row">
+                                        <button name="grandeljaydhl_add" type="button"><?= constant(\grandeljaydhl::NAME . '_SHIPPING_NATIONAL_BUTTON_ADD') ?></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttons">
+                <button name="grandeljaydhl_apply" value="default" type="button"><?= constant(\grandeljaydhl::NAME . '_SHIPPING_NATIONAL_BUTTON_APPLY') ?></button>
+                <button name="grandeljaydhl_cancel" value="cancel" type="button"><?= constant(\grandeljaydhl::NAME . '_SHIPPING_NATIONAL_BUTTON_CANCEL') ?></button>
+            </div>
+        </dialog>
+        <?php
+        $html .= ob_get_clean();
+
+        return $html;
+    }
+
+    /**
      * Surcharges
      */
     public static function surcharges(string $value, string $option): string

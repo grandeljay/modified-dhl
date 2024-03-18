@@ -118,6 +118,7 @@ class grandeljaydhl extends StdModule
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_START');
         $this->addKeysShippingInternationalPremium();
         $this->addKeysShippingInternationalEconomy();
+        $this->addKEysShippingInternationalExceptions();
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_END');
     }
 
@@ -165,6 +166,13 @@ class grandeljaydhl extends StdModule
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_BASE');
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
         $this->addKey(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
+    }
+
+    private function addKeysShippingInternationalExceptions(): void
+    {
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA');
+        $this->addKey(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_END');
     }
 
     private function addKeysSurcharges(): void
@@ -246,6 +254,7 @@ class grandeljaydhl extends StdModule
 
         $this->addConfigurationShippingInternationalPremium();
         $this->addConfigurationShippingInternationalEconomy();
+        $this->addConfigurationShippingInternationalExceptions();
 
         $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_END', '', 6, 1, self::class . '::setFunction(');
     }
@@ -310,6 +319,15 @@ class grandeljaydhl extends StdModule
         $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG', 3.20, 6, 1, self::class . '::setFunction(');
 
         $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END', '', 6, 1, self::class . '::setFunction(');
+    }
+
+    private function addConfigurationShippingInternationalExceptions(): void
+    {
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START', $this->getConfig(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START_TITLE'), 6, 1, self::class . '::setFunction(');
+
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA', '', 6, 1, self::class . '::setFunction(');
+
+        $this->addConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_END', '', 6, 1, self::class . '::setFunction(');
     }
 
     private function addConfigurationSurcharges(): void
@@ -441,6 +459,7 @@ class grandeljaydhl extends StdModule
 
         $this->removeConfigurationShippingInternationalPremium();
         $this->removeConfigurationShippingInternationalEconomy();
+        $this->removeConfigurationShippingInternationalExceptions();
 
         $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_END');
     }
@@ -505,6 +524,13 @@ class grandeljaydhl extends StdModule
         $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_Z6_PRICE_KG');
 
         $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_ECONOMY_END');
+    }
+
+    private function removeConfigurationShippingInternationalExceptions(): void
+    {
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_START');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_DATA');
+        $this->deleteConfiguration(Group::SHIPPING_INTERNATIONAL . '_EXCEPTIONS_END');
     }
 
     private function removeConfigurationSurcharges(): void
