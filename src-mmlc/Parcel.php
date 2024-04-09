@@ -48,6 +48,14 @@ class Parcel
      */
     public function getWeight(): float
     {
+        if ($this->length > 0 && $this->width > 0 && $this->height > 0) {
+            $volumetric_weight = ($this->length * $this->width * $this->height) / 5000;
+
+            if ($volumetric_weight > $this->weight) {
+                return $volumetric_weight;
+            }
+        }
+
         return $this->weight;
     }
     /** */
@@ -55,28 +63,25 @@ class Parcel
     /**
      * Dimensions
      */
-    private function getDimension(string $dimension): float
+    private int $length = 0;
+
+    public function getLength(): int
     {
-        foreach (self::$sizes as $parcel) {
-            if ($this->weight <= $parcel['weight']) {
-                return $parcel[$dimension];
-            }
-        }
+        return $this->length;
     }
 
-    public function getLength(): float
+    private int $width = 0;
+
+    public function getWidth(): int
     {
-        return $this->getDimension('length');
+        return $this->width;
     }
 
-    public function getWidth(): float
-    {
-        return $this->getDimension('width');
-    }
+    private int $height = 0;
 
-    public function getHeight(): float
+    public function getHeight(): int
     {
-        return $this->getDimension('height');
+        return $this->height;
     }
     /** */
 
@@ -92,6 +97,10 @@ class Parcel
     {
         $this->products[] = $product['id'];
         $this->weight    += $product['weight'];
+
+        $this->length = $product['length'] ?? 0;
+        $this->width  = $product['width']  ?? 0;
+        $this->height = $product['height'] ?? 0;
     }
     /** */
 }
