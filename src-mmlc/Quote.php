@@ -35,7 +35,12 @@ class Quote
         $this->config  = new Configuration($module);
         $this->country = new Country($country);
         $this->boxes   = $this->getBoxes();
-        $this->methods = $this->getShippingMethods();
+        $this->methods = \array_filter(
+            $this->getShippingMethods(),
+            function (array $method) {
+                return $method['cost'] > 0;
+            }
+        );
 
         $this->setSurcharges();
     }
