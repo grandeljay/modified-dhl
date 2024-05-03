@@ -647,6 +647,16 @@ class Quote
             return null;
         }
 
+        if (\class_exists('Grandeljay\ShippingConditions\Surcharges')) {
+            $surcharges = new \Grandeljay\ShippingConditions\Surcharges(
+                \grandeljaydhl::class,
+                $this->methods
+            );
+            $surcharges->setSurcharges();
+
+            $this->methods = $surcharges->getMethods();
+        }
+
         $quote = [
             'id'      => 'grandeljaydhl',
             'module'  => sprintf(
