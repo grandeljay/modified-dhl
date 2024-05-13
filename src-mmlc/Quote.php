@@ -170,15 +170,18 @@ class Quote
                         continue;
                     }
 
+                    $costs_old = $method['cost'];
+                    $costs     = (-1 * $method['cost']) + $exception['cost'];
+
                     $method['cost']           = $exception['cost'];
                     $method['calculations'][] = [
                         'item'  => sprintf(
                             'Exception found for %s. Cost has changed from %01.2f to %01.2f.',
                             $exception['country'],
-                            $method['cost'],
+                            $costs_old,
                             $exception['cost']
                         ),
-                        'costs' => $exception['cost'],
+                        'costs' => $costs,
                     ];
                 }
             }
@@ -290,10 +293,10 @@ class Quote
         }
 
         foreach ($this->boxes as $box_index => $box) {
-            $costs_before = $method_paket_international_premium['cost'];
-            $box_weight   = $box->getWeight();
+            $box_weight = $box->getWeight();
+            $costs      = $price_base + $price_kg * ceil($box_weight);
 
-            $method_paket_international_premium['cost']          += $price_base + $price_kg * ceil($box_weight);
+            $method_paket_international_premium['cost']          += $costs;
             $method_paket_international_premium['calculations'][] = [
                 'item'  => sprintf(
                     'Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg)',
@@ -304,7 +307,7 @@ class Quote
                     count($this->boxes),
                     $box_weight
                 ),
-                'costs' => $method_paket_international_premium['cost'],
+                'costs' => $costs,
             ];
         }
 
@@ -363,10 +366,10 @@ class Quote
         }
 
         foreach ($this->boxes as $box_index => $box) {
-            $costs_before = $method_paket_international_economy['cost'];
-            $box_weight   = $box->getWeight();
+            $box_weight = $box->getWeight();
+            $costs      = $price_base + $price_kg * ceil($box_weight);
 
-            $method_paket_international_economy['cost']          += $price_base + $price_kg * ceil($box_weight);
+            $method_paket_international_economy['cost']          += $costs;
             $method_paket_international_economy['calculations'][] = [
                 'item'  => sprintf(
                     'Base price for Zone %d (%01.2f €) + kg price (%01.2f €) for box %d / %d (%01.2f kg)',
@@ -377,7 +380,7 @@ class Quote
                     count($this->boxes),
                     $box_weight
                 ),
-                'costs' => $method_paket_international_economy['cost'],
+                'costs' => $costs,
             ];
         }
 
@@ -539,6 +542,7 @@ class Quote
                 $method_cost     = $method['cost'];
                 $number_whole    = floor($method_cost);
                 $number_decimals = round($method_cost - $number_whole, 2);
+                $costs_to_add    = $number_whole + $surcharges_round_up_to - $method_cost;
 
                 $round_up_to = $method_cost;
 
@@ -556,7 +560,7 @@ class Quote
                         'Round up to %01.2f',
                         $surcharges_round_up_to,
                     ),
-                    'costs' => $round_up_to,
+                    'costs' => $costs_to_add,
                 ];
             }
         }
