@@ -171,18 +171,29 @@ class Quote
                     }
 
                     $costs_old = $method['cost'];
-                    $costs     = (-1 * $method['cost']) + $exception['cost'];
+                    $costs     = $exception['cost'];
 
-                    $method['cost']           = $exception['cost'];
+                    $method['cost']          -= $costs_old;
                     $method['calculations'][] = [
-                        'item'  => sprintf(
-                            'Exception found for %s. Cost has changed from %01.2f to %01.2f.',
-                            $exception['country'],
-                            $costs_old,
-                            $exception['cost']
-                        ),
-                        'costs' => $costs,
+                        'item'  => 'Exception found, resetting costs...',
+                        'costs' => -1 * $costs_old,
                     ];
+
+                    foreach ($this->boxes as $box_index => $box) {
+                        $box_n     = $box_index + 1;
+                        $box_count = count($this->boxes);
+
+                        $method['cost']          += $costs;
+                        $method['calculations'][] = [
+                            'item'  => sprintf(
+                                'Exception (%s) for box %d / %d',
+                                $exception['country'],
+                                $box_n,
+                                $box_count
+                            ),
+                            'costs' => $costs,
+                        ];
+                    }
                 }
             }
         }
