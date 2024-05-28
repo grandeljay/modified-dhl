@@ -20,7 +20,8 @@
     },
     "require": {
         "composer/autoload": "^1.3.0",
-        "robinthehood/modified-std-module": "^0.8.1 || ^0.9.0"
+        "robinthehood/modified-std-module": "^0.9.0",
+        "grandeljay/shipping-module-helper": "^0.1.0"
     },
     "php": {
         "version": "^8.0.0"

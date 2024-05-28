@@ -9,9 +9,10 @@ class Quote
 {
     private Configuration $config;
     private Country $country;
-    private float $total_weight = 0;
-    private array $boxes        = [];
-    private array $methods      = [];
+    private array $methods           = [];
+    private array $boxes             = [];
+    private float $weight            = 0;
+    private string $weight_formatted = '';
 
     public function __construct(string $module)
     {
@@ -25,8 +26,8 @@ class Quote
                     'SELECT *
                        FROM `%s`
                       WHERE `countries_id` = %s',
-                    TABLE_COUNTRIES,
-                    STORE_COUNTRY
+                    \TABLE_COUNTRIES,
+                    \STORE_COUNTRY
                 )
             );
             $country       = xtc_db_fetch_array($country_query);
@@ -34,7 +35,19 @@ class Quote
 
         $this->config  = new Configuration($module);
         $this->country = new Country($country);
-        $this->boxes   = $this->getBoxes();
+
+        $shipping_weight_ideal   = $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL');
+        $shipping_weight_maximum = $this->getConfig(Group::SHIPPING_WEIGHT . '_MAX');
+
+        $order_packer = new \Grandeljay\ShippingModuleHelper\OrderPacker();
+        $order_packer->setIdealWeight($shipping_weight_ideal);
+        $order_packer->setMaximumWeight($shipping_weight_maximum);
+        $order_packer->packOrder();
+
+        $this->boxes            = $order_packer->getBoxes();
+        $this->weight           = $order_packer->getWeight();
+        $this->weight_formatted = $order_packer->getWeightFormatted();
+
         $this->methods = \array_filter(
             $this->getShippingMethods(),
             function (array $method) {
@@ -73,54 +86,6 @@ class Quote
         }
 
         return false;
-    }
-
-    public function getBoxes(): array
-    {
-        global $order;
-
-        $boxes                 = [];
-        $shipping_weight_ideal = $this->getConfig(Group::SHIPPING_WEIGHT . '_IDEAL');
-
-        if (null === $order) {
-            return $boxes;
-        }
-
-        foreach ($order->products as $product) {
-            for ($i = 1; $i <= $product['quantity']; $i++) {
-                $product_weight = (float) $product['weight'];
-
-                /** Find a box empty enough to fit product */
-                foreach ($boxes as &$box) {
-                    $box_weight          = $box->getWeight();
-                    $box_can_fit_product = $box_weight + $product_weight < $shipping_weight_ideal;
-
-                    if ($box_can_fit_product) {
-                        $box->addProduct($product);
-
-                        continue 2;
-                    }
-                }
-
-                /** Break the reference binding so $box can be assigned a new value */
-                unset($box);
-
-                /** Add product to a new box */
-                $box = new Parcel();
-                $box->addProduct($product);
-
-                /** Add box to list */
-                $boxes[] = $box;
-            }
-        }
-
-        $this->total_weight = 0;
-
-        foreach ($boxes as $box) {
-            $this->total_weight += $box->getWeight();
-        }
-
-        return $boxes;
     }
 
     private function getShippingMethods(): array
@@ -226,7 +191,8 @@ class Quote
             foreach ($shipping_national_costs as $shipping_national_cost) {
                 $weight_max  = floatval($shipping_national_cost['weight']);
                 $weight_cost = floatval($shipping_national_cost['cost']);
-                $box_weight  = $box->getWeight();
+                $box_weight  = $box->getWeightWithAttributes();
+                ;
 
                 if ($box_weight <= $weight_max) {
                     $costs_before = $method_paket_national['cost'];
@@ -304,8 +270,9 @@ class Quote
         }
 
         foreach ($this->boxes as $box_index => $box) {
-            $box_weight = $box->getWeight();
-            $costs      = $price_base + $price_kg * ceil($box_weight);
+            $box_weight = $box->getWeightWithAttributes();
+            ;
+            $costs = $price_base + $price_kg * ceil($box_weight);
 
             $method_paket_international_premium['cost']          += $costs;
             $method_paket_international_premium['calculations'][] = [
@@ -377,8 +344,9 @@ class Quote
         }
 
         foreach ($this->boxes as $box_index => $box) {
-            $box_weight = $box->getWeight();
-            $costs      = $price_base + $price_kg * ceil($box_weight);
+            $box_weight = $box->getWeightWithAttributes();
+            ;
+            $costs = $price_base + $price_kg * ceil($box_weight);
 
             $method_paket_international_economy['cost']          += $costs;
             $method_paket_international_economy['calculations'][] = [
@@ -458,7 +426,7 @@ class Quote
                                     $surcharge['surcharge'],
                                     $box_index + 1,
                                     count($this->boxes),
-                                    $box->getWeight()
+                                    $box->getWeightWithAttributes()
                                 ),
                                 'costs' => $surcharge_amount,
                             ];
@@ -519,7 +487,8 @@ class Quote
                 foreach ($pick_and_pack_costs as $pick_and_pack_cost) {
                     $weight_max  = floatval($pick_and_pack_cost['weight']);
                     $weight_cost = floatval($pick_and_pack_cost['cost']);
-                    $box_weight  = $box->getWeight();
+                    $box_weight  = $box->getWeightWithAttributes();
+                    ;
 
                     if ($box_weight <= $weight_max) {
                         $cost_before = $method['cost'];
@@ -621,7 +590,7 @@ class Quote
         $boxes_weight = [];
 
         foreach ($this->boxes as $box) {
-            $key = $box->getWeight() . ' kg';
+            $key = $box->getWeightWithAttributes() . ' kg';
 
             if (isset($boxes_weight[$key])) {
                 $boxes_weight[$key]++;
