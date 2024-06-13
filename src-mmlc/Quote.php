@@ -587,42 +587,7 @@ class Quote
             }
         }
 
-        $boxes_weight = [];
-
-        foreach ($this->boxes as $box) {
-            $key = $box->getWeightWithAttributes() . ' kg';
-
-            if (isset($boxes_weight[$key])) {
-                $boxes_weight[$key]++;
-            } else {
-                $boxes_weight[$key] = 1;
-            }
-        }
-
-        $boxes_weight_text = [];
-
-        foreach ($boxes_weight as $weight_text => $quantity) {
-            preg_match('/[\d+\.]+/', $weight_text, $weight_matches);
-
-            $weight = round($weight_matches[0], 2) . ' kg';
-
-            $boxes_weight_text[] = sprintf(
-                '%dx %s',
-                $quantity,
-                $weight
-            );
-        }
-
-        if ('true' !== $debug_is_enabled || !$user_is_admin) {
-            $boxes_weight_text = [
-                sprintf(
-                    '%s kg',
-                    round($this->total_weight, 2)
-                ),
-            ];
-        }
-
-        return implode(', ', $boxes_weight_text);
+        return $this->weight_formatted;
     }
 
     public function getQuote(): ?array
