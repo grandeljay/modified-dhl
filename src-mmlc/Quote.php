@@ -79,8 +79,8 @@ class Quote
 
         $shipping_weight_max = $this->getConfig(Group::SHIPPING_WEIGHT . '_MAX');
 
-        foreach ($order->products as $product) {
-            if ($product['weight'] >= $shipping_weight_max) {
+        foreach ($this->boxes as $box) {
+            if ($box->getWeightWithoutAttributes() >= $shipping_weight_max) {
                 return true;
             }
         }
