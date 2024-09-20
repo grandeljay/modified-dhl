@@ -173,14 +173,12 @@ class Quote
         $shipping_national_start_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_NATIONAL . '_START_TITLE');
 
         $method_paket_national = [
-            'id'           => 'paket-national',
-            'title'        => sprintf(
-                '<strong>%s</strong><br>%s',
-                $text_title,
-                $shipping_national_start_title
-            ),
-            'cost'         => 0,
-            'calculations' => [],
+            'id'               => 'paket-national',
+            'title'            => 'Standard',
+            'description'      => $shipping_national_start_title,
+            'cost'             => 0,
+            'calculations'     => [],
+            'weight_formatted' => $this->weight_formatted,
         ];
 
         $shipping_national_costs = json_decode($this->getConfig(Group::SHIPPING_NATIONAL . '_COSTS'), true);
@@ -220,20 +218,15 @@ class Quote
     {
         $zone = $this->country->getZone();
 
-        $text_title                           = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
-        $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
         $shipping_international_premium_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE');
 
         $method_paket_international_premium = [
-            'id'           => 'paket-international-premium',
-            'title'        => sprintf(
-                '<strong>%s</strong><br>%s (%s)',
-                $text_title,
-                $shipping_international_title,
-                $shipping_international_premium_title
-            ),
-            'cost'         => 0,
-            'calculations' => [],
+            'id'               => 'paket-international-premium',
+            'title'            => 'Premium',
+            'description'      => $shipping_international_premium_title,
+            'cost'             => 0,
+            'calculations'     => [],
+            'weight_formatted' => $this->weight_formatted,
         ];
 
         /** Determine config keys for zone price */
@@ -296,20 +289,15 @@ class Quote
     {
         $zone = $this->country->getZone();
 
-        $text_title                           = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
-        $shipping_international_title         = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_START_TITLE');
         $shipping_international_economy_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE');
 
         $method_paket_international_economy = [
-            'id'           => 'paket-international-economy',
-            'title'        => sprintf(
-                '<strong>%s</strong><br>%s (%s)',
-                $text_title,
-                $shipping_international_title,
-                $shipping_international_economy_title
-            ),
-            'cost'         => 0,
-            'calculations' => [],
+            'id'               => 'paket-international-economy',
+            'title'            => 'Economy',
+            'description'      => $shipping_international_economy_title,
+            'cost'             => 0,
+            'calculations'     => [],
+            'weight_formatted' => $this->weight_formatted,
         ];
 
         /** Determine config keys for zone price */
@@ -547,49 +535,6 @@ class Quote
         /** */
     }
 
-    private function getNameBoxWeight(): string
-    {
-        $debug_is_enabled = $this->getConfig('DEBUG_ENABLE');
-        $user_is_admin    = isset($_SESSION['customers_status']['customers_status_id']) && 0 === (int) $_SESSION['customers_status']['customers_status_id'];
-
-        if ('true' === $debug_is_enabled && $user_is_admin) {
-            foreach ($this->methods as &$method) {
-                $total = 0;
-
-                ob_start();
-                ?>
-                <br><br>
-
-                <h3>Debug mode</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Costs</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php foreach ($method['calculations'] as $calculation) { ?>
-                            <?php $total += $calculation['costs']; ?>
-
-                            <tr>
-                                <td><?= $calculation['item'] ?></td>
-                                <td><?= \sprintf('%01.2f', $calculation['costs']) ?></td>
-                                <td><?= \sprintf('%01.2f', $total) ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-                <?php
-                $method['title'] .= ob_get_clean();
-            }
-        }
-
-        return $this->weight_formatted;
-    }
-
     public function getQuote(): ?array
     {
         if (empty($this->methods) || $this->exceedsMaximumWeight()) {
@@ -608,10 +553,7 @@ class Quote
 
         $quote = [
             'id'      => 'grandeljaydhl',
-            'module'  => sprintf(
-                'DHL (%s)',
-                $this->getNameBoxWeight()
-            ),
+            'module'  => 'DHL',
             'methods' => $this->methods,
         ];
 
