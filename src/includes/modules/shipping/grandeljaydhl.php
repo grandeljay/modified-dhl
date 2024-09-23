@@ -22,7 +22,7 @@ use RobinTheHood\ModifiedStdModule\Classes\StdModule;
 class grandeljaydhl extends StdModule
 {
     public const NAME    = 'MODULE_SHIPPING_GRANDELJAYDHL';
-    public const VERSION = '0.11.1';
+    public const VERSION = '0.11.2';
 
     public static function setFunction(string $value, string $option): string
     {
