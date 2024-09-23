@@ -169,13 +169,11 @@ class Quote
 
     private function getShippingMethodNational(): array
     {
-        $text_title                    = constant(\grandeljaydhl::NAME . '_TEXT_TITLE');
-        $shipping_national_start_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_NATIONAL . '_START_TITLE');
-
+        $method_description    = \constant(\sprintf('%s_TEXT_TITLE_DESC', \grandeljaydhl::NAME));
         $method_paket_national = [
             'id'               => 'paket-national',
             'title'            => 'Standard',
-            'description'      => $shipping_national_start_title,
+            'description'      => $method_description,
             'cost'             => 0,
             'calculations'     => [],
             'weight_formatted' => $this->weight_formatted,
@@ -218,12 +216,11 @@ class Quote
     {
         $zone = $this->country->getZone();
 
-        $shipping_international_premium_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_PREMIUM_START_TITLE');
-
+        $method_description                 = \constant(\sprintf('%s_TEXT_TITLE_DESC', \grandeljaydhl::NAME));
         $method_paket_international_premium = [
             'id'               => 'paket-international-premium',
             'title'            => 'Premium',
-            'description'      => $shipping_international_premium_title,
+            'description'      => $method_description,
             'cost'             => 0,
             'calculations'     => [],
             'weight_formatted' => $this->weight_formatted,
@@ -289,12 +286,11 @@ class Quote
     {
         $zone = $this->country->getZone();
 
-        $shipping_international_economy_title = constant(\grandeljaydhl::NAME . '_' . Group::SHIPPING_INTERNATIONAL . '_ECONOMY_START_TITLE');
-
+        $method_description                 = \constant(\sprintf('%s_TEXT_TITLE_DESC', \grandeljaydhl::NAME));
         $method_paket_international_economy = [
             'id'               => 'paket-international-economy',
             'title'            => 'Economy',
-            'description'      => $shipping_international_economy_title,
+            'description'      => $method_description,
             'cost'             => 0,
             'calculations'     => [],
             'weight_formatted' => $this->weight_formatted,
@@ -553,7 +549,7 @@ class Quote
 
         $quote = [
             'id'      => 'grandeljaydhl',
-            'module'  => 'DHL',
+            'module'  => \constant(\sprintf('%s_TEXT_TITLE', \grandeljaydhl::NAME)),
             'methods' => $this->methods,
         ];
 

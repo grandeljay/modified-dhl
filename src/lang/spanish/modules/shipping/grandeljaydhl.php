@@ -29,6 +29,7 @@ $translations_general = [
     'STATUS_TITLE'                                                       => '¿Activar módulo?',
     'STATUS_DESC'                                                        => 'Permite el envío a través de DHL.',
     'TEXT_TITLE'                                                         => 'DHL',
+    'TEXT_TITLE_DESC'                                                    => 'Entrega a través del servicio nacional de correos.',
 
     /**
      * Required for modified compatibility
